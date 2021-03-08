@@ -1,6 +1,6 @@
 from django.urls import path
-from .views import initial
+from .views import Initial
 
 urlpatterns = [
-    path("", initial, name="initial")
+    path("", Initial.as_view())
 ]

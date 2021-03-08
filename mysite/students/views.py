@@ -1,7 +1,10 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from rest_framework import generics
+from .serializers import StudentSerializer
+from .models import Student
 
 # Create your views here.
 
-def initial(request):
-    return HttpResponse('hello')
+class Initial(generics.CreateAPIView):
+    queryset = Student.objects.all()
+    serializer_class = StudentSerializer
