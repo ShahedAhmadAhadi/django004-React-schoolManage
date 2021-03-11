@@ -27,14 +27,14 @@
                 <div class="m-2">
                     <!-- {{user.username}} -->
                     <a
-                        href="{% url 'logout' %}"
+                        {% comment %} href="{% url 'logout' %}" {% endcomment %}
                         class="px-6 bg-yellow-400 py-1.5 font-semibold rounded"
                         >Logout</a
                     >
                 </div>
                 {% else %}
                 <a
-                    href="{% url 'login' %}"
+                    {% comment %} href="{% url 'login' %}" {% endcomment %}
                     class="px-6 bg-yellow-400 py-1.5 font-semibold rounded"
                     >Login</a
                 >
@@ -55,8 +55,8 @@
                     <span>Phone</span>
                 </div>
                 <div class="wrap flex flex-col" id="wrapper">
-                    {% for student in stu_lst %}
-                    <a href="../home/{{ student.s_roll }}" class="hover:bg-gray-100">
+                    {% for student in all_items %}
+                    <a href="../{{ student.s_roll }}" class="hover:bg-gray-100">
                         <div class="row font-bold border-t-2 border-gray-200 px-2 py-3">
                             <span class="w-1/6 ml-2 inline-block"> {{ student.s_name }} </span>
                             <span class="w-1/6 inline-block">{{ student.s_father_name }}</span>
