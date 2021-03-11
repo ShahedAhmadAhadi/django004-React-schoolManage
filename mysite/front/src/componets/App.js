@@ -1,7 +1,15 @@
-import React, { components } from 'react'
+import React, { Component } from 'react'
 import { render } from 'react-dom'
 
 export class App extends Component {
+    constructor(props) {
+        super(props)
+    
+        this.state = {
+             
+        }
+    }
+    
     render() {
         return (
             <div>
@@ -11,7 +19,7 @@ export class App extends Component {
     }
 }
 
-const app = document.getElementById('app')
-render(<App />, app)
+const appDiv = document.getElementById('app')
+render(<App />, appDiv)
 
 export default App
