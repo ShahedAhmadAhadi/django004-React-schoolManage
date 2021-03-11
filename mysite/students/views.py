@@ -40,7 +40,7 @@ def add_student(request):
 def update_student(request, roll_no=None):
     if roll_no:
         student = Student.objects.get(s_roll = roll_no)
-        form = StudentForm(data=request.POST, files=request.FILES, instance=student)
+        form = StudentForm(data=request.POST or None, files=request.FILES or None, instance=student)
 
         if form.is_valid():
             form.save()
