@@ -9,11 +9,15 @@ export class App extends Component {
              
         }
     }
+
+    se =  async function () { 
+        fetch(`http://localhost:8000/search`).then(reponse => reponse.json()).then(res => {console.log(res)})
+     }
     
     render() {
         return (
             <div>
-                <h1>react testing</h1>
+                <h1 onClick={this.se}>react testing</h1>
             </div>
         )
     }

@@ -1,0 +1,44 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link
+            rel="stylesheet"
+            href="{% static 'users/tailwind-output.css' %}"
+        />
+        <title>Document</title>
+    </head>
+    <body class="bg-gray-100">
+        <form method="post" class="bg-white shadow-xl border rounded-lg border-gray-100 w-96 flex flex-col m-auto mt-24">
+            {% csrf_token %}
+            <div class="m-10">
+                {{ form.username}} 
+                {{ form.email }}
+                <input
+                    type="password"
+                    id="{{ form.password1.id_for_label }}"
+                    name="{{ form.password1.html_name }}"
+                    required
+                    class="w-full border-b border-green-400 py-1 my-2 px-3 focus:outline-none"
+                    placeholder="Password"
+                />
+                <input
+                    type="password"
+                    id="{{ form.password2.id_for_label }}"
+                    name="{{ form.password2.html_name }}"
+                    required
+                    class="w-full border-b border-green-400 py-1 my-2 px-3 focus:outline-none"
+                    placeholder="Confirm"
+                />
+            </div>
+            <button type="submit" class="px-6 py-1.5 bg-blue-600 text-white font-semibold m-auto rounded">Signup</button>
+            <p class="m-auto text-xs mt-2 mb-8">Already have an account,
+                <a href="/login/" class="text-indigo-600 font-semibold">LogIn</a>
+    
+            </p>
+        </form>
+    </body>
+</html>

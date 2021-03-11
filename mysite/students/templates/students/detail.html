@@ -1,0 +1,48 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link
+            rel="stylesheet"
+            href="{% static './students/tailwind-output.css' %}"
+        />
+    <title>Document</title>
+</head>
+<body>
+    <table class="overflow-hidden rounded-lg m-5 box-border">
+        <tr class="bg-green-600 rounded-t-lg text-white font-bold text-2xl shadow-lg">
+            <td class="w-1/3 px-3 py-5 ">Name</td>
+            <td class="w-1/3">Details</td>
+            <td class="w-3/6">Actions</td>
+        </tr>
+        <tr class="row font-bold px-2 py-3">
+            <td class="w-1/3">
+                <img src="{{ lst.s_image.url }}" alt="" class="w-11/12">
+            </td>
+            <td class="grid grid-cols-2 m-1 gap-2 my-5">
+                <div>Name: </div>
+                <div>{{lst.s_name}}</div>
+                <div>father Name: </div>
+                <div>{{lst.s_father_name}}</div>
+                <div>Date of Birth: </div>
+                <div>{{lst.s_birth}}</div>
+                <div>Phone: </div>
+                <div>{{lst.s_phone}}</div>
+                <div> E-mail: </div>
+                <div>{{lst.s_email}}</div>
+        
+            </td>
+            <td>
+                <a href="/delete/{{lst.s_roll}}/" class="inline-block bg-red-600 text-white px-6 py-1.5 rounded">Delete</a>
+                <a href="/update/{{lst.s_roll}}/" class="inline-block bg-yellow-500 text-white px-6 py-1.5 rounded">Update</a>
+                <a href="/home/" class="inline-block bg-blue-600 px-6 py-1.5 rounded font-semibold text-white">Back</a>
+            </td>
+        </tr>
+    </table>
+                {% block body %}{% endblock %}
+    
+</body>
+</html>

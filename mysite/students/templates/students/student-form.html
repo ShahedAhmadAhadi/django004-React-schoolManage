@@ -1,0 +1,31 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link
+    rel="stylesheet"
+    href="{% static './students/tailwind-output.css' %}"
+/>
+    <title>Document</title>
+</head>
+<body class="bg-green-600">
+    <form  method="post" enctype="multipart/form-data" class="bg-white shadow border rounded-lg border-gray-100 w-96 flex flex-col m-auto mt-24">
+        {% csrf_token %}
+        {% comment %} {{ form }} {% endcomment %}
+        <div class="p-10">
+                {{ form.s_name }}
+                {{ form.s_father_name }}
+                {{ form.s_birth }}
+                {{ form.s_phone }}
+                {{ form.s_email }}
+                {{ form.s_image }}
+        </div>
+        
+
+        <button type="submit" class="px-6 py-1.5 bg-blue-600 m-auto rounded mb-4 text-white font-semibold">Save</button>
+    </form>
+</body>
+</html>

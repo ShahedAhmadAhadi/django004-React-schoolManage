@@ -1,0 +1,68 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'users/tailwind-output.css' %}">
+    <title>Document</title>
+    <style>
+        .di{
+            position: relative;
+        }
+        input{
+            width: 90%;
+            border: 1px solid #eecc45;
+            border-radius: 5px;
+            padding: 0.5rem 0.725rem;
+            padding-left: 7.2rem;
+            margin: 1rem 1rem;
+            background-attachment: white;
+        }
+        input:focus{
+            outline: none;
+        }
+        .user{
+            /* border-bottom: 1px solid #22aa22;
+            padding: 0.125rem 0.725rem;
+            margin: auto; */
+            background-color: #eecc45;
+            padding: 0.5rem 1rem;
+            border-radius: 5px 0 0 5px;
+            position: absolute;
+            color: white;
+            font-weight:normal;
+            left: 17px;
+            top: 17px;
+        }
+        .pass{
+            background-color: #eecc45;
+            padding: 0.5rem 1rem;
+            border-radius: 5px 0 0 5px;
+            position: absolute;
+            color: white;
+            font-weight:normal;
+            left: 17px;
+            top: 17px;
+        }
+    </style>
+
+</head>
+<body class="bg-blue-400">
+    <form method="post" class="bg-white shadow-xl border rounded-lg border-gray-100 w-1/3 flex flex-col m-auto mt-24 p-8">
+        {% csrf_token %}
+        <div class="di">
+            <span class="user">Username</span> {{ form.username }}
+        </div>
+        <div class="di">
+            <span class="pass">Password</span> {{ form.password }}
+        </div>
+        <button type="submit" class="px-6 py-1.5 bg-green-600 text-white m-auto font-semibold rounded mt-4">login</button>
+        <p class="m-auto text-xs mt-2">don't have an account,
+            <a href="/signup/" class="text-indigo-600 font-semibold">SignUp</a>
+
+        </p>
+    </form>
+</body>
+</html>
