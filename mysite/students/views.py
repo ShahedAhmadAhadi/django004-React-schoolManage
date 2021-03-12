@@ -1,5 +1,4 @@
 from django.shortcuts import render, redirect
-from rest_framework import generics
 from django.core import serializers
 from django.http import JsonResponse, HttpResponse
 from .models import Student
