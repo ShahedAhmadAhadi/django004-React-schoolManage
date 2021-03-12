@@ -9,10 +9,6 @@ export class App extends Component {
              
         }
     }
-
-    se =  async function () { 
-        fetch(`http://localhost:8000/search`).then(reponse => reponse.json()).then(res => {console.log(res)})
-     }
     
     render() {
         return (
