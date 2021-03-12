@@ -27,14 +27,14 @@
                 <div class="m-2">
                     <!-- {{user.username}} -->
                     <a
-                        {% comment %} href="{% url 'logout' %}" {% endcomment %}
+                        href="{% url 'logout' %}"
                         class="px-6 bg-yellow-400 py-1.5 font-semibold rounded"
                         >Logout</a
                     >
                 </div>
                 {% else %}
                 <a
-                    {% comment %} href="{% url 'login' %}" {% endcomment %}
+                    href="{% url 'login' %}"
                     class="px-6 bg-yellow-400 py-1.5 font-semibold rounded"
                     >Login</a
                 >

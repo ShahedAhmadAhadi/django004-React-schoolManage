@@ -7,8 +7,8 @@ def logout(request):
     logoff(request)
     return redirect('login')
 
-def login(request):
-    return render(request, 'users/login.html')
+# def login(request):
+#     return render(request, 'users/login.html')
 
 def signup(request):
     if request.method == 'POST':

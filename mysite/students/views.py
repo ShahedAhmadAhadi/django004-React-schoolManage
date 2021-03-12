@@ -4,8 +4,10 @@ from django.core import serializers
 from django.http import JsonResponse, HttpResponse
 from .models import Student
 from .form import StudentForm
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 
+@login_required(login_url='/login/')
 def initial(request):
     queryset = Student.objects.all()
     context = {
@@ -14,12 +16,14 @@ def initial(request):
     return render(request, 'students/index.html', context)
     
 
+@login_required(login_url='/login/')
 def search(request):
     queryset = Student.objects.all()
     a = serializers.serialize('json', queryset)
     return HttpResponse(a)
 
 
+@login_required(login_url='/login/')
 def detail(request, roll_no):
     queryset = Student.objects.get(s_roll = roll_no)
     context = {
@@ -28,6 +32,8 @@ def detail(request, roll_no):
 
     return render(request, 'students/detail.html', context)
 
+
+@login_required(login_url='/login/')
 def add_student(request):
     form = StudentForm(request.POST, request.FILES)
 
@@ -37,6 +43,8 @@ def add_student(request):
 
     return render(request, 'students/student-form.html', {'form': form})
 
+
+@login_required(login_url='/login/')
 def update_student(request, roll_no=None):
     if roll_no:
         student = Student.objects.get(s_roll = roll_no)
@@ -50,6 +58,8 @@ def update_student(request, roll_no=None):
         return render(request, 'students/update.html', {'form': form})
 
 
+
+@login_required(login_url='/login/')
 def delete_student(request, roll_no):
     lst = Student.objects.get(s_roll = roll_no)
 
