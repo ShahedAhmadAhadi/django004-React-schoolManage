@@ -61,13 +61,13 @@ def update_student(request, roll_no=None):
 
 @login_required(login_url='/login/')
 def delete_student(request, roll_no):
-    lst = Student.objects.get(s_roll = roll_no)
+    student_list = Student.objects.get(s_roll = roll_no)
 
     if request.method == "POST":
-        lst.delete()
+        student_list.delete()
         return redirect('/')
     
-    return render(request, 'students/delete.html', {'lst': lst})
+    return render(request, 'students/delete.html', {'all_item': student_list})
 
 
 
