@@ -6,8 +6,9 @@ from django.core import serializers
 
 # Create your views here.
 
-def search(request):
-    a = Student.objects.all()
+def search(request, name):
+    # a = Student.objects.all()
+    a = Student.objects.filter(s_name__icontains = name)
     # count = 0
     # res = {}
     # print(res)
