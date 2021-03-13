@@ -15,7 +15,11 @@
         <form method="post" class="bg-white shadow-xl border rounded-lg border-gray-100 w-96 flex flex-col m-auto mt-24">
             {% csrf_token %}
             <div class="m-10">
-                {{ form.username}} 
+            {{form}}
+            <div class="bg-red-200">
+                {{ form.errorlist }}
+            </div>
+               {% comment %} {{ form.username}} 
                 {{ form.email }}
                 <input
                     type="password"
@@ -32,7 +36,7 @@
                     required
                     class="w-full border-b border-green-400 py-1 my-2 px-3 focus:outline-none"
                     placeholder="Confirm"
-                />
+                /> {% endcomment %}
             </div>
             <button type="submit" class="px-6 py-1.5 bg-blue-600 text-white font-semibold m-auto rounded">Signup</button>
             <p class="m-auto text-xs mt-2 mb-8">Already have an account,
