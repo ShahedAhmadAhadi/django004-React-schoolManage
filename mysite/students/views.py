@@ -6,9 +6,19 @@ from .form import StudentForm
 from django.contrib.auth.decorators import login_required
 # Create your views here.
 
+def home(req):
+    queryset = Student.objects.all()
+    a =  serializers.serialize('json', queryset)
+    return JsonResponse({'data': a})
+
+
+
 @login_required(login_url='/login/')
 def initial(request):
     queryset = Student.objects.all()
+    # pagenator = Paginator(queryset, 1)
+    # page_number = request.Get.get('page')
+    # page_object = pagenator.get_page(page_number)
     context = {
         'all_items': queryset
     }
