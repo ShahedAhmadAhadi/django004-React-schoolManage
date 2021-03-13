@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import add_student, delete_student, detail, update_student, initial ,home
+from .views import add_student, delete_student, detail, update_student ,home
 from django.conf import settings
 from django.conf.urls.static import static
 
