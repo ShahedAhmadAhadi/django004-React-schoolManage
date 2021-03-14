@@ -25,11 +25,11 @@ def home(req):
 #     return render(request, 'students/index.html', context)
     
 
-@login_required(login_url='/login/')
-def search(request):
-    queryset = Student.objects.all()
+# @login_required(login_url='/login/')
+def search(request, name):
+    queryset = Student.objects.filter(s_name__icontains = name)
     a = serializers.serialize('json', queryset)
-    return HttpResponse(a)
+    return JsonResponse({'data': a})
 
 
 @login_required(login_url='/login/')
@@ -42,15 +42,25 @@ def detail(request, roll_no):
     return render(request, 'students/detail.html', context)
 
 
-@login_required(login_url='/login/')
+# @login_required(login_url='/login/')
+# def add_student(request):
+#     form = StudentForm(request.POST, request.FILES)
+
+#     if form.is_valid():
+#         form.save()
+#         return redirect('/')
+
+#     return render(request, 'students/student-form.html', {'form': form})
+
+
 def add_student(request):
     form = StudentForm(request.POST, request.FILES)
+    serialized_form = serializers.serialize('json', form)
 
     if form.is_valid():
         form.save()
-        return redirect('/')
 
-    return render(request, 'students/student-form.html', {'form': form})
+    return JsonResponse({'form': 'serialized_form'})
 
 
 @login_required(login_url='/login/')
