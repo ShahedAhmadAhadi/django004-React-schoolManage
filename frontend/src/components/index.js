@@ -84,26 +84,43 @@ function Index() {
                 </button></a
             >
             </div>
-            <div>
-            <div className="bg-green-600 border-gray-200 border-t-2 px-3 py-5 rounded-t-lg text-white font-bold text-2xl">
-                    <span className="w-1/6  inline-block">Name</span>
-                    <span className="w-1/6 inline-block">Father Name</span>
-                    <span>Phone</span>
-                </div>
+            <table class="overflow-hidden rounded-lg m-5 box-border">
+                <tr class="bg-green-600 rounded-t-lg text-white font-bold text-2xl shadow-lg">
+                    <td class="w-1/3 px-3 py-5 ">Name</td>
+                    <td class="w-1/3">Details</td>
+                    <td class="w-1/3">Actions</td>
+                </tr>
                 {Array.isArray(data) && data.map(student => {
-                    return( <a href="#" className="hover:bg-gray-100" key={student.pk}>
-                    <div className="font-bold border-t-2 border-gray-200 px-2 py-3">
-                        <span><img src={'http://localhost:8000/studentImages/'+student.fields.s_image} /></span>
-                        <span className="w-1/6 ml-2 inline-block"> {student.fields.s_name} </span>
-                        <span className="w-1/6 inline-block"> {student.fields.s_father_name} </span>
-                        <span className="w-1/6 inline-block">(+93) - {student.fields.s_phone}</span>
-                    </div>
-                    </a>)
+                    return (
+                        <tr className="row font-bold px-2 py-3">
+                            <td>
+                                <img src={'http://localhost:8000/studentImages/'+student.fields.s_image} alt="" className="w-11/12"/>
+                            </td>
+                            <td className="grid grid-cols-2 m-1 gap-2 my-5 w-full">
+                                <div>Name: </div>
+                                <div>{student.fields.s_name}</div>
+                                <div>father Name: </div>
+                                <div>{student.fields.s_father_name}</div>
+                                <div>Date of Birth: </div>
+                                <div>{student.fields.s_birth}</div>
+                                <div>Phone: </div>
+                                <div>{student.fields.s_phone}</div>
+                                <div> E-mail: </div>
+                                <div>{student.fields.s_email}</div>
+                            </td>
+                            <td>
+                                <a href="/delete/{{all_item.s_roll}}/" className="inline-block bg-red-600 text-white px-6 py-1.5 rounded mx-3">Delete</a>
+                                <a href="/update/{{all_item.s_roll}}/" className="inline-block bg-yellow-500 text-white px-6 py-1.5 rounded">Update</a>
+                            </td>
+                        </tr>
+                        
+                    )
                 })}
+                </table>
                 {data.length < 1 && <div className="">No Result</div>}
             </div>
-        </div>        
     )
 }
 
 export default Index
+
