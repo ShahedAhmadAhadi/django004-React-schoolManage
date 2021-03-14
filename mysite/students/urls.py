@@ -11,3 +11,4 @@ urlpatterns = [
     path('update/<int:roll_no>/', update_student, name='update'),
     path('<int:roll_no>/', detail, name="detail"),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+

@@ -5,17 +5,9 @@ function Index() {
 
     const [data, setData] = useState('')
 
-    // useEffect(() => {
-    //     async function data () { 
-    //         fetch('http://localhost:8000/').then(res => res.json())
-    //         .then(response => JSON.parse(response.data))
-    //         .then(all_data => {
-    //             setData(all_data)
-    //             console.log(all_data);
-    //         })
-    //      }
-    //      data()
-    // }, [])
+    useEffect(() => {
+        all_data()
+    }, [])
 
     let all_data = async function () { 
         fetch('http://localhost:8000/').then(res => res.json())
@@ -99,14 +91,16 @@ function Index() {
                     <span>Phone</span>
                 </div>
                 {Array.isArray(data) && data.map(student => {
-                    return( <a href="#" className="hover:bg-gray-100">
-                    <div className="font-bold border-t-2 border-gray-200 px-2 py-3" key={student.pk}>
+                    return( <a href="#" className="hover:bg-gray-100" key={student.pk}>
+                    <div className="font-bold border-t-2 border-gray-200 px-2 py-3">
+                        <span><img src={'http://localhost:8000/studentImages/'+student.fields.s_image} /></span>
                         <span className="w-1/6 ml-2 inline-block"> {student.fields.s_name} </span>
                         <span className="w-1/6 inline-block"> {student.fields.s_father_name} </span>
                         <span className="w-1/6 inline-block">(+93) - {student.fields.s_phone}</span>
                     </div>
                     </a>)
                 })}
+                {data.length < 1 && <div className="">No Result</div>}
             </div>
         </div>        
     )

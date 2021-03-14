@@ -31,7 +31,6 @@ def search(request, name):
     a = serializers.serialize('json', queryset)
     return JsonResponse({'data': a})
 
-
 @login_required(login_url='/login/')
 def detail(request, roll_no):
     queryset = Student.objects.get(s_roll = roll_no)
