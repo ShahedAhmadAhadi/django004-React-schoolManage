@@ -4,6 +4,7 @@ from django.http import JsonResponse, HttpResponse
 from .models import Student
 from .form import StudentForm
 from django.contrib.auth.decorators import login_required
+from json import *
 # Create your views here.
 
 def home(req):
@@ -53,13 +54,30 @@ def detail(request, roll_no):
 
 
 def add_student(request):
-    form = StudentForm(request.POST, request.FILES)
-    serialized_form = serializers.serialize('json', form)
+    # print(request.body)
+    # form = StudentForm(request.POST, request.FILES)
+    # # serialized_form = serializers.serialize('json', form)
+    # # print(serialized_form)
 
-    if form.is_valid():
-        form.save()
+    data = loads(request.body)
+    print( loads(request.body)['name'])
+    s= Student()
+    s.s_name = data['name']
+    s.s_father_name = data['fatherName']
+    s.s_birth = data['date']
+    s.s_phone = data['phone']
+    s.s_email = data['email']
+    s.s_image = data['file']
 
-    return JsonResponse({'form': 'serialized_form'})
+    Student.save(s)
+    # Student.save(s)
+
+    # print(data)
+
+
+    return HttpResponse("Hi there")
+
+    
 
 
 @login_required(login_url='/login/')

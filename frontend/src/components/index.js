@@ -1,5 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import AddStudent from './addStudent'
+// import form from './addStudent'
+
 
 function Index() {
 
@@ -51,6 +53,13 @@ function Index() {
         
     }
 
+    const [visible, setVisible] = useState(false)
+
+    let show = function (e) {
+        setVisible('grid');
+        // form()
+    }
+
 
     return (
         <div className='main'>
@@ -78,46 +87,49 @@ function Index() {
                 >
             </header>
             <div className="text-right px-10 pt-5">
-                <a href="" className=""
-                ><button className="bg-blue-600 px-6 py-1.5 font-semibold text-white rounded" onClick={() => setAddStudent(<AddStudent />)}>
+                <a className="bg-blue-600 px-6 py-1.5 font-semibold text-white rounded" onClick={(e) => show(e)}>
                     Add student
-                </button></a
-            >
+                </a>
             </div>
-            <table class="overflow-hidden rounded-lg m-5 box-border">
-                <tr class="bg-green-600 rounded-t-lg text-white font-bold text-2xl shadow-lg">
-                    <td class="w-1/3 px-3 py-5 ">Name</td>
-                    <td class="w-1/3">Details</td>
-                    <td class="w-1/3">Actions</td>
-                </tr>
-                {Array.isArray(data) && data.map(student => {
-                    return (
-                        <tr className="row font-bold px-2 py-3">
-                            <td>
-                                <img src={'http://localhost:8000/studentImages/'+student.fields.s_image} alt="" className="w-11/12"/>
-                            </td>
-                            <td className="grid grid-cols-2 m-1 gap-2 my-5 w-full">
-                                <div>Name: </div>
-                                <div>{student.fields.s_name}</div>
-                                <div>father Name: </div>
-                                <div>{student.fields.s_father_name}</div>
-                                <div>Date of Birth: </div>
-                                <div>{student.fields.s_birth}</div>
-                                <div>Phone: </div>
-                                <div>{student.fields.s_phone}</div>
-                                <div> E-mail: </div>
-                                <div>{student.fields.s_email}</div>
-                            </td>
-                            <td>
-                                <a href="/delete/{{all_item.s_roll}}/" className="inline-block bg-red-600 text-white px-6 py-1.5 rounded mx-3">Delete</a>
-                                <a href="/update/{{all_item.s_roll}}/" className="inline-block bg-yellow-500 text-white px-6 py-1.5 rounded">Update</a>
-                            </td>
-                        </tr>
-                        
-                    )
-                })}
+            <table className="overflow-hidden rounded-lg m-5 box-border">
+                <thead>
+                    <tr className="bg-green-600 rounded-t-lg text-white font-bold text-2xl shadow-lg">
+                        <td className="w-1/3 px-3 py-5 ">Name</td>
+                        <td className="w-1/3">Details</td>
+                        <td className="w-1/3">Actions</td>
+                    </tr>
+                </thead>
+                    <tbody>
+                        {Array.isArray(data) && data.map(student => {
+                        return (
+                            <tr className="row font-bold px-2 py-3" key={student.pk}>
+                                <td>
+                                    <img width="200px" src={'http://localhost:8000/studentImages/'+student.fields.s_image} alt="" className="w-11/12"/>
+                                </td>
+                                <td className="grid grid-cols-2 m-1 gap-2 my-5 w-full">
+                                    <div>Name: </div>
+                                    <div>{student.fields.s_name}</div>
+                                    <div>father Name: </div>
+                                    <div>{student.fields.s_father_name}</div>
+                                    <div>Date of Birth: </div>
+                                    <div>{student.fields.s_birth}</div>
+                                    <div>Phone: </div>
+                                    <div>{student.fields.s_phone}</div>
+                                    <div> E-mail: </div>
+                                    <div>{student.fields.s_email}</div>
+                                </td>
+                                <td>
+                                    <a href="/delete/{{all_item.s_roll}}/" className="inline-block bg-red-600 text-white px-6 py-1.5 rounded mx-3">Delete</a>
+                                    <a href="/update/{{all_item.s_roll}}/" className="inline-block bg-yellow-500 text-white px-6 py-1.5 rounded">Update</a>
+                                </td>
+                            </tr>
+                            
+                        )
+                    })}
+                    </tbody>
                 </table>
                 {data.length < 1 && <div className="">No Result</div>}
+                {visible && <AddStudent visible={visible} />}
             </div>
     )
 }
