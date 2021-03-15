@@ -2,6 +2,7 @@ import logo from './logo.svg';
 import './App.css';
 import Data from './components/index'
 import { Route } from 'react-router-dom'
+import Login from './components/login'
 
 
 const Page = () => (
@@ -28,7 +29,7 @@ function App() {
 
         </a> */}
         {/* <Data /> */}
-        <Route exact path="/Page" component={Page}/>
+        <Route exact path="/Login" component={Login}/>
         <Route exact  path="/" component={Data} />
       </header>
     </div>
