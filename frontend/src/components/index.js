@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import AddStudent from './addStudent'
 // import form from './addStudent'
+import {BrowserRouter} from 'react-router-dom'
 
 
 function Index() {

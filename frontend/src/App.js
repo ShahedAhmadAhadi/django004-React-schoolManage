@@ -1,6 +1,14 @@
 import logo from './logo.svg';
 import './App.css';
 import Data from './components/index'
+import { Route } from 'react-router-dom'
+
+
+const Page = () => (
+  <div>
+    <h1>Hi</h1>
+  </div>
+);
 
 function App() {
   return (
@@ -19,7 +27,9 @@ function App() {
           Learn React
 
         </a> */}
-        <Data />
+        {/* <Data /> */}
+        <Route exact path="/Page" component={Page}/>
+        <Route exact  path="/" component={Data} />
       </header>
     </div>
   );
