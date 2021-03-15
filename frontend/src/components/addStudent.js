@@ -42,6 +42,8 @@ let formData = async function (name, fatherName, date, phone, email, file) {
 
 
 
+
+
 function AddStudent(prop) {
     const [fatherName, setFatherName] = useState('')
     const [phone, setPhone] = useState('')
