@@ -30,8 +30,8 @@ function Login() {
                     username: username,
                     password: password
                 }),
-            })
-        
+            }).then(response => response.json()).then(res => {window.localStorage.setItem('token', res.token); console.log(window.localStorage.getItem('token'))})
+            
         }
     
     return (
