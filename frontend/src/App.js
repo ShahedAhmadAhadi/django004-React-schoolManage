@@ -11,32 +11,38 @@ import Login from './components/login'
 
 
     useEffect(() => {
-      async function verify (token) {
+      (async function verify (token) {
         fetch('http://localhost:8000/verify/')
         .then(response => response.json())
         .then(res => {
           if (res.token == token) {
             setAuthentication(true)
+            console.log(authenticated, 'a')
+          }else {
+            setAuthentication('false')
             console.log(authenticated)
           }
         })
-      }
-      verify(window.localStorage.getItem('token'))
+      })(window.localStorage.getItem('token'));
     }, [authenticated])
+    
 
     
     // console.log(authenticated)
     return (
       <div className="App">
         <header className="App-header">
-          <Route exact path="/Login" component={Login} />
-          <Route exact path="/" component={Data}>
-              {authenticated ?
-                <Redirect to="/" /> :
-                <Redirect to="/Login"/>
-              }
+          {console.log(authenticated, 'b')}
 
-          </Route>
+            <Route exact path="/login" component={Login} />
+            <Route exact path="/" component={Data}>
+            {authenticated && <Redirect to="/login"/>}
+
+                  {/* // <Redirect to="/" /> :
+                  // <Redirect to="/Login"/> */}
+                {/* } */}
+
+            </Route>
 
         </header>
       </div>
