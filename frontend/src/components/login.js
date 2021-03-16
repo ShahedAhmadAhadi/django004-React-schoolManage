@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react'
+import { Redirect, useHistory } from 'react-router';
+import Data from './index'
 
 
 
-function Login(props) {
-    console.log(props);
-
+function Login() {
+    let history= useHistory()
     const [login, setLogin] = useState('')
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
@@ -32,6 +33,11 @@ function Login(props) {
                     password: password
                 }),
             }).then(response => response.json()).then(res => {window.localStorage.setItem('token', res.token); console.log(window.localStorage.getItem('token'))})
+
+            if(localStorage.getItem('token')){
+                console.log('asldfj');
+                   history.push('index/') 
+            }
             
         }
     
