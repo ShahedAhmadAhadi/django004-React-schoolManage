@@ -1,39 +1,46 @@
 import logo from './logo.svg';
+import { useState, useEffect } from 'react'
 import './App.css';
 import Data from './components/index'
-import { Route } from 'react-router-dom'
+import { Route, Redirect } from 'react-router-dom'
 import Login from './components/login'
 
 
-const Page = () => (
-  <div>
-    <h1>Hi</h1>
-  </div>
-);
+  function App() {
+    const [authenticated, setAuthentication] = useState(null)
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        {/* <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
 
-        </a> */}
-        {/* <Data /> */}
-        <Route exact path="/Login" component={Login}/>
-        <Route exact  path="/" component={Data} />
-      </header>
-    </div>
-  );
-}
+    useEffect(() => {
+      async function verify (token) {
+        fetch('http://localhost:8000/verify/')
+        .then(response => response.json())
+        .then(res => {
+          if (res.token == token) {
+            setAuthentication(true)
+            console.log(authenticated)
+          }
+        })
+      }
+      verify(window.localStorage.getItem('token'))
+    }, [authenticated])
 
-export default App;
+    
+    // console.log(authenticated)
+    return (
+      <div className="App">
+        <header className="App-header">
+          <Route exact path="/Login" component={Login} />
+          <Route exact path="/" component={Data}>
+              {authenticated ?
+                <Redirect to="/" /> :
+                <Redirect to="/Login"/>
+              }
+
+          </Route>
+
+        </header>
+      </div>
+    );
+  }
+
+  export default App;

@@ -2,12 +2,13 @@ import React, { useState, useEffect } from 'react'
 
 
 
-function Login() {
+function Login(props) {
+    console.log(props);
 
     const [login, setLogin] = useState('')
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
-    console.log(username, password, login);
+    // console.log(username, password, login);
 
     // useEffect(() => {
     //     async function check() { 
