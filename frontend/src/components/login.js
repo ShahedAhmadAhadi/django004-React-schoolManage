@@ -39,7 +39,7 @@ function Login(props) {
         <div>
             <input value={username} onChange={(e) => setUsername(e.target.value)} type="text" placeholder="username"/>
             <input value={password} onChange={(e) => setPassword(e.target.value)} type="password" placeholder="password"/>
-            <button onClick={() =>check(username, password)}>submit</button>
+            <a onClick={() =>check(username, password)}>submit</a>
         </div>
     )
 }

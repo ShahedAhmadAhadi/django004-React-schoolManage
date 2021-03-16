@@ -34,9 +34,9 @@ import Login from './components/login'
         <header className="App-header">
           {console.log(authenticated, 'b')}
 
-            <Route exact path="/login" component={Login} />
-            <Route exact path="/" component={Data}>
-            {authenticated && <Redirect to="/login"/>}
+            <Route exact path="/index" component={Data} />
+            <Route exact path="/" component={Login}>
+            {/* {authenticated && <Redirect to="/"/>} */}
 
                   {/* // <Redirect to="/" /> :
                   // <Redirect to="/Login"/> */}

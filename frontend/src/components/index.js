@@ -1,11 +1,24 @@
 import React, {useState, useEffect} from 'react'
 import AddStudent from './addStudent'
 // import form from './addStudent'
-import {BrowserRouter} from 'react-router-dom'
+import {BrowserRouter,useHistory} from 'react-router-dom'
 
 
 function Index() {
+    let history=useHistory()
 
+    window.setInterval(()=>{
+        let userEntry=0
+        let token = ''
+        // localStorage.setItem('token', '')
+        token=localStorage.getItem("token")
+        if (token.length < 1){
+            userEntry+=1
+            if(userEntry===1){
+            history.push("/")
+        }
+        }
+    },5)
     const [data, setData] = useState('')
 
     useEffect(() => {
