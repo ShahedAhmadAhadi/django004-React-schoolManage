@@ -12,35 +12,30 @@ import Login from './components/login'
     let history = useHistory()
 
     useEffect(() => {
-      window.onload = 
       (async function verify (token) {
         fetch('http://localhost:8000/verify/')
         .then(response => response.json())
         .then(res => {
           if (res.token == token) {
-            setAuthentication(true)
+            setAuthentication(false)
             console.log(authenticated, 'a')
           }else {
-            setAuthentication(false)
-            console.log(authenticated)
+            setAuthentication(true)
+            console.log(authenticated, 'b')
           }
         })
       })(window.localStorage.getItem('token'));
     }, [])
-    
 
-    // console.log(authenticated)
     return (
       <div className="App">
         <header className="App-header">
-          {console.log(authenticated, 'b')}
 
-            <Route exact path="/index" component={Data} />
-            <Route exact path="/" component={Login}>
-            
-            {authenticated && history.push('/')}
-
+            <Route exact path="/index" component={Data} >
+              {!authenticated && history.push('/')}
+              {console.log(!authenticated, 'ali')}
             </Route>
+            <Route exact path="/" component={Login}></Route>
 
         </header>
       </div>

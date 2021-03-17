@@ -24,25 +24,26 @@ function Login() {
     //             method: 'POST', body: JSON.stringify({username: username, password: password})})
     //      }
 
-         let check = async function (username, password) { 
-            const request = new Request('http://localhost:8000/login/', {headers: {'Content-type': 'application/json',}})
-            fetch(request, {
-                method: "POST",
-                body: JSON.stringify({
-                    username: username,
-                    password: password
-                }),
-            }).then(response => response.json())
-            .then(res => {window.localStorage.setItem('token', res.token); console.log(window.localStorage.getItem('token'))})
 
-            look()
+    let check = async function (username, password) { 
+        const request = new Request('http://localhost:8000/login/', {headers: {'Content-type': 'application/json',}})
+        fetch(request, {
+            method: "POST",
+            body: JSON.stringify({
+                username: username,
+                password: password
+            }),
+        }).then(response => response.json())
+        .then(res => {window.localStorage.setItem('token', res.token); look()})
+    }
+    let look = function () { 
+        if(localStorage.getItem('token')){
+            console.log(localStorage.getItem('token'), 'a');
+            history.push('/index')
         }
-        let look = function () { 
-            if(localStorage.getItem('token')){
-                console.log(localStorage.getItem('token'));
-                   history.push('index/') 
-            }
-         }
+        }
+
+         
     
     return (
         <div>
