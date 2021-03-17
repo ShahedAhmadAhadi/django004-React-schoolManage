@@ -32,14 +32,17 @@ function Login() {
                     username: username,
                     password: password
                 }),
-            }).then(response => response.json()).then(res => {window.localStorage.setItem('token', res.token); console.log(window.localStorage.getItem('token'))})
+            }).then(response => response.json())
+            .then(res => {window.localStorage.setItem('token', res.token); console.log(window.localStorage.getItem('token'))})
 
+            look()
+        }
+        let look = function () { 
             if(localStorage.getItem('token')){
-                console.log('asldfj');
+                console.log(localStorage.getItem('token'));
                    history.push('index/') 
             }
-            
-        }
+         }
     
     return (
         <div>
