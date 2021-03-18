@@ -10,6 +10,7 @@ import Login from './components/login'
     const [authenticated, setAuthentication] = useState(false)
 
     let history = useHistory()
+    document.cookie = "username=shahed"
 
     useEffect(() => {
       (async function verify (token) {
@@ -32,8 +33,7 @@ import Login from './components/login'
         <header className="App-header">
 
             <Route exact path="/index" component={Data} >
-              {!authenticated && history.push('/')}
-              {console.log(!authenticated, 'ali')}
+              {authenticated && history.push('/')}
             </Route>
             <Route exact path="/" component={Login}></Route>
 
