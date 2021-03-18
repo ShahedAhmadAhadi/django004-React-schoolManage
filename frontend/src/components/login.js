@@ -33,8 +33,10 @@ function Login() {
                 username: username,
                 password: password
             }),
-        }).then(response => response.json())
+        })
+        .then(response => response.json())
         .then(res => {window.localStorage.setItem('token', res.token); look()})
+        .catch(error => console.log(error))
     }
     let look = function () { 
         if(localStorage.getItem('token')){
