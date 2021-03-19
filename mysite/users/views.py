@@ -5,15 +5,19 @@ from django.contrib.auth import authenticate
 from django.http import HttpResponse, JsonResponse
 from json import *
 from random import randint
+from .models import Authentication
 
 token_generated = None
 
-def tokenGenerator():
-    token1 = randint(1, 100)
-    token2 = randint(1, 100)
-    token3 = randint(1, 100)
-    token = f'{token1}abc{token2}def{token3}'
-    print(token)
+def token_generator():
+    token = ''
+    for i in range(9):
+        if i % 4 != 0:
+            random_num = randint(97, 122)
+            token += chr(random_num)
+        else:
+            random_num = randint(10, 99)
+            token += str(random_num)
     return token
 
 # Create your views here.
@@ -21,15 +25,27 @@ def logout(request):
     logoff(request)
     return redirect('login')
 
+
+# def token_saver(authentication_data, token):
+#     Authentication()
+
+
+def token_verify(request):
+    print(token_generated)
+    return JsonResponse({'token': token_generated})
+
+
 def login(request):
     data = loads(request.body)
     print(data)
+
+    # token_saver(data)
 
     user = authenticate(username = data['username'], password = data['password'])
 
     if user is not None:
         print(user)
-        token = tokenGenerator()
+        token = token_generator()
         global token_generated
         token_generated = token
         return JsonResponse({'token': token})
@@ -37,9 +53,6 @@ def login(request):
 
     return HttpResponse("Hi there")
 
-def token_verify(request):
-    print(token_generated)
-    return JsonResponse({'token': token_generated})
 
 
 
