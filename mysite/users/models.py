@@ -5,8 +5,8 @@ from django.contrib.auth.models import User
 
 class Authentication(models.Model):
 
-    expiry_date = models.TimeField(null=False)
+    token = models.CharField(primary_key=True, max_length=12)
+    expiry_date = models.DateTimeField(null=False)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    token = models.CharField(unique=True, null=False, max_length=12)
 
 

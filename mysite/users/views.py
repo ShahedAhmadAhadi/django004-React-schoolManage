@@ -3,9 +3,10 @@ from .forms import Register
 from django.contrib.auth import logout as logoff, login as logon
 from django.contrib.auth import authenticate
 from django.http import HttpResponse, JsonResponse
-from json import *
+from json import loads
 from random import randint
 from .models import Authentication
+from datetime import datetime
 
 token_generated = None
 
@@ -25,9 +26,12 @@ def logout(request):
     logoff(request)
     return redirect('login')
 
+def expiry_date():
+    
 
-# def token_saver(authentication_data, token):
-#     Authentication()
+
+def token_saver(authentication_data, token):
+    Authentication(token=token, )
 
 
 def token_verify(request):
