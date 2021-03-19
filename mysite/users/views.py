@@ -1,14 +1,15 @@
 from django.shortcuts import render, redirect
 from .forms import Register
-from django.contrib.auth import logout as logoff, login as logon
-from django.contrib.auth import authenticate
+from django.contrib.auth import logout as logoff, login as logon, authenticate
+from django.contrib.auth.models import User
 from django.http import HttpResponse, JsonResponse
 from json import loads
 from random import randint
 from .models import Authentication
-from datetime import datetime
+from datetime import datetime, timedelta
 
-token_generated = None
+
+
 
 def token_generator():
     token = ''
@@ -27,16 +28,20 @@ def logout(request):
     return redirect('login')
 
 def expiry_date():
-    
+    time_token_generated = datetime.now()
+    token_expiry_date = time_token_generated + timedelta(days=1)
+    return token_expiry_date
 
 
 def token_saver(authentication_data, token):
-    Authentication(token=token, )
+    expire_date = expiry_date()
+    user = User.objects.get(username = authentication_data)
+    Authentication(token=token, expiry_date=expire_date, user = user).save()
+    
 
 
 def token_verify(request):
-    print(token_generated)
-    return JsonResponse({'token': token_generated})
+    return HttpResponse('d')
 
 
 def login(request):
@@ -48,11 +53,9 @@ def login(request):
     user = authenticate(username = data['username'], password = data['password'])
 
     if user is not None:
-        print(user)
-        token = token_generator()
-        global token_generated
-        token_generated = token
-        return JsonResponse({'token': token})
+        token_generated = token_generator()
+        token_saver(user.username, token_generated)
+        return JsonResponse({'token': token_generated})
         
 
     return HttpResponse("Hi there")
