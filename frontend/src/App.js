@@ -10,11 +10,12 @@ import Login from './components/login'
     const [authenticated, setAuthentication] = useState(false)
 
     let history = useHistory()
-    document.cookie = "username=shahed"
 
     useEffect(() => {
       (async function verify (token) {
-        fetch('http://localhost:8000/verify/')
+        fetch('http://localhost:8000/verify/',
+         {headers: {'Content-type': 'application/json'}, method : 'POST', body: document.cookie}
+        )
         .then(response => response.json())
         .then(res => {
           if (res.token == token) {

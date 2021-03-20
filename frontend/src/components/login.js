@@ -35,7 +35,7 @@ function Login() {
             }),
         })
         .then(response => response.json())
-        .then(res => {window.localStorage.setItem('token', res.token); look()})
+        .then(res => {document.cookie = `token=${res.token}`; document.cookie = `username=${username}`; look()})
         .catch(error => console.log(error))
     }
     let look = function () { 
