@@ -36,10 +36,11 @@ function Login() {
         })
         .then(response => response.json())
         .then(res => {document.cookie = `token=${res.token}`; document.cookie = `username=${username}`; look()})
-        .catch(error => console.log(error))
+        // .catch(error => console.log(error))
     }
     let look = function () {
         if(document.cookie){
+            <Data />
             history.push('/index')
         }
         }

@@ -7,6 +7,7 @@ import Login from './components/login'
 
 
   function App() {
+    console.log('App component')
     const [authenticated, setAuthentication] = useState(false)
 
     let history = useHistory()
@@ -19,32 +20,35 @@ import Login from './components/login'
         .then(response => response.json())
         .then(res => { console.log(res, res.result)
           if (res.result == 'true') {
-            setAuthentication(false)
+            setAuthentication(true)
             console.log('token')
           } else if (res.result == 'missing_field_in_cookie' || res.result == 'not_valid_user' || res.result == 'wrong_token') {
-            setAuthentication(true)
+            setAuthentication(false)
+            history.push('/')
             alert('You should SignIn again')
           } 
           else if (res.result == 'no_cookie') {
-            setAuthentication(true)
-            alert('You should first SignIn')
+            setAuthentication(false)
+            history.push('/')
           }
           else {
-            setAuthentication(true)
+            setAuthentication(false)
+            history.push('/')
             alert('Your session has ended, SignIn again')
           }
           console.log(authenticated, 'a')
         })
       })();
-    }, [])
+    })
 
     return (
       <div className="App">
         <header className="App-header">
 
-            <Route exact path="/index" component={Data} >
-              {authenticated && <h1>{!authenticated}</h1> && history.push('/')}
-            </Route>
+            {authenticated && <Route exact path="/index" component={Data} >
+              {/* {authenticated && history.push('/')} */}
+              {console.log(authenticated, 'yes')}
+            </Route> }
             <Route exact path="/" component={Login}></Route>
 
         </header>
