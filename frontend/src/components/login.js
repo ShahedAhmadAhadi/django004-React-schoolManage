@@ -38,9 +38,8 @@ function Login() {
         .then(res => {document.cookie = `token=${res.token}`; document.cookie = `username=${username}`; look()})
         .catch(error => console.log(error))
     }
-    let look = function () { 
-        if(localStorage.getItem('token')){
-            console.log(localStorage.getItem('token'), 'a');
+    let look = function () {
+        if(document.cookie){
             history.push('/index')
         }
         }

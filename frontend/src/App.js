@@ -12,19 +12,27 @@ import Login from './components/login'
     let history = useHistory()
 
     useEffect(() => {
-      (async function verify (token) {
+      (async function verify () {
         fetch('http://localhost:8000/verify/',
          {headers: {'Content-type': 'application/json'}, method : 'POST', body: document.cookie}
         )
         .then(response => response.json())
-        .then(res => { console.log(res)
-          // if (res.token == token) {
-          //   setAuthentication(false)
-          //   console.log(authenticated, 'a')
-          // }else {
-          //   setAuthentication(true)
-          //   console.log(authenticated, 'b')
-          // }
+        .then(res => { console.log(res, res.result)
+          if (res.result == 'true') {
+            setAuthentication(true)
+            
+          } else if (res.result == 'missing_field_in_cookie' || res.result == 'not_valid_user' || res.result == 'wrong_token') {
+            setAuthentication(false)
+            alert('You should SignIn again')
+          } 
+          else if (res.result == 'no_cookie') {
+            setAuthentication(false)
+            alert('You should first SignIn')
+          }
+          else {
+            setAuthentication(false)
+            alert('Your session has ended, SignIn again')
+          }
         })
       })(window.localStorage.getItem('token'));
     }, [])

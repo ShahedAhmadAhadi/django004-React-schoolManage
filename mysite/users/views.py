@@ -74,6 +74,7 @@ def token_verify(request):
 
         except :
             return JsonResponse({'result': 'wrong_token'})
+    return JsonResponse({'result': 'no_cookie'})
 
 
 def login(request):
