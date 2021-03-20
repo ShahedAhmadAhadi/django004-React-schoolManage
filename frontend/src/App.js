@@ -19,22 +19,23 @@ import Login from './components/login'
         .then(response => response.json())
         .then(res => { console.log(res, res.result)
           if (res.result == 'true') {
-            setAuthentication(true)
-            
-          } else if (res.result == 'missing_field_in_cookie' || res.result == 'not_valid_user' || res.result == 'wrong_token') {
             setAuthentication(false)
+            console.log('token')
+          } else if (res.result == 'missing_field_in_cookie' || res.result == 'not_valid_user' || res.result == 'wrong_token') {
+            setAuthentication(true)
             alert('You should SignIn again')
           } 
           else if (res.result == 'no_cookie') {
-            setAuthentication(false)
+            setAuthentication(true)
             alert('You should first SignIn')
           }
           else {
-            setAuthentication(false)
+            setAuthentication(true)
             alert('Your session has ended, SignIn again')
           }
+          console.log(authenticated, 'a')
         })
-      })(window.localStorage.getItem('token'));
+      })();
     }, [])
 
     return (
@@ -42,7 +43,7 @@ import Login from './components/login'
         <header className="App-header">
 
             <Route exact path="/index" component={Data} >
-              {authenticated && history.push('/')}
+              {authenticated && <h1>{!authenticated}</h1> && history.push('/')}
             </Route>
             <Route exact path="/" component={Login}></Route>
 
