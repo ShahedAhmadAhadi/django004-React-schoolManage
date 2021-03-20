@@ -53,15 +53,25 @@ def token_verify(request):
             if len(cookie_data_split_semicolon_equal[0]) > 4 and len(cookie_data_split_semicolon_equal[1]) > 4:
                 for i in range(2):
                     dict_of_cookie_values.update({cookie_data_split_semicolon_equal[0].strip(): cookie_data_split_semicolon_equal[1].strip()})
-            else: JsonResponse({'result': 'missing_field_in_cookie'})
+            else: 
+                return JsonResponse({'result': 'missing_field_in_cookie'})
+        print(dict_of_cookie_values)
+        token = dict_of_cookie_values['token']
+        try:
+            database_data = Authentication.objects.get(token=token)
+            print('a')
             
-        # token = dict_of_cookie_values['token']
-        # database_data = Authentication.objects.get(token=token)
-        # print(database_data)
-        # return JsonResponse({'result': 'true'})
-            
-        
-    return JsonResponse({'d':'hi'})
+            if dict_of_cookie_values['username'] == str(database_data.user):
+                datetime_now =  datetime.now()
+                token_expiry_date = database_data.expiry_date.replace(tzinfo=None)
+
+                if token_expiry_date < datetime_now:
+                    return JsonResponse({'result': 'session_expired'})
+
+                return JsonResponse({'result': 'true'})
+
+        except :
+            return JsonResponse({'d':'hi'})
 
 
 def login(request):
