@@ -17,14 +17,14 @@ import Login from './components/login'
          {headers: {'Content-type': 'application/json'}, method : 'POST', body: document.cookie}
         )
         .then(response => response.json())
-        .then(res => {
-          if (res.token == token) {
-            setAuthentication(false)
-            console.log(authenticated, 'a')
-          }else {
-            setAuthentication(true)
-            console.log(authenticated, 'b')
-          }
+        .then(res => { console.log(res)
+          // if (res.token == token) {
+          //   setAuthentication(false)
+          //   console.log(authenticated, 'a')
+          // }else {
+          //   setAuthentication(true)
+          //   console.log(authenticated, 'b')
+          // }
         })
       })(window.localStorage.getItem('token'));
     }, [])
