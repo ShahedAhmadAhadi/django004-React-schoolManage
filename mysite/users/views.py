@@ -7,8 +7,7 @@ from json import loads
 from random import randint
 from .models import Authentication
 from datetime import datetime, timedelta
-
-
+from ipware import get_client_ip
 
 
 def token_generator():
@@ -86,6 +85,12 @@ def login(request):
     user = authenticate(username = data['username'], password = data['password'])
 
     if user is not None:
+        try:
+            authentication_database_data = Authentication.objects.get(user=user)
+            authentication_database_data.delete()
+        except :
+            pass
+        
         token_generated = token_generator()
         token_saver(user.username, token_generated)
         return JsonResponse({'token': token_generated})
