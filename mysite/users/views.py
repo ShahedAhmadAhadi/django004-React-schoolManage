@@ -41,18 +41,29 @@ def token_saver(authentication_data, token):
 
 
 def token_verify(request):
-    # a = request.body
-    # print(a)
-    # cookie_dict = {}
+    print(request.body)
+    if request.body:
+        cookie_data = request.body.decode('ascii')
+        print(cookie_data)
+        dict_of_cookie_values = {}
 
-    # b = a.split(';')
+        cookie_data_split_semicolon = cookie_data.split(';')
 
-    # for item in b:
-    #     c = item.split('=')
-    #     print(c)
-    #     for j in range(2):
-    #         d.update({c[0]: c[1]})
-    # print(d)
+        for item in cookie_data_split_semicolon:
+            cookie_data_split_semicolon_equal = item.split('=')
+            print(cookie_data_split_semicolon_equal, '  doit')
+            print(cookie_data_split_semicolon_equal[0], cookie_data_split_semicolon_equal[1])
+            # if len(cookie_data_split_semicolon_equal[0]) > 4 and len(cookie_data_split_semicolon_equal[1]) == 12:
+            #     print(len(cookie_data_split_semicolon_equal))
+            #     for i in range(2):
+            #         dict_of_cookie_values.update({cookie_data_split_semicolon_equal[0].strip(): cookie_data_split_semicolon_equal[1].strip()})
+            #     print(dict_of_cookie_values)
+               
+            # else:
+            #     return('false')
+            # token = dict_of_cookie_values['token']
+            # database_data = Authentication.objects.get(token=token)
+        
     return JsonResponse({'d':'hi'})
 
 
