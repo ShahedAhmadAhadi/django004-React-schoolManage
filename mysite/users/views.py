@@ -55,8 +55,9 @@ def token_verify(request):
                     dict_of_cookie_values.update({cookie_data_split_semicolon_equal[0].strip(): cookie_data_split_semicolon_equal[1].strip()})
             else: 
                 return JsonResponse({'result': 'missing_field_in_cookie'})
-        print(dict_of_cookie_values)
+        
         token = dict_of_cookie_values['token']
+
         try:
             database_data = Authentication.objects.get(token=token)
             print('a')
@@ -69,9 +70,11 @@ def token_verify(request):
                     return JsonResponse({'result': 'session_expired'})
 
                 return JsonResponse({'result': 'true'})
+            else:
+                return JsonResponse({'result': 'not_valid_user'})
 
         except :
-            return JsonResponse({'d':'hi'})
+            return JsonResponse({'result': 'wrong_token'})
 
 
 def login(request):
