@@ -41,16 +41,18 @@ def token_saver(authentication_data, token):
 
 
 def token_verify(request):
-    a = request.body
-    print(a)
-    cookie_dict = {}
+    # a = request.body
+    # print(a)
+    # cookie_dict = {}
 
-    for  in b:
-        c = i.split('=')
-        print(c)
-        for j in range(2):
-            d.update({c[0]: c[1]})
-    print(d)
+    # b = a.split(';')
+
+    # for item in b:
+    #     c = item.split('=')
+    #     print(c)
+    #     for j in range(2):
+    #         d.update({c[0]: c[1]})
+    # print(d)
     return JsonResponse({'d':'hi'})
 
 
