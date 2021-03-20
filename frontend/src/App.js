@@ -1,6 +1,5 @@
 import logo from './logo.svg';
 import { useState, useEffect } from 'react'
-import './App.css';
 import Data from './components/index'
 import { Route, Redirect, useHistory } from 'react-router-dom'
 import Login from './components/login'
