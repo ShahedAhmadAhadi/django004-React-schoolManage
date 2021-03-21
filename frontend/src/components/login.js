@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react'
-import { Redirect, useHistory } from 'react-router';
+import { Redirect, Route, useHistory, Link } from 'react-router-dom';
+// import moduleName from 'module'
 import Data from './index'
+import App from '../App'
 
 
 
@@ -25,7 +27,7 @@ function Login() {
     //      }
 
 
-    let check = async function (username, password) { 
+    let check = async function (username, password) {
         const request = new Request('http://localhost:8000/login/', {headers: {'Content-type': 'application/json',}})
         fetch(request, {
             method: "POST",
@@ -40,8 +42,10 @@ function Login() {
     }
     let look = function () {
         if(document.cookie){
-            <Data />
-            history.push('/index')
+            history.push('/index');
+            window.location.reload()
+            // <Data />
+            // console.log(document.cookie)
         }
         }
 

@@ -6,6 +6,7 @@ import Login from './components/login'
 
 
   function App() {
+ 
     console.log('App component')
     const [authenticated, setAuthentication] = useState(false)
 
@@ -38,15 +39,14 @@ import Login from './components/login'
           console.log(authenticated, 'a')
         })
       })();
-    })
+    }, [])
 
     return (
       <div className="App">
         <header className="App-header">
 
-            {authenticated && <Route exact path="/index" component={Data} >
+            {authenticated && <Route exact path="/index" component={Data}>
               {/* {authenticated && history.push('/')} */}
-              {console.log(authenticated, 'yes')}
             </Route> }
             <Route exact path="/" component={Login}></Route>
 
