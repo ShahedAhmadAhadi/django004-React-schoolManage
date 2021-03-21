@@ -27,7 +27,6 @@ function Signup() {
                     username: username,
                     email: email,
                     password1: password1,
-                    password2: password2
                 }),
             })
             .then(response => response.json()).then(res => console.log(res))
