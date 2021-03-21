@@ -9,6 +9,7 @@ from .models import Authentication
 from datetime import datetime, timedelta
 from ipware import get_client_ip
 from hashlib import sha1
+from ipaddress import ip_address
 
 
 def token_generator():
@@ -40,11 +41,16 @@ def expiry_date():
     return token_expiry_date
 
 
-def token_saver(authentication_data, token):
+def token_saver(token, user, appVersion, ip):
+    try:
+        ip_address(ip)
+    except :
+        return False
+    print(user, token, appVersion, ip)
     expire_date = expiry_date()
-    user = User.objects.get(username = authentication_data)
+    user = User.objects.get(username = user)
     token_hash = sha1(token.encode('utf-8')).hexdigest()
-    Authentication(token=token_hash, expiry_date=expire_date, user = user).save()
+    Authentication(token=token_hash, expiry_date=expire_date, user = user, app_version=appVersion, ip=ip).save()
     
 
 
@@ -89,7 +95,7 @@ def token_verify(request):
 
 def login(request):
     data = loads(request.body)
-    print(data)
+    # print(data)
 
     # token_saver(data)
 
@@ -97,13 +103,13 @@ def login(request):
 
     if user is not None:
         try:
-            authentication_database_data = Authentication.objects.get(user=user)
+            authentication_database_data = Authentication.objects.filter(user=user, app_version=data['appVersion'], ip=data['ip'])
             authentication_database_data.delete()
         except :
             pass
         
         token_generated = token_generator()
-        token_saver(user.username, token_generated)
+        token_saver(token_generated, user.username, data['appVersion'], data['ip'])
         return JsonResponse({'token': token_generated})
         
 
