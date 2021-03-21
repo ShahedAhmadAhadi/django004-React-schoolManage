@@ -25,25 +25,40 @@ function Login() {
     //         fetch('localhost:8000/login', {headers: {'Content-type': 'application/json',},
     //             method: 'POST', body: JSON.stringify({username: username, password: password})})
     //      }
+    const [IP, setIP] = useState('')
 
+    useEffect(() => {
+        fetch('https://json.geoiplookup.io/').then(response => response.json()).then(res => setIP(res.ip))
+    }, [])
 
+    const browserDetails = window.navigator.appVersion
+    console.log(browserDetails)
+
+    console.log(IP)
     let check = async function (username, password) {
-        const request = new Request('http://localhost:8000/login/', {headers: {'Content-type': 'application/json',}})
-        fetch(request, {
-            method: "POST",
-            body: JSON.stringify({
-                username: username,
-                password: password
-            }),
-        })
-        .then(response => response.json())
-        .then(res => {document.cookie = `token=${res.token}`; document.cookie = `username=${username}`; look()})
-        // .catch(error => console.log(error))
+        if (IP) {
+            const request = new Request('http://localhost:8000/login/', {headers: {'Content-type': 'application/json',}})
+            fetch(request, {
+                method: "POST",
+                body: JSON.stringify({
+                    username: username,
+                    password: password,
+                    ip : IP,
+                    appVersion: browserDetails
+                }),
+            })
+            .then(response => response.json())
+            .then(res => {document.cookie = `token=${res.token}`;
+                          document.cookie = `username=${username}`;
+                          document.cookie = `ip=${IP}`;
+                          look()})
+            // .catch(error => console.log(error))
+        }
     }
     let look = function () {
         if(document.cookie){
             history.push('/index');
-            window.location.reload()
+            // window.location.reload()
             // <Data />
             // console.log(document.cookie)
         }
