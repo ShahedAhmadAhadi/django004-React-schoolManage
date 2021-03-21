@@ -1,7 +1,11 @@
 import React, { useState } from 'react'
+import {useHistory} from 'react-router-dom'
 
 
 function Signup() {
+
+    const history = useHistory()
+
     const [username, setUsername] = useState('')
     const [email, setEmail] = useState('')
     const [password1, setPassword1] = useState('')
@@ -29,7 +33,7 @@ function Signup() {
                     password1: password1,
                 }),
             })
-            .then(response => response.json()).then(res => console.log(res))
+            .then(response => response.json()).then(res => {console.log(res); history.push('/login/')})
     }
 
 
@@ -39,7 +43,7 @@ function Signup() {
             <input type="email" value={email} onChange={(e) => setEmail(e.target.value)}  placeholder="E-mail" required minLength="8" />
             <input type="password" value={password1} onChange={(e) => setPassword1(e.target.value)}  placeholder="Password" required minLength="8" />
             <input type="password" value={password2} onChange={(e) => setPassword2(e.target.value)}  placeholder="Confirm" required minLength="8" />
-            <button type="submit" onClick={(e) => {sign(e.stopPropagation())}}>Submit</button>
+            <button type="submit" onClick={(e) => {sign()}}>Submit</button>
             
         </div>
     )

@@ -121,10 +121,8 @@ def login(request):
 def signup(request):
     if request.method == 'POST':
         print(request.body)
-        # a = 
-        # print(a)
         signup_data = loads(request.body.decode('ascii'))
-        User(username=signup_data['username'], password=signup_data['password1'], email=signup_data['email'])
+        User(username=signup_data['username'], password=signup_data['password1'], email=signup_data['email']).save()
 
 
     else:
