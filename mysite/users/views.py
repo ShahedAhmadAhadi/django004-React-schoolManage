@@ -8,6 +8,7 @@ from random import randint
 from .models import Authentication
 from datetime import datetime, timedelta
 from ipware import get_client_ip
+from hashlib import sha1
 
 
 def token_generator():
@@ -35,7 +36,8 @@ def expiry_date():
 def token_saver(authentication_data, token):
     expire_date = expiry_date()
     user = User.objects.get(username = authentication_data)
-    Authentication(token=token, expiry_date=expire_date, user = user).save()
+    token_hash = sha1(token.encode('utf-8')).hexdigest()
+    Authentication(token=token_hash, expiry_date=expire_date, user = user).save()
     
 
 
@@ -56,9 +58,10 @@ def token_verify(request):
                 return JsonResponse({'result': 'missing_field_in_cookie'})
         
         token = dict_of_cookie_values['token']
+        hash_token = sha1(token.encode('utf-8')).hexdigest()
 
         try:
-            database_data = Authentication.objects.get(token=token)
+            database_data = Authentication.objects.get(token=hash_token)
             print('a')
             
             if dict_of_cookie_values['username'] == str(database_data.user):
