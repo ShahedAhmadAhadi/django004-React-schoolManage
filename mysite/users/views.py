@@ -13,6 +13,7 @@ from hashlib import sha1
 
 def token_generator():
     token = ''
+    # the probability of colide is ~ 1/17^30
     for i in range(10, 40):
         random_selection = randint(0, i)
 
