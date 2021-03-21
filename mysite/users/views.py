@@ -61,7 +61,7 @@ def token_verify(request):
 
         for item in cookie_data_split_semicolon:
             cookie_data_split_semicolon_equal = item.split('=')
-            if len(cookie_data_split_semicolon_equal[0]) > 4 and len(cookie_data_split_semicolon_equal[1]) > 4:
+            if len(cookie_data_split_semicolon_equal[0]) > 1 and len(cookie_data_split_semicolon_equal[1]) > 1:
                 for i in range(2):
                     dict_of_cookie_values.update({cookie_data_split_semicolon_equal[0].strip(): cookie_data_split_semicolon_equal[1].strip()})
             else: 
@@ -72,7 +72,6 @@ def token_verify(request):
 
         try:
             database_data = Authentication.objects.get(token=hash_token)
-            print('a')
             
             if dict_of_cookie_values['username'] == str(database_data.user):
                 datetime_now =  datetime.now()

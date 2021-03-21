@@ -23,6 +23,7 @@ import Login from './components/login'
             setAuthentication(true)
             console.log('token')
           } else if (res.result == 'missing_field_in_cookie' || res.result == 'not_valid_user' || res.result == 'wrong_token') {
+            console.log(res.result)
             setAuthentication(false)
             history.push('/')
             alert('You should SignIn again')

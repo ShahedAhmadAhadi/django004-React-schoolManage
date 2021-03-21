@@ -53,7 +53,7 @@ function Login() {
     let look = function () {
         if(document.cookie){
             history.push('/index');
-            // window.location.reload()
+            window.location.reload()
             // <Data />
             // console.log(document.cookie)
         }
