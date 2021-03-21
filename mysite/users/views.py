@@ -13,13 +13,19 @@ from hashlib import sha1
 
 def token_generator():
     token = ''
-    for i in range(9):
-        if i % 4 != 0:
-            random_num = randint(97, 122)
+    for i in range(10, 40):
+        random_selection = randint(0, i)
+
+        if random_selection % 4 == 0:
+            random_num = randint(1, 9)
+            token += str(random_num)
+        elif random_selection % 2 == 0:
+            random_num = randint(65, 90)
             token += chr(random_num)
         else:
-            random_num = randint(10, 99)
-            token += str(random_num)
+            random_num = randint(97, 122)
+            token += chr(random_num)
+
     return token
 
 # Create your views here.
