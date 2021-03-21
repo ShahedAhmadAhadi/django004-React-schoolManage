@@ -42,15 +42,12 @@ def expiry_date():
 
 
 def token_saver(token, user, appVersion, ip):
-    try:
-        ip_address(ip)
-    except :
-        return False
-    print(user, token, appVersion, ip)
-    expire_date = expiry_date()
-    user = User.objects.get(username = user)
-    token_hash = sha1(token.encode('utf-8')).hexdigest()
-    Authentication(token=token_hash, expiry_date=expire_date, user = user, app_version=appVersion, ip=ip).save()
+    if ip_address(ip):
+        print(user, token, appVersion, ip)
+        expire_date = expiry_date()
+        user = User.objects.get(username = user)
+        token_hash = sha1(token.encode('utf-8')).hexdigest()
+        Authentication(token=token_hash, expiry_date=expire_date, user = user, app_version=appVersion, ip=ip).save()
     
 
 
@@ -109,7 +106,11 @@ def login(request):
             pass
         
         token_generated = token_generator()
-        token_saver(token_generated, user.username, data['appVersion'], data['ip'])
+        try:
+            token_saver(token_generated, user.username, data['appVersion'], data['ip'])  
+        except:
+            return JsonResponse({'result': 'wrong_ip'})
+
         return JsonResponse({'token': token_generated})
         
 

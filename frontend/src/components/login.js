@@ -11,20 +11,7 @@ function Login() {
     const [login, setLogin] = useState('')
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
-    // console.log(username, password, login);
-
-    // useEffect(() => {
-    //     async function check() { 
-    //         fetch('localhost:8000/login', {headers: {'Content-type': 'application/json',},
-    //             method: 'POST', body: JSON.stringify({username: username, password: password})})
-    //      }
-    // }, [login])
-
-
-    // let check = async function() { 
-    //         fetch('localhost:8000/login', {headers: {'Content-type': 'application/json',},
-    //             method: 'POST', body: JSON.stringify({username: username, password: password})})
-    //      }
+    
     const [IP, setIP] = useState('')
 
     useEffect(() => {
@@ -48,10 +35,18 @@ function Login() {
                 }),
             })
             .then(response => response.json())
-            .then(res => {document.cookie = `token=${res.token}`;
+            .then(res => {if (res.result) {
+                            document.cookie = `token=`;
+                            document.cookie = `username=`;
+                            document.cookie = `ip=`;
+                            alert('Wrong specifications')
+                        } else {
+                            document.cookie = `token=${res.token}`;
                           document.cookie = `username=${username}`;
                           document.cookie = `ip=${IP}`;
-                          look()})
+                          look()
+                        }})
+                
             // .catch(error => console.log(error))
         }
     }
