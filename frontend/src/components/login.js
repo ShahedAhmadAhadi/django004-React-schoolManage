@@ -66,6 +66,9 @@ function Login() {
             <input value={username} onChange={(e) => setUsername(e.target.value)} type="text" placeholder="username"/>
             <input value={password} onChange={(e) => setPassword(e.target.value)} type="password" placeholder="password"/>
             <a onClick={() =>check(username, password)}>submit</a>
+            <p>
+                or create acount, <Link to="/signup">signUP</Link>
+            </p>
         </div>
     )
 }

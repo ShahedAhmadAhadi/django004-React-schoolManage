@@ -120,12 +120,9 @@ def login(request):
 
 def signup(request):
     if request.method == 'POST':
-        form = Register(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('login')
+        print(request.body)
     else:
-        form = Register()
-    return render (request, 'users/index.html', {'form':form})
+        return JsonResponse({'result': 'post only'})
+    return JsonResponse({'result': 'request send'})
 
 
