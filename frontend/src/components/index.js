@@ -67,12 +67,23 @@ function Index() {
         
     }
 
+    let del = () => { 
+        const request = new Request('http://localhost:8000/login/', {headers: {'Content-type': 'application/json',}})
+            fetch(request, {
+                method: "POST",
+                body: JSON.stringify({}),
+                
+            })
+     }
+
     const [visible, setVisible] = useState(false)
 
     let show = function (e) {
         setVisible('grid');
         // form()
     }
+
+    
 
 
     return (
@@ -133,7 +144,7 @@ function Index() {
                                     <div>{student.fields.s_email}</div>
                                 </td>
                                 <td>
-                                    <a href="/delete/{{all_item.s_roll}}/" className="inline-block bg-red-600 text-white px-6 py-1.5 rounded mx-3">Delete</a>
+                                    <a href="#" onClick={() => del()} className="inline-block bg-red-600 text-white px-6 py-1.5 rounded mx-3">Delete</a>
                                     <a href="/update/{{all_item.s_roll}}/" className="inline-block bg-yellow-500 text-white px-6 py-1.5 rounded">Update</a>
                                 </td>
                             </tr>

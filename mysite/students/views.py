@@ -61,11 +61,19 @@ def add_student(request):
     # # print(serialized_form)
 
     data = request.body
+    file = open('text1.txt', 'wb')
+    file.write(data)
+    file.close()
     
     # a = codecs.decode(data, 'base64')
     # cv2.imwrite('data/dst/lena_opencv_red.jpg', im)
-    file = open('b.png', 'wb')
-    file.write(data)
+    # file = open('003 Spring Warmth.png', 'rb')
+    # image = file.read()
+
+    # file1 = open('c.txt', 'wb')
+    # file1.write(image)
+    # file1.close()
+    # file.close()
     
     # print( data)
     # s= Student()
@@ -103,7 +111,7 @@ def update_student(request, roll_no=None):
 
 
 
-@login_required(login_url='/login/')
+# @login_required(login_url='/login/')
 def delete_student(request, roll_no):
     student_list = Student.objects.get(s_roll = roll_no)
 
