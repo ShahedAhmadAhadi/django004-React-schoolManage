@@ -59,16 +59,20 @@ def add_student(request):
     # # serialized_form = serializers.serialize('json', form)
     # # print(serialized_form)
 
-    data = loads(request.body)
-    print( loads(request.body))
-    s= Student()
-    s.s_name = data['name']
-    s.s_father_name = data['fatherName']
-    s.s_birth = data['date']
-    s.s_phone = data['phone']
-    s.s_email = data['email']
-    s.s_image = data['file']
-    print(s.s_image)
+    data = request.body
+    a = data.decode('hex')
+    file = open('i.png', 'w')
+    file.write(str(request.body))
+    
+    # print( data)
+    # s= Student()
+    # s.s_name = data['name']
+    # s.s_father_name = data['fatherName']
+    # s.s_birth = data['date']
+    # s.s_phone = data['phone']
+    # s.s_email = data['email']
+    # s.s_image = data['file']
+    # print(s.s_image)
 
     # Student.save(s)
     # Student.save(s)

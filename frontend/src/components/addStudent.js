@@ -32,15 +32,16 @@ function AddStudent(prop) {
     const [email, setEmail] = useState('')
     const [file, setFile] = useState(null)
     const [name, setName] = useState('')
+    const a = document.forms.namedItem('file')
 
 let formData = async function (name, fatherName, date, phone, email, file) {
-    
-    const formData = new FormData(file)
-
+    console.log(a)
+    const formData = new FormData(a)
+console.log(formData)
     formData.append(
         "myFile",
-        file,
-        file.name
+        'file'
+        // file.name
     );
 
     console.log(file)
@@ -62,8 +63,7 @@ let formData = async function (name, fatherName, date, phone, email, file) {
             email: email,
             file: formData,
         }),
-    })
-    
+    })    
 }
 
 
@@ -75,14 +75,14 @@ let formData = async function (name, fatherName, date, phone, email, file) {
     return (
         <div className="mb-10">
 
-            <form>
+            <form name="file" encType="multipart/form-data">
                 <input type="text" value={name} onChange={(e) => setName(e.target.value)} className="w-full border-b border-green-400 py-1 my-2 px-3 focus:outline-none" placeholder= "Name"/>
                 <input type="text" value={fatherName} onChange={(e) => setFatherName(e.target.value)} className="w-full border-b border-green-400 py-1 my-2 px-3 focus:outline-none" placeholder= "Father Name"/>
                 <input type="date" value={date} onChange={(e) => setDate(e.target.value)} className="w-full border-b border-green-400 py-1 my-2 px-3 focus:outline-none"/>
                 <input type="text" value={phone} onChange={(e) => setPhone(e.target.value)} className="w-full border-b border-green-400 py-1 my-2 px-3 focus:outline-none" placeholder= "Phone"/>
                 <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} className="w-full border-b border-green-400 py-1 my-2 px-3 focus:outline-none" placeholder= "E-mail"/>
                 <input type="file" onChange={(e) => setFile(e.target.files[0])} />
-                <button onClick={(e) => formData(name, fatherName, date, phone, email, file, e.preventDefault())}>Submit</button>
+                <button onClick={(e) => formData(name, fatherName, date, phone, email, file,e.preventDefault())}>Submit</button>
             </form>
         </div>
     )
