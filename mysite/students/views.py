@@ -55,57 +55,16 @@ def detail(request, roll_no):
 
 
 def add_student(request):
-    # print(request.body)
-    # form = StudentForm(request.POST, request.FILES)
-    # # serialized_form = serializers.serialize('json', form)
-    # # print(serialized_form)
-    if request.POST:
-        
-    name = request.POST.get('name')
-    father_name = request.POST.get('fatherName')
-    phone = request.POST.get('phone')
-    email = request.POST.get('email')
-    date = request.POST.get('date')
-    file = request.FILES.get('file')
 
-    # Student.objects.create(
-    #     s_name = name,
-    #     s_father_name=father_name,
-    #     s_phone=phone,
-    #     s_email=email,
-    #     s_birth=date,
-    #     s_image = file
-    # )
-    # data = request.body
-    # file = open('text1.txt', 'wb')
-    # file.write(data)
-    # file.close()
-    
-    # a = codecs.decode(data, 'base64')
-    # cv2.imwrite('data/dst/lena_opencv_red.jpg', im)
-    # file = open('003 Spring Warmth.png', 'rb')
-    # image = file.read()
+    s= Student()
+    s.s_name = request.POST.get('name')
+    s.s_father_name = request.POST.get('fatherName')
+    s.s_birth = request.POST.get('date')
+    s.s_phone = request.POST.get('phone')
+    s.s_email = request.POST.get('email')
+    s.s_image = request.FILES.get('myFile')
 
-    # file1 = open('c.txt', 'wb')
-    # file1.write(image)
-    # file1.close()
-    # file.close()
-    
-    # print( data)
-    # s= Student()
-    # s.s_name = data['name']
-    # s.s_father_name = data['fatherName']
-    # s.s_birth = data['date']
-    # s.s_phone = data['phone']
-    # s.s_email = data['email']
-    # s.s_image = data['file']
-    # print(s.s_image)
-
-    # Student.save(s)
-    # Student.save(s)
-
-    # print(data)
-
+    Student.save(s)
 
     return HttpResponse("Hi there")
 

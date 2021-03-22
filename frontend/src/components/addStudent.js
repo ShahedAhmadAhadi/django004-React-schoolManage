@@ -35,25 +35,27 @@ function AddStudent(prop) {
     const a = document.forms.namedItem('file')
     console.log(file)
 
+    // let as = function (e) { 
+    //     console.log(e)
+    //  }
+
 let formData = async function () {
     const formData = new FormData()
-console.log(formData)
+    console.log(name)
     formData.append("name", name)
     formData.append("fatherName", fatherName)
     formData.append("date", date)
     formData.append("email", email)
     formData.append("phone", phone)
-    formData.append("myFile", file);
+    formData.append("myFile", file,);
 
-    console.log(file)
+    // console.log(file)
     console.log(formData)
 
-    const request = new Request('http://localhost:8000/add/', {headers: {'Content-type': 'application/json',}})
+    const request = new Request('http://localhost:8000/add/')
     fetch(request, {
         method: "POST",
-        body: JSON.stringify({
-            file: formData,
-        }),
+        body: formData,
     })    
 }
 
@@ -72,7 +74,9 @@ console.log(formData)
                 <input type="date" value={date} onChange={(e) => setDate(e.target.value)} className="w-full border-b border-green-400 py-1 my-2 px-3 focus:outline-none"/>
                 <input type="text" value={phone} onChange={(e) => setPhone(e.target.value)} className="w-full border-b border-green-400 py-1 my-2 px-3 focus:outline-none" placeholder= "Phone"/>
                 <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} className="w-full border-b border-green-400 py-1 my-2 px-3 focus:outline-none" placeholder= "E-mail"/>
+                {/* <input type="file" onChange={(e) => setFile(e.target.files[0])} /> */}
                 <input type="file" onChange={(e) => setFile(e.target.files[0])} />
+
                 <button onClick={(e) => formData(e.preventDefault())}>Submit</button>
             </form>
         </div>
