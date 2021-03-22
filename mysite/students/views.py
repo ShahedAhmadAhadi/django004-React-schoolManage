@@ -5,6 +5,7 @@ from .models import Student
 from .form import StudentForm
 from django.contrib.auth.decorators import login_required
 from json import *
+import codecs
 # Create your views here.
 
 def home(req):
@@ -60,9 +61,11 @@ def add_student(request):
     # # print(serialized_form)
 
     data = request.body
-    a = data.decode('hex')
-    file = open('i.png', 'w')
-    file.write(str(request.body))
+    
+    # a = codecs.decode(data, 'base64')
+    # cv2.imwrite('data/dst/lena_opencv_red.jpg', im)
+    file = open('b.png', 'wb')
+    file.write(data)
     
     # print( data)
     # s= Student()
