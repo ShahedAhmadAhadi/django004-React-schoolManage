@@ -55,6 +55,7 @@ def detail(request, roll_no):
 
 
 def add_student(request):
+    print(request.header)
 
     s= Student()
     s.s_name = request.POST.get('name')
@@ -87,14 +88,14 @@ def update_student(request, roll_no=None):
 
 
 # @login_required(login_url='/login/')
-def delete_student(request, roll_no):
-    student_list = Student.objects.get(s_roll = roll_no)
+def delete_student(request):
+
+    student_list = Student.objects.get(s_roll = request.GET['text'])
 
     if request.method == "POST":
         student_list.delete()
-        return redirect('/')
     
-    return render(request, 'students/delete.html', {'all_item': student_list})
+    return JsonResponse({'a': 'a'})
 
 
 

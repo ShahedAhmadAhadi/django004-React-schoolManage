@@ -67,12 +67,12 @@ function Index() {
         
     }
 
-    let del = () => { 
-        const request = new Request('http://localhost:8000/login/', {headers: {'Content-type': 'application/json',}})
+    let del = (id) => { 
+        console.log(id)
+        const request = new Request(`http://localhost:8000/delete/?text=${id}`, {headers: {'Content-type': 'application/json',}})
             fetch(request, {
                 method: "POST",
                 body: JSON.stringify({}),
-                
             })
      }
 
@@ -132,6 +132,7 @@ function Index() {
                                     <img width="200px" src={'http://localhost:8000/studentImages/'+student.fields.s_image} alt="" className="w-11/12"/>
                                 </td>
                                 <td className="grid grid-cols-2 m-1 gap-2 my-5 w-full">
+                                    
                                     <div>Name: </div>
                                     <div>{student.fields.s_name}</div>
                                     <div>father Name: </div>
@@ -144,7 +145,7 @@ function Index() {
                                     <div>{student.fields.s_email}</div>
                                 </td>
                                 <td>
-                                    <a href="#" onClick={() => del()} className="inline-block bg-red-600 text-white px-6 py-1.5 rounded mx-3">Delete</a>
+                                    <a href="#" onClick={() => {del(student.pk)}} className="inline-block bg-red-600 text-white px-6 py-1.5 rounded mx-3">Delete</a>
                                     <a href="/update/{{all_item.s_roll}}/" className="inline-block bg-yellow-500 text-white px-6 py-1.5 rounded">Update</a>
                                 </td>
                             </tr>
