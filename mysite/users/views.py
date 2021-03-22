@@ -66,8 +66,10 @@ def token_verify(request):
                     dict_of_cookie_values.update({cookie_data_split_semicolon_equal[0].strip(): cookie_data_split_semicolon_equal[1].strip()})
             else: 
                 return JsonResponse({'result': 'missing_field_in_cookie'})
-        
-        token = dict_of_cookie_values['token']
+        try:
+            token = dict_of_cookie_values['token']
+        except :
+            return JsonResponse({'result': 'missing_field_in_cookie'})
         hash_token = sha1(token.encode('utf-8')).hexdigest()
 
         try:

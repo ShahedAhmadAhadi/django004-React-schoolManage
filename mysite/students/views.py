@@ -60,7 +60,7 @@ def add_student(request):
     # # print(serialized_form)
 
     data = loads(request.body)
-    print( loads(request.body)['name'])
+    print( loads(request.body))
     s= Student()
     s.s_name = data['name']
     s.s_father_name = data['fatherName']
@@ -68,8 +68,9 @@ def add_student(request):
     s.s_phone = data['phone']
     s.s_email = data['email']
     s.s_image = data['file']
+    print(s.s_image)
 
-    Student.save(s)
+    # Student.save(s)
     # Student.save(s)
 
     # print(data)
