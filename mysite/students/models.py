@@ -19,3 +19,4 @@ class Student(models.Model):
     s_phone = models.CharField(unique=True, max_length=12)
     s_email = models.EmailField(unique=True)
     s_image = models.ImageField(upload_to='studentImages')
+    s_file = models.FileField(default="")

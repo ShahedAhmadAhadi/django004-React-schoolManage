@@ -33,16 +33,17 @@ function AddStudent(prop) {
     const [file, setFile] = useState(null)
     const [name, setName] = useState('')
     const a = document.forms.namedItem('file')
+    console.log(file)
 
-let formData = async function (name, fatherName, date, phone, email, file) {
-    console.log(a)
-    const formData = new FormData(a)
+let formData = async function () {
+    const formData = new FormData()
 console.log(formData)
-    formData.append(
-        "myFile",
-        'file'
-        // file.name
-    );
+    formData.append("name", name)
+    formData.append("fatherName", fatherName)
+    formData.append("date", date)
+    formData.append("email", email)
+    formData.append("phone", phone)
+    formData.append("myFile", file);
 
     console.log(file)
     console.log(formData)
@@ -50,17 +51,7 @@ console.log(formData)
     const request = new Request('http://localhost:8000/add/', {headers: {'Content-type': 'application/json',}})
     fetch(request, {
         method: "POST",
-        //  mode: 'same-origin',
-        // headers: {
-        //     'Content-type': 'application/json',
-        //     'X-CSRFToken' : csrftoken,
-        // },
         body: JSON.stringify({
-            name: name,
-            fatherName: fatherName,
-            date: date,
-            phone: phone,
-            email: email,
             file: formData,
         }),
     })    
@@ -75,14 +66,14 @@ console.log(formData)
     return (
         <div className="mb-10">
 
-            <form name="file" encType="multipart/form-data">
+            <form encType="multipart/form-data">
                 <input type="text" value={name} onChange={(e) => setName(e.target.value)} className="w-full border-b border-green-400 py-1 my-2 px-3 focus:outline-none" placeholder= "Name"/>
                 <input type="text" value={fatherName} onChange={(e) => setFatherName(e.target.value)} className="w-full border-b border-green-400 py-1 my-2 px-3 focus:outline-none" placeholder= "Father Name"/>
                 <input type="date" value={date} onChange={(e) => setDate(e.target.value)} className="w-full border-b border-green-400 py-1 my-2 px-3 focus:outline-none"/>
                 <input type="text" value={phone} onChange={(e) => setPhone(e.target.value)} className="w-full border-b border-green-400 py-1 my-2 px-3 focus:outline-none" placeholder= "Phone"/>
                 <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} className="w-full border-b border-green-400 py-1 my-2 px-3 focus:outline-none" placeholder= "E-mail"/>
                 <input type="file" onChange={(e) => setFile(e.target.files[0])} />
-                <button onClick={(e) => formData(name, fatherName, date, phone, email, file,e.preventDefault())}>Submit</button>
+                <button onClick={(e) => formData(e.preventDefault())}>Submit</button>
             </form>
         </div>
     )

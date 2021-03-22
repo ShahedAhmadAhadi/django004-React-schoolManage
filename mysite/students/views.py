@@ -59,11 +59,27 @@ def add_student(request):
     # form = StudentForm(request.POST, request.FILES)
     # # serialized_form = serializers.serialize('json', form)
     # # print(serialized_form)
+    if request.POST:
+        
+    name = request.POST.get('name')
+    father_name = request.POST.get('fatherName')
+    phone = request.POST.get('phone')
+    email = request.POST.get('email')
+    date = request.POST.get('date')
+    file = request.FILES.get('file')
 
-    data = request.body
-    file = open('text1.txt', 'wb')
-    file.write(data)
-    file.close()
+    # Student.objects.create(
+    #     s_name = name,
+    #     s_father_name=father_name,
+    #     s_phone=phone,
+    #     s_email=email,
+    #     s_birth=date,
+    #     s_image = file
+    # )
+    # data = request.body
+    # file = open('text1.txt', 'wb')
+    # file.write(data)
+    # file.close()
     
     # a = codecs.decode(data, 'base64')
     # cv2.imwrite('data/dst/lena_opencv_red.jpg', im)
