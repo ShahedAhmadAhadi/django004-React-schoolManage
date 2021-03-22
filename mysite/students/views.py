@@ -5,8 +5,52 @@ from .models import Student
 from .form import StudentForm
 from django.contrib.auth.decorators import login_required
 from json import *
-import codecs
+# import codecs
+from users.models import Authentication
+from hashlib import sha1
+from datetime import datetime
+
 # Create your views here.
+
+def token_verify(str_):
+    print(str_)
+    if str_:
+        # cookie_data = request.body.decode('ascii')
+        cookie_data = str_
+        dict_of_cookie_values = {}
+
+        cookie_data_split_semicolon = cookie_data.split(';')
+
+        for item in cookie_data_split_semicolon:
+            cookie_data_split_semicolon_equal = item.split('=')
+            if len(cookie_data_split_semicolon_equal[0]) > 1 and len(cookie_data_split_semicolon_equal[1]) > 1:
+                for i in range(2):
+                    dict_of_cookie_values.update({cookie_data_split_semicolon_equal[0].strip(): cookie_data_split_semicolon_equal[1].strip()})
+            else: 
+                return ({'result': 'missing_field_in_cookie'})
+        try:
+            token = dict_of_cookie_values['token']
+        except :
+            return ({'result': 'missing_field_in_cookie'})
+        hash_token = sha1(token.encode('utf-8')).hexdigest()
+
+        try:
+            database_data = Authentication.objects.get(token=hash_token)
+            
+            if dict_of_cookie_values['username'] == str(database_data.user):
+                datetime_now =  datetime.now()
+                token_expiry_date = database_data.expiry_date.replace(tzinfo=None)
+
+                if token_expiry_date < datetime_now:
+                    return ({'result': 'session_expired'})
+
+                return ({'result': 'true'})
+            else:
+                return ({'result': 'not_valid_user'})
+
+        except :
+            return ({'result': 'wrong_token'})
+    return ({'result': 'no_cookie'})
 
 def home(req):
     queryset = Student.objects.all()
@@ -55,17 +99,29 @@ def detail(request, roll_no):
 
 
 def add_student(request):
-    print(request.header)
+    head_for_auth = request.headers.get('head')
+    token_auth = token_verify(head_for_auth)
+    print(token_auth)
+    if(token_auth['result'] == 'true'):
+        print('ys')
+        s= Student()
+        s.s_name = request.POST.get('name')
+        s.s_father_name = request.POST.get('fatherName')
+        s.s_birth = request.POST.get('date')
+        s.s_phone = request.POST.get('phone')
+        s.s_email = request.POST.get('email')
+        s.s_image = request.FILES.get('myFile')
 
-    s= Student()
-    s.s_name = request.POST.get('name')
-    s.s_father_name = request.POST.get('fatherName')
-    s.s_birth = request.POST.get('date')
-    s.s_phone = request.POST.get('phone')
-    s.s_email = request.POST.get('email')
-    s.s_image = request.FILES.get('myFile')
+        # Student.save(s)
+        return JsonResponse(token_auth)
+    else:
+        return JsonResponse(token_auth)
 
-    Student.save(s)
+    # token_verify(a)
+    # if condition:
+        
+
+    
 
     return HttpResponse("Hi there")
 

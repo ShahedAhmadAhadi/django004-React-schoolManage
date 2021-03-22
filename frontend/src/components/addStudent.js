@@ -1,4 +1,5 @@
 import React, {useState} from 'react'
+import {useHistory} from 'react-router-dom'
 
 
 // function getCookie(name) {
@@ -24,7 +25,6 @@ import React, {useState} from 'react'
 
 
 
-
 function AddStudent(prop) {
     const [fatherName, setFatherName] = useState('')
     const [phone, setPhone] = useState('')
@@ -32,12 +32,15 @@ function AddStudent(prop) {
     const [email, setEmail] = useState('')
     const [file, setFile] = useState(null)
     const [name, setName] = useState('')
+    const [authenticated, setAuthentication] = useState(false)
     const a = document.forms.namedItem('file')
     console.log(file)
 
     // let as = function (e) { 
     //     console.log(e)
     //  }
+let history = useHistory()
+
 
 let formData = async function () {
     const formData = new FormData()
@@ -54,9 +57,39 @@ let formData = async function () {
 
     const request = new Request('http://localhost:8000/add/')
     fetch(request, {
+        headers: {
+            // 'Access-Control-Allow-Headers': 'X-Custom-Header',
+            // 'Access-Control-Allow-Headers': 'Access-Control-Request-Headers',
+            // 'cookie': document.cookie,
+            'head': document.cookie,
+            
+        },
         method: "POST",
         body: formData,
-    })    
+    }).then(response => response.json())
+    .then(res => 
+        { console.log(res, res.result)
+        if (res.result == 'true') {
+          setAuthentication(true)
+          console.log('token')
+        } else if (res.result == 'missing_field_in_cookie' || res.result == 'not_valid_user' || res.result == 'wrong_token') {
+          console.log(res.result)
+          setAuthentication(false)
+          history.push('/login')
+          alert('You should SignIn again')
+        } 
+        else if (res.result == 'no_cookie') {
+          setAuthentication(false)
+          history.push('/login')
+        }
+        else {
+          setAuthentication(false)
+          history.push('/login')
+          alert('Your session has ended, SignIn again')
+        }
+        console.log(authenticated, 'a')
+      }
+      )
 }
 
 
