@@ -63,7 +63,7 @@ def token_saver(token, user, appVersion, ip):
     
 
 def cookie_extractor(cookie):
-    cookie_data = cookie.decode('ascii')
+    cookie_data = cookie
     dict_of_cookie_values = {}
 
     cookie_data_split_semicolon = cookie_data.split(';')
@@ -79,7 +79,8 @@ def cookie_extractor(cookie):
         token = dict_of_cookie_values['token']
     except :
         return False
-        hash_token = sha1(token.encode('utf-8')).hexdigest()
+        
+    hash_token = sha1(token.encode('utf-8')).hexdigest()
 
     try:
         database_data = Authentication.objects.get(token=hash_token)

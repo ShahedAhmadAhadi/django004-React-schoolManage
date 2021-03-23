@@ -100,20 +100,29 @@ def detail(request, roll_no):
 
 
 def add_student(request):
+    print(request.headers)
+    try:
+        if cookie_extractor(request.headers['Head']):
+            s= Student()
+            s.s_name = request.POST.get('name')
+            s.s_father_name = request.POST.get('fatherName')
+            s.s_birth = request.POST.get('date')
+            s.s_phone = request.POST.get('phone')
+            s.s_email = request.POST.get('email')
+            s.s_image = request.FILES.get('myFile')
+
+            Student.save(s)
+        else:
+            return JsonResponse({'result': 'true'})
+        
+    except:
+        return JsonResponse({'result': 'wrong_request'})
     # head_for_auth = request.headers.get('head')
     # token_auth = token_verify(head_for_auth)
     # print(token_auth)
     # if(token_auth['result'] == 'true'):
     #     print('ys')
-    #     s= Student()
-    #     s.s_name = request.POST.get('name')
-    #     s.s_father_name = request.POST.get('fatherName')
-    #     s.s_birth = request.POST.get('date')
-    #     s.s_phone = request.POST.get('phone')
-    #     s.s_email = request.POST.get('email')
-    #     s.s_image = request.FILES.get('myFile')
-
-    #     Student.save(s)
+    #     
     #     return JsonResponse(token_auth)
     # else:
     #     return JsonResponse(token_auth)
