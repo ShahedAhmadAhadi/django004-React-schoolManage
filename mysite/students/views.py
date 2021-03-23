@@ -100,7 +100,7 @@ def detail(request, roll_no):
 
 
 def add_student(request):
-    print(request.headers)
+    print(request.headers['Head'])
     try:
         if cookie_extractor(request.headers['Head']):
             s= Student()
@@ -112,8 +112,9 @@ def add_student(request):
             s.s_image = request.FILES.get('myFile')
 
             Student.save(s)
-        else:
             return JsonResponse({'result': 'true'})
+        else:
+            return JsonResponse({'result': 'false'})
         
     except:
         return JsonResponse({'result': 'wrong_request'})

@@ -32,9 +32,9 @@ function AddStudent(prop) {
     const [email, setEmail] = useState('')
     const [file, setFile] = useState(null)
     const [name, setName] = useState('')
-    const [authenticated, setAuthentication] = useState(false)
-    const a = document.forms.namedItem('file')
-    console.log(file)
+    // const [authenticated, setAuthentication] = useState(false)
+    // const a = document.forms.namedItem('file')
+    // console.log(file)
 
     // let as = function (e) { 
     //     console.log(e)
@@ -50,7 +50,7 @@ let formData = async function () {
     formData.append("date", date)
     formData.append("email", email)
     formData.append("phone", phone)
-    formData.append("myFile", file,);
+    formData.append("myFile", file);
 
     // console.log(file)
     console.log(formData)
@@ -58,11 +58,7 @@ let formData = async function () {
     const request = new Request('http://localhost:8000/add/')
     fetch(request, {
         headers: {
-            // 'Access-Control-Allow-Headers': 'X-Custom-Header',
-            // 'Access-Control-Allow-Headers': 'Access-Control-Request-Headers',
-            'cookie': document.cookie,
-            'head': document.cookie,
-            
+            'Head': document.cookie,
         },
         method: "POST",
         body: formData,
@@ -70,10 +66,8 @@ let formData = async function () {
     .then(response => response.json())
     .then(res => {
         if (res.result == 'true') {
-          setAuthentication(true)
-          console.log('token')
+          window.location.reload()
         }else{
-          setAuthentication(false)
           history.push('/login')
         }}
       )
