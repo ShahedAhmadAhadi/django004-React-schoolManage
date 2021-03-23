@@ -32,8 +32,20 @@ def token_generator():
 
 # Create your views here.
 def logout(request):
-    logoff(request)
-    return redirect('login')
+    print(request.body)
+    token = request.body.decode('ascii')
+    print(token)
+    hash_token = sha1(token.encode('utf-8')).hexdigest()
+    try:
+        authentication_database_data = Authentication.objects.filter(token=hash_token)
+        authentication_database_data.delete()
+    except :
+        pass
+    
+
+    return JsonResponse({'a':'a'})
+
+        
 
 def expiry_date():
     time_token_generated = datetime.now()
@@ -49,6 +61,24 @@ def token_saver(token, user, appVersion, ip):
         token_hash = sha1(token.encode('utf-8')).hexdigest()
         Authentication(token=token_hash, expiry_date=expire_date, user = user, app_version=appVersion, ip=ip).save()
     
+
+# def cookie_extractor(cookie):
+#     cookie_data = request.body.decode('ascii')
+#     dict_of_cookie_values = {}
+
+#     cookie_data_split_semicolon = cookie_data.split(';')
+
+#     for item in cookie_data_split_semicolon:
+#         cookie_data_split_semicolon_equal = item.split('=')
+#         if len(cookie_data_split_semicolon_equal[0]) > 1 and len(cookie_data_split_semicolon_equal[1]) > 1:
+#             for i in range(2):
+#                 dict_of_cookie_values.update({cookie_data_split_semicolon_equal[0].strip(): cookie_data_split_semicolon_equal[1].strip()})
+#         else: 
+#             return JsonResponse({'result': 'missing_field_in_cookie'})
+#     try:
+#         token = dict_of_cookie_values['token']
+#     except :
+#         return JsonResponse({'result': 'missing_field_in_cookie'})
 
 
 def token_verify(request):

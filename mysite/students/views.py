@@ -128,18 +128,18 @@ def add_student(request):
     
 
 
-@login_required(login_url='/login/')
-def update_student(request, roll_no=None):
-    if roll_no:
-        student = Student.objects.get(s_roll = roll_no)
-        form = StudentForm(data=request.POST or None, files=request.FILES or None, instance=student)
+# @login_required(login_url='/login/')
+def update_student(request):
+    student = Student.objects.get(s_roll = request.GET['text'])
+    print(student.s_name)
+    # form = StudentForm(data=request.POST or None, files=request.FILES or None, instance=student)
+    # serialize_student = serializers.serialize('json', student)
+    # if form.is_valid():
+    #     form.save()
+    #     return redirect('/')
+    
 
-        if form.is_valid():
-            form.save()
-            return redirect('/')
-        
-
-        return render(request, 'students/update.html', {'form': form})
+    return JsonResponse({'student': 'student'})
 
 
 

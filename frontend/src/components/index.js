@@ -5,6 +5,7 @@ import {BrowserRouter,useHistory} from 'react-router-dom'
 
 
 function Index() {
+    let history = useHistory()
     // let history=useHistory()
 
     // window.setInterval(()=>{
@@ -67,14 +68,49 @@ function Index() {
         
     }
 
+    let logout = () => {
+        let token = document.cookie
+        let splited = token.split(';')
+        let splitEqual = {}
+        for (const i in splited) {
+            let splitArr = splited[i].split('=')
+            splitEqual[splitArr[0].trim()] = splitArr[1].trim()
+        }
+        console.log(splitEqual)
+        if (splitEqual['token']) {
+            const request = new Request(`http://localhost:8000/logout/`, {headers: {'Content-type': 'application/json',}})
+            fetch(request, {
+                method: "POST",
+                body: splitEqual.token
+            })
+            history.push('/login')
+        }else{
+            document.cookie = `token=`;
+            document.cookie = `username=`;
+            document.cookie = `ip=`;
+            history.push('/login')
+        }
+        
+    }
+
     let del = (id) => { 
         console.log(id)
         const request = new Request(`http://localhost:8000/delete/?text=${id}`, {headers: {'Content-type': 'application/json',}})
             fetch(request, {
                 method: "POST",
-                body: JSON.stringify({}),
+                body: JSON.stringify({
+                    'cookie': document.cookie
+                }),
             })
      }
+
+    let update = (id) => {
+        console.log(id)
+        fetch(`http://localhost:8000/update/?text=${id}`)
+        .then(response => response.json())
+        .then(res => console.log(res))
+            
+    }
 
     const [visible, setVisible] = useState(false)
 
@@ -100,16 +136,12 @@ function Index() {
                 />
                 <div className="m-2">
                     <a
-                        href="{% url 'logout' %}"
+                        href="#"
+                        onClick={() => logout()}
                         className="px-6 bg-yellow-400 py-1.5 font-semibold rounded"
                         >Logout</a
                     >
                 </div>
-                <a
-                    href="{% url 'login' %}"
-                    className="px-6 bg-yellow-400 py-1.5 font-semibold rounded"
-                    >Login</a
-                >
             </header>
             <div className="text-right px-10 pt-5">
                 <a className="bg-blue-600 px-6 py-1.5 font-semibold text-white rounded" onClick={(e) => show(e)}>
@@ -146,7 +178,7 @@ function Index() {
                                 </td>
                                 <td>
                                     <a href="#" onClick={() => {del(student.pk)}} className="inline-block bg-red-600 text-white px-6 py-1.5 rounded mx-3">Delete</a>
-                                    <a href="/update/{{all_item.s_roll}}/" className="inline-block bg-yellow-500 text-white px-6 py-1.5 rounded">Update</a>
+                                    <a href="#" onClick={() => {update(student.pk)}} className="inline-block bg-yellow-500 text-white px-6 py-1.5 rounded">Update</a>
                                 </td>
                             </tr>
                             

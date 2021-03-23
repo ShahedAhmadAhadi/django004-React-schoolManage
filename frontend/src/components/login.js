@@ -14,23 +14,23 @@ function Login() {
     
     const [IP, setIP] = useState('')
 
-    useEffect(() => {
-        fetch('https://json.geoiplookup.io/').then(response => response.json()).then(res => setIP(res.ip))
-    }, [])
+    // useEffect(() => {
+    //     fetch('https://json.geoiplookup.io/').then(response => response.json()).then(res => setIP(res.ip))
+    // }, [])
 
     const browserDetails = window.navigator.appVersion
     console.log(browserDetails)
 
-    console.log(IP)
+    // console.log(IP)
     let check = async function (username, password) {
-        if (IP) {
+        if ('192') {
             const request = new Request('http://localhost:8000/login/', {headers: {'Content-type': 'application/json',}})
             fetch(request, {
                 method: "POST",
                 body: JSON.stringify({
                     username: username,
                     password: password,
-                    ip : IP,
+                    ip : '192.168.1.1',
                     appVersion: browserDetails
                 }),
             })
@@ -42,8 +42,8 @@ function Login() {
                             alert('Wrong specifications')
                         } else {
                             document.cookie = `token=${res.token}`;
-                          document.cookie = `username=${username}`;
-                          document.cookie = `ip=${IP}`;
+                            document.cookie = `username=${username}`;
+                            document.cookie = `ip=${'192.168.1.1'}`;
                           look()
                         }})
                 
