@@ -130,7 +130,6 @@ function Index() {
 
     let show = function (e) {
         setVisible('grid');
-        // form()
     }
 
     
