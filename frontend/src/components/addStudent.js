@@ -60,35 +60,36 @@ let formData = async function () {
         headers: {
             // 'Access-Control-Allow-Headers': 'X-Custom-Header',
             // 'Access-Control-Allow-Headers': 'Access-Control-Request-Headers',
-            // 'cookie': document.cookie,
+            'cookie': document.cookie,
             'head': document.cookie,
             
         },
         method: "POST",
         body: formData,
-    }).then(response => response.json())
+    })
+    .then(response => response.json())
     .then(res => 
-        { console.log(res, res.result)
-        if (res.result == 'true') {
-          setAuthentication(true)
-          console.log('token')
-        } else if (res.result == 'missing_field_in_cookie' || res.result == 'not_valid_user' || res.result == 'wrong_token') {
-          console.log(res.result)
-          setAuthentication(false)
-          history.push('/login')
-          alert('You should SignIn again')
-        } 
-        else if (res.result == 'no_cookie') {
-          setAuthentication(false)
-          history.push('/login')
-        }
-        else {
-          setAuthentication(false)
-          history.push('/login')
-          alert('Your session has ended, SignIn again')
-        }
-        console.log(authenticated, 'a')
-      }
+        console.log(res, res.result)
+    //     if (res.result == 'true') {
+    //       setAuthentication(true)
+    //       console.log('token')
+    //     } else if (res.result == 'missing_field_in_cookie' || res.result == 'not_valid_user' || res.result == 'wrong_token') {
+    //       console.log(res.result)
+    //       setAuthentication(false)
+    //       history.push('/login')
+    //       alert('You should SignIn again')
+    //     } 
+    //     else if (res.result == 'no_cookie') {
+    //       setAuthentication(false)
+    //       history.push('/login')
+    //     }
+    //     else {
+    //       setAuthentication(false)
+    //       history.push('/login')
+    //       alert('Your session has ended, SignIn again')
+    //     }
+    //     console.log(authenticated, 'a')
+    //   }
       )
 }
 

@@ -9,6 +9,7 @@ from json import *
 from users.models import Authentication
 from hashlib import sha1
 from datetime import datetime
+from users.views import cookie_extractor
 
 # Create your views here.
 
@@ -99,23 +100,24 @@ def detail(request, roll_no):
 
 
 def add_student(request):
-    head_for_auth = request.headers.get('head')
-    token_auth = token_verify(head_for_auth)
-    print(token_auth)
-    if(token_auth['result'] == 'true'):
-        print('ys')
-        s= Student()
-        s.s_name = request.POST.get('name')
-        s.s_father_name = request.POST.get('fatherName')
-        s.s_birth = request.POST.get('date')
-        s.s_phone = request.POST.get('phone')
-        s.s_email = request.POST.get('email')
-        s.s_image = request.FILES.get('myFile')
+    # head_for_auth = request.headers.get('head')
+    # token_auth = token_verify(head_for_auth)
+    # print(token_auth)
+    # if(token_auth['result'] == 'true'):
+    #     print('ys')
+    #     s= Student()
+    #     s.s_name = request.POST.get('name')
+    #     s.s_father_name = request.POST.get('fatherName')
+    #     s.s_birth = request.POST.get('date')
+    #     s.s_phone = request.POST.get('phone')
+    #     s.s_email = request.POST.get('email')
+    #     s.s_image = request.FILES.get('myFile')
 
-        # Student.save(s)
-        return JsonResponse(token_auth)
-    else:
-        return JsonResponse(token_auth)
+    #     Student.save(s)
+    #     return JsonResponse(token_auth)
+    # else:
+    #     return JsonResponse(token_auth)
+    
 
     # token_verify(a)
     # if condition:
@@ -123,7 +125,7 @@ def add_student(request):
 
     
 
-    return HttpResponse("Hi there")
+    return JsonResponse({"Hi there": 'a'})
 
     
 

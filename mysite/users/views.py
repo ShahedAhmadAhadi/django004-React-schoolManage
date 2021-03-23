@@ -62,23 +62,42 @@ def token_saver(token, user, appVersion, ip):
         Authentication(token=token_hash, expiry_date=expire_date, user = user, app_version=appVersion, ip=ip).save()
     
 
-# def cookie_extractor(cookie):
-#     cookie_data = request.body.decode('ascii')
-#     dict_of_cookie_values = {}
+def cookie_extractor(cookie):
+    cookie_data = cookie.decode('ascii')
+    dict_of_cookie_values = {}
 
-#     cookie_data_split_semicolon = cookie_data.split(';')
+    cookie_data_split_semicolon = cookie_data.split(';')
 
-#     for item in cookie_data_split_semicolon:
-#         cookie_data_split_semicolon_equal = item.split('=')
-#         if len(cookie_data_split_semicolon_equal[0]) > 1 and len(cookie_data_split_semicolon_equal[1]) > 1:
-#             for i in range(2):
-#                 dict_of_cookie_values.update({cookie_data_split_semicolon_equal[0].strip(): cookie_data_split_semicolon_equal[1].strip()})
-#         else: 
-#             return JsonResponse({'result': 'missing_field_in_cookie'})
-#     try:
-#         token = dict_of_cookie_values['token']
-#     except :
-#         return JsonResponse({'result': 'missing_field_in_cookie'})
+    for item in cookie_data_split_semicolon:
+        cookie_data_split_semicolon_equal = item.split('=')
+        if len(cookie_data_split_semicolon_equal[0]) > 1 and len(cookie_data_split_semicolon_equal[1]) > 1:
+            for i in range(2):
+                dict_of_cookie_values.update({cookie_data_split_semicolon_equal[0].strip(): cookie_data_split_semicolon_equal[1].strip()})
+        else: 
+            return False
+    try:
+        token = dict_of_cookie_values['token']
+    except :
+        return False
+        hash_token = sha1(token.encode('utf-8')).hexdigest()
+
+    try:
+        database_data = Authentication.objects.get(token=hash_token)
+        
+        if dict_of_cookie_values['username'] == str(database_data.user):
+            datetime_now =  datetime.now()
+            token_expiry_date = database_data.expiry_date.replace(tzinfo=None)
+
+            if token_expiry_date < datetime_now:
+                return 'session-expired'
+
+            return True
+        else:
+            return False
+
+    except :
+        return False
+    return False
 
 
 def token_verify(request):
