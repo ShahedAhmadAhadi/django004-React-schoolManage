@@ -27,12 +27,17 @@ function Index() {
     }, [])
 
     let all_data = async function () { 
-        fetch('http://localhost:8000/').then(res => res.json())
-            .then(response => JSON.parse(response.data))
-            .then(all_data => {
-                setData(all_data)
-                console.log(all_data);
-            })
+        fetch('http://localhost:8000/',{
+            headers: {
+                'Head': document.cookie
+            }
+        })
+        .then(res => res.json())
+        .then(response => JSON.parse(response.data))
+        .then(all_data => {
+            setData(all_data)
+            console.log(all_data);
+        })
     }
 
         let formData = function() {
@@ -56,9 +61,17 @@ function Index() {
         let searchValue = value;
         if (searchValue) {
             console.log(value); 
-            fetch(`http://localhost:8000/search/${searchValue}`).then(res => res.json())
+            fetch(`http://localhost:8000/search/${searchValue}`,{
+                headers: {
+                    'Head': document.cookie
+                }
+            })
+            .then(res => res.json())
             .then(response => JSON.parse(response.data))
             .then(all_data => {
+                // if (all_data == 'false' || all_data == 'wrong_request') {
+                //     history.push('/login')
+                // }
                 setData(all_data)
                 console.log(all_data);
             })
@@ -78,7 +91,8 @@ function Index() {
         }
         console.log(splitEqual)
         if (splitEqual['token']) {
-            const request = new Request(`http://localhost:8000/logout/`, {headers: {'Content-type': 'application/json',}})
+            const request = new Request(`http://localhost:8000/logout/`,
+                {headers: {'Content-type': 'application/json'}})
             fetch(request, {
                 method: "POST",
                 body: splitEqual.token

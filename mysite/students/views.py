@@ -10,6 +10,7 @@ from users.models import Authentication
 from hashlib import sha1
 from datetime import datetime
 from users.views import cookie_extractor
+from json import dumps, loads
 
 # Create your views here.
 
@@ -74,9 +75,18 @@ def home(req):
 
 # @login_required(login_url='/login/')
 def search(request, name):
-    queryset = Student.objects.filter(s_name__icontains = name)
-    a = serializers.serialize('json', queryset)
-    return JsonResponse({'data': a})
+    try:
+        if cookie_extractor(request.headers['Head']):
+            queryset = Student.objects.filter(s_name__icontains = name)
+            print(queryset)
+            a = serializers.serialize('json', queryset)
+            # print(a)
+            return JsonResponse({'data': a})
+        else:
+            return JsonResponse(dumps({'data': 'false'}), safe=False)
+    except :
+        return JsonResponse(dumps({'data': 'wrong_request'}), safe=False)
+    
 
 @login_required(login_url='/login/')
 def detail(request, roll_no):
