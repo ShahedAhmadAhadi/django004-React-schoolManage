@@ -119,10 +119,10 @@ function Index() {
      }
 
     let update = (id) => {
-        console.log(id)
         fetch(`http://localhost:8000/update/?text=${id}`)
         .then(response => response.json())
-        .then(res => console.log(res))
+        // .then(res => JSON.parse(res))
+        .then(response => console.log(response))
             
     }
 
