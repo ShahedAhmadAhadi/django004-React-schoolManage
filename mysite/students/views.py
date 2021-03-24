@@ -128,23 +128,7 @@ def add_student(request):
         
     except:
         return JsonResponse({'result': 'wrong_request'})
-    # head_for_auth = request.headers.get('head')
-    # token_auth = token_verify(head_for_auth)
-    # print(token_auth)
-    # if(token_auth['result'] == 'true'):
-    #     print('ys')
-    #     
-    #     return JsonResponse(token_auth)
-    # else:
-    #     return JsonResponse(token_auth)
-    
-
-    # token_verify(a)
-    # if condition:
-        
-
-    
-
+                
     return JsonResponse({"Hi there": 'a'})
 
     
@@ -152,16 +136,16 @@ def add_student(request):
 
 # @login_required(login_url='/login/')
 def update_student(request):
-    student = Student.objects.get(s_roll = request.GET['text'])
-    print(student.s_name)
+    student = Student.objects.filter(s_roll = request.GET['text'])
+    print(student)
     # form = StudentForm(data=request.POST or None, files=request.FILES or None, instance=student)
-    # serialize_student = serializers.serialize('json', student)
+    serialize_student = serializers.serialize('json', student)
     # if form.is_valid():
     #     form.save()
     #     return redirect('/')
     
 
-    return JsonResponse({'student': 'student'})
+    return JsonResponse({'student': serialize_student})
 
 
 
