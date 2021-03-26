@@ -44,10 +44,10 @@ function Signup() {
                 <input type="email" value={email} onChange={(e) => setEmail(e.target.value)}  placeholder="E-mail" required className="w-full border-b border-green-400 py-1 my-2 px-3 focus:outline-none"/>
                 <input type="password" value={password1} onChange={(e) => setPassword1(e.target.value)}  placeholder="Password" required className="w-full border-b border-green-400 py-1 my-2 px-3 focus:outline-none"/>
                 <input type="password" value={password2} onChange={(e) => setPassword2(e.target.value)}  placeholder="Confirm" required className="w-full border-b border-green-400 py-1 my-2 px-3 focus:outline-none"/>
-                <button type="submit" onClick={(e) => {sign()}}>Submit</button>
+                <button type="submit" onClick={(e) => {sign()}} className="w-1/3 text-white py-1 my-4 px-2 bg-green-600 rounded text-center m-auto font-semibold">Submit</button>
                 <p className="text-center mt-2">
                     already have an acount?{" "}
-                    <Link to="/login" className="text-blue-600">
+                    <Link to="/login" className="text-blue-600 font-bold">
                         Log In
                     </Link>
                 </p>

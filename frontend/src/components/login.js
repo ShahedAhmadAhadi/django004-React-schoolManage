@@ -80,13 +80,13 @@ function Login() {
                 />
                 <a
                     onClick={() => check(username, password)}
-                    className="w-1/3 text-white py-1 my-4 px-2 bg-green-600 rounded text-center m-auto"
+                    className="w-1/3 text-white py-1 my-4 px-2 bg-green-600 rounded text-center m-auto font-semibold"
                 >
                     Submit
                 </a>
                 <p className="text-center mt-2">
                     or create acount,{" "}
-                    <Link to="/signup" className="text-blue-600">
+                    <Link to="/signup" className="text-blue-600 font-bold">
                         SignUP
                     </Link>
                 </p>
