@@ -136,16 +136,22 @@ def add_student(request):
 
 # @login_required(login_url='/login/')
 def update_student(request):
-    student = Student.objects.filter(s_roll = request.GET['text'])
-    print(student)
-    # form = StudentForm(data=request.POST or None, files=request.FILES or None, instance=student)
-    serialize_student = serializers.serialize('json', student)
-    # if form.is_valid():
-    #     form.save()
-    #     return redirect('/')
-    
+    if request.GET:
+        student = Student.objects.filter(s_roll = request.GET['text'])
+        serialize_student = serializers.serialize('json', student)
+        return JsonResponse({'student': serialize_student})
+    if request.POST:
+        student = Student.objects.get(s_roll = request.POST.get('id'))
+        print(student)
+        student.s_name = request.POST.get('name')
+        student.s_father_name = request.POST.get('fatherName')
+        student.s_birth = request.POST.get('date')
+        student.s_phone = request.POST.get('phone')
+        student.s_email = request.POST.get('email')
+        student.s_image = request.FILES.get('myFile')
+        student.save()
+        return JsonResponse({'a': 'a'})
 
-    return JsonResponse({'student': serialize_student})
 
 
 
