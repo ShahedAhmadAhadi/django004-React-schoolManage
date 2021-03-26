@@ -200,7 +200,9 @@ function Index() {
                     </tbody>
                 </table>
                 {data.length < 1 && <div className="">No Result</div>}
-                {visible && <AddStudent visible={visible} />}
+                {visible && <div className="fixed inset-0 bg-black bg-opacity-30 flex">
+                    {visible && <AddStudent />}
+                </div>}
             </div>
     )
 }

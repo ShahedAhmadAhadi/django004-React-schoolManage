@@ -80,9 +80,9 @@ let formData = async function () {
         // formData()
     }
     return (
-        <div className="mb-10">
+        <div className="mb-10 w-1/3 bg-white">
 
-            <form encType="multipart/form-data">
+            <form encType="multipart/form-data" className="">
                 <input type="text" value={name} onChange={(e) => setName(e.target.value)} className="w-full border-b border-green-400 py-1 my-2 px-3 focus:outline-none" placeholder= "Name"/>
                 <input type="text" value={fatherName} onChange={(e) => setFatherName(e.target.value)} className="w-full border-b border-green-400 py-1 my-2 px-3 focus:outline-none" placeholder= "Father Name"/>
                 <input type="date" value={date} onChange={(e) => setDate(e.target.value)} className="w-full border-b border-green-400 py-1 my-2 px-3 focus:outline-none"/>
