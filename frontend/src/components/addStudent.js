@@ -80,9 +80,9 @@ let formData = async function () {
         // formData()
     }
     return (
-        <div className="w-1/3 bg-white p-0 h-96">
+        <div className="w-1/3 bg-white rounded">
 
-            <form encType="multipart/form-data" className="flex flex-col m-2">
+            <form encType="multipart/form-data" className="flex flex-col m-10">
                 <input type="text" value={name} onChange={(e) => setName(e.target.value)} className="w-full border-b border-green-400 py-1 my-2 px-3 focus:outline-none" placeholder= "Name"/>
                 <input type="text" value={fatherName} onChange={(e) => setFatherName(e.target.value)} className="w-full border-b border-green-400 py-1 my-2 px-3 focus:outline-none" placeholder= "Father Name"/>
                 <input type="date" value={date} onChange={(e) => setDate(e.target.value)} className="w-full border-b border-green-400 py-1 my-2 px-3 focus:outline-none"/>
@@ -90,8 +90,10 @@ let formData = async function () {
                 <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} className="w-full border-b border-green-400 py-1 my-2 px-3 focus:outline-none" placeholder= "E-mail"/>
                 {/* <input type="file" onChange={(e) => setFile(e.target.files[0])} /> */}
                 <input type="file" className="w-full border-b border-green-400 py-1 my-2 px-3 focus:outline-none" onChange={(e) => setFile(e.target.files[0])} />
-
-                <button onClick={(e) => formData(e.preventDefault())} className="w-1/2 text-white py-1 my-2 px-3 bg-green-600 rounded">Submit</button>
+                <span className="">
+                    <button onClick={(e) => formData(e.preventDefault())} className="w-1/3 text-white py-1 my-2 px-3 bg-green-600 rounded">Submit</button>
+                    <button onClick={(e) => formData(e.preventDefault())} className="w-1/3 text-white py-1 my-2 px-3 bg-red-600 rounded">Back</button>
+                </span>
             </form>
         </div>
     )
