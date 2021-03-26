@@ -148,7 +148,8 @@ def update_student(request):
         student.s_birth = request.POST.get('date')
         student.s_phone = request.POST.get('phone')
         student.s_email = request.POST.get('email')
-        student.s_image = request.FILES.get('myFile')
+        if request.FILES.get('myFile'):
+            student.s_image = request.FILES.get('myFile')
         student.save()
         return JsonResponse({'a': 'a'})
 

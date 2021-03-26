@@ -8,7 +8,7 @@ function Update(prop) {
     const [phone, setPhone] = useState(prop.data[0].fields.s_phone)
     const [date, setDate] = useState(prop.data[0].fields.s_birth)
     const [email, setEmail] = useState(prop.data[0].fields.s_email)
-    const [file, setFile] = useState(prop.data[0].fields.s_image)
+    const [file, setFile] = useState()
     const [name, setName] = useState(prop.data[0].fields.s_name)
     console.log(prop.data[0].pk)
 
@@ -22,8 +22,6 @@ function Update(prop) {
         formData.append("phone", phone)
         formData.append("myFile", file);
         formData.append("id", prop.data[0].pk)
-    
-        console.log(formData)
     
         const request = new Request('http://localhost:8000/update/')
         fetch(request, {
