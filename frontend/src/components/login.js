@@ -62,13 +62,16 @@ function Login() {
          
     
     return (
-        <div>
-            <input value={username} onChange={(e) => setUsername(e.target.value)} type="text" placeholder="username"/>
-            <input value={password} onChange={(e) => setPassword(e.target.value)} type="password" placeholder="password"/>
-            <a onClick={() =>check(username, password)}>submit</a>
-            <p>
-                or create acount, <Link to="/signup">signUP</Link>
-            </p>
+        <div className="bg-gray-100 fixed w-full h-full flex justify-center items-center">
+            <div className="flex flex-col w-1/3 bg-white p-10 rounded">
+                <input value={username} onChange={(e) => setUsername(e.target.value)} type="text" placeholder="username" className="w-full border-b border-green-400 py-1 my-2 px-3 focus:outline-none"/>
+                <input value={password} onChange={(e) => setPassword(e.target.value)} type="password" placeholder="password" className="w-full border-b border-green-400 py-1 my-2 px-3 focus:outline-none"/>
+                <a onClick={() =>check(username, password)} className="w-full border-b border-green-400 py-1 my-2 px-3 focus:outline-none">submit</a>
+                <p>
+                    or create acount, <Link to="/signup">signUP</Link>
+                </p>           
+            </div>
+                
         </div>
     )
 }
