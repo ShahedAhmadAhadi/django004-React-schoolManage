@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import {useHistory} from 'react-router-dom'
+import {Link, useHistory} from 'react-router-dom'
 
 
 // function getCookie(name) {
@@ -76,10 +76,7 @@ let formData = async function () {
 
 
 
-    console.log(prop.visible)
-    if (prop.visible == 'grid') {
-        // formData()
-    }
+    console.log(prop)
     return (
         <div className="w-1/3 bg-white rounded">
 
@@ -93,7 +90,7 @@ let formData = async function () {
                 <input type="file" className="w-full border-b border-green-400 py-1 my-2 px-3 focus:outline-none" onChange={(e) => setFile(e.target.files[0])} />
                 <span className="flex justify-around">
                     <button onClick={(e) => formData(e.preventDefault())} className="w-1/3 text-white py-1 my-2 px-3 bg-green-600 rounded">Submit</button>
-                    <button onClick={() => prop.show()} className="w-1/3 text-white py-1 my-2 px-3 bg-red-600 rounded">Back</button>
+                    <a href="#" onClick={() => prop.visible()} className="w-1/3 text-white py-1 my-2 px-3 bg-red-600 rounded">Back</a>
                 </span>
             </form>
         </div>

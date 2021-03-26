@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import AddStudent from './addStudent'
+import Update from './update'
 // import form from './addStudent'
 import {BrowserRouter,useHistory} from 'react-router-dom'
 
@@ -118,12 +119,22 @@ function Index() {
             })
      }
 
+    const [updateData, setUpdateData] = useState('')
+    const [updateModal, setUpdateModal] = useState(false)
+
     let update = (id) => {
         fetch(`http://localhost:8000/update/?text=${id}`)
         .then(response => response.json())
-        // .then(res => JSON.parse(res))
-        .then(response => console.log(response))
-            
+        .then(res => JSON.parse(res.student))
+        .then(response => setUpdateData(response));
+        if(updateData){
+            updateShow()
+        }
+    }
+
+    let updateShow = () => {
+        setUpdateModal(!updateModal)
+        console.log(updateModal)
     }
 
     const [visible, setVisible] = useState(false)
@@ -131,9 +142,6 @@ function Index() {
     let show = function () {
         setVisible(!visible)
     }
-
-    
-
 
     return (
         <div className='main'>
@@ -157,7 +165,7 @@ function Index() {
                 </div>
             </header>
             <div className="text-right px-10 pt-5">
-                <a className="bg-blue-600 px-6 py-1.5 font-semibold text-white rounded" onClick={(e) => show(e)}>
+                <a className="bg-blue-600 px-6 py-1.5 font-semibold text-white rounded" onClick={() => show()}>
                     Add student
                 </a>
             </div>
@@ -203,6 +211,10 @@ function Index() {
                 {visible && <div className="fixed inset-0 bg-black bg-opacity-30 flex justify-center items-center">
                     {visible && <AddStudent visible={() => show()} />}
                 </div>}
+                {updateModal && <div className="fixed inset-0 bg-black bg-opacity-30 flex justify-center items-center">
+                    {updateModal && <Update visible={() => updateShow()} data={updateData} />}
+                </div>}
+
             </div>
     )
 }
