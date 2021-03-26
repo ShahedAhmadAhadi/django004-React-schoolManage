@@ -12,16 +12,16 @@ function Login() {
 
     const [IP, setIP] = useState("");
 
-    // useEffect(() => {
-    //     fetch('https://json.geoiplookup.io/').then(response => response.json()).then(res => setIP(res.ip))
-    // }, [])
+    useEffect(() => {
+        fetch('https://json.geoiplookup.io/').then(response => response.json()).then(res => setIP(res.ip))
+    }, [])
 
     const browserDetails = window.navigator.appVersion;
     console.log(browserDetails);
 
     // console.log(IP)
     let check = async function (username, password) {
-        if ("192") {
+        if (IP) {
             const request = new Request("http://localhost:8000/login/", {
                 headers: { "Content-type": "application/json" },
             });
@@ -30,7 +30,7 @@ function Login() {
                 body: JSON.stringify({
                     username: username,
                     password: password,
-                    ip: "192.168.1.1",
+                    ip: IP,
                     appVersion: browserDetails,
                 }),
             })
@@ -44,7 +44,7 @@ function Login() {
                     } else {
                         document.cookie = `token=${res.token}`;
                         document.cookie = `username=${username}`;
-                        document.cookie = `ip=${"192.168.1.1"}`;
+                        document.cookie = `ip=${IP}`;
                         look();
                     }
                 });
@@ -54,7 +54,7 @@ function Login() {
     };
     let look = function () {
         if (document.cookie) {
-            history.push("/index");
+            history.push("/");
             window.location.reload();
             // <Data />
             // console.log(document.cookie)

@@ -128,8 +128,8 @@ function Index() {
 
     const [visible, setVisible] = useState(false)
 
-    let show = function (e) {
-        setVisible('grid');
+    let show = function () {
+        setVisible(!visible)
     }
 
     
@@ -201,11 +201,10 @@ function Index() {
                 </table>
                 {data.length < 1 && <div className="">No Result</div>}
                 {visible && <div className="fixed inset-0 bg-black bg-opacity-30 flex justify-center items-center">
-                    {visible && <AddStudent />}
+                    {visible && <AddStudent visible={() => show()} />}
                 </div>}
             </div>
     )
 }
 
 export default Index
-

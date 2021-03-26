@@ -47,7 +47,7 @@ import Signup from './components/signup'
       <div className="App">
         <header className="App-header">
 
-            {authenticated && <Route exact path="/index" component={Data}>
+            {authenticated && <Route exact path="/" component={Data}>
               {/* {authenticated && history.push('/')} */}
             </Route> }
             <Route exact path="/login" component={Login}></Route>
