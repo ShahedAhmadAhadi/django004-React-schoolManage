@@ -96,7 +96,9 @@ function Index() {
 
     let del = (id) => { 
         console.log(id)
-        const request = new Request(`http://localhost:8000/delete/?text=${id}`, {headers: {'Content-type': 'application/json',}})
+        const request = new Request(`http://localhost:8000/delete/?text=${id}`,
+        {headers: {'Content-type': 'application/json',
+                    'Head': document.cookie}})
             fetch(request, {
                 method: "POST",
                 body: JSON.stringify({
@@ -195,8 +197,7 @@ function Index() {
                                     <a href="#" onClick={() => {del(student.pk)}} className="inline-block bg-red-600 text-white px-6 py-1.5 rounded mx-3">Delete</a>
                                     <a href="#" onClick={() => {update(student.pk)}} className="inline-block bg-yellow-500 text-white px-6 py-1.5 rounded">Update</a>
                                 </td>
-                            </tr>
-                            
+                            </tr>  
                         )
                     })}
                     </tbody>
@@ -208,7 +209,12 @@ function Index() {
                 {updateModal && <div className="fixed inset-0 bg-black bg-opacity-30 flex justify-center items-center">
                     {updateModal && <Update visible={() => updateShow()} data={updateData} />}
                 </div>}
-
+                {/* <div>
+                    <p>
+                        Are you sure you want to delete this record?
+                    </p>
+                    <a href="#"  onClick={() => del} />
+                </div> */}
             </div>
     )
 }

@@ -160,12 +160,18 @@ def update_student(request):
 # @login_required(login_url='/login/')
 def delete_student(request):
 
-    student_list = Student.objects.get(s_roll = request.GET['text'])
+    try:
+        if cookie_extractor(request.headers['Head']):
+            student_list = Student.objects.get(s_roll = request.GET['text'])
 
-    if request.method == "POST":
-        student_list.delete()
+        if request.method == "POST":
+            student_list.delete()
     
-    return JsonResponse({'a': 'a'})
+        return JsonResponse({'result': 'true'})
+    except :
+        return JsonResponse({'result': 'wrong_request'})
+
+    
 
 
 
