@@ -79,6 +79,7 @@ function Login() {
                     className="w-full border-b border-green-400 py-1 my-2 px-3 focus:outline-none"
                 />
                 <a
+                    href="#"
                     onClick={() => check(username, password)}
                     className="w-1/3 text-white py-1 my-4 px-2 bg-green-600 rounded text-center m-auto font-semibold"
                 >
