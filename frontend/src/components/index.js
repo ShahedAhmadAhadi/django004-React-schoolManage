@@ -230,7 +230,10 @@ function Index() {
                         <p className="mb-7">
                             Are you sure you want to delete this record?
                         </p>
-                        <a href="#" className="bg-red-600 px-6 py-1.5 rounded text-white font-semibold" onClick={() => del(delId)}>Yes</a>
+                        <div className="flex justify-around">
+                            <a href="#" className="bg-yellow-500 px-6 py-1.5 rounded text-white font-semibold" onClick={() => del(delId)}>Delete</a>
+                            <a href="#" className="bg-red-600 px-6 py-1.5 rounded text-white font-semibold" onClick={() => deleteModal()}>Back</a>
+                        </div>
                     </div>
                 </div>}
             </div>
