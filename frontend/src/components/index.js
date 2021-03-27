@@ -225,11 +225,13 @@ function Index() {
                 {updateModal && <div className="fixed inset-0 bg-black bg-opacity-30 flex justify-center items-center">
                     {updateModal && <Update visible={() => updateShow()} data={updateData} />}
                 </div>}
-                {visibleDel && <div>
-                    <p>
-                        Are you sure you want to delete this record?
-                    </p>
-                    <a href="#"  onClick={() => del(delId)}>submit</a>
+                {visibleDel && <div className="fixed flex inset-0 bg-black">
+                    <div>
+                        <p>
+                            Are you sure you want to delete this record?
+                        </p>
+                        <a href="#"  onClick={() => del(delId)}>Yes</a>
+                    </div>
                 </div>}
             </div>
     )
