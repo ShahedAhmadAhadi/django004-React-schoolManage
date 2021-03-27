@@ -131,8 +131,6 @@ def add_student(request):
 
     
 
-
-# @login_required(login_url='/login/')
 def update_student(request):
     try:
         if cookie_extractor(request.headers['Head']):
@@ -151,7 +149,7 @@ def update_student(request):
                 if request.FILES.get('myFile'):
                     student.s_image = request.FILES.get('myFile')
                 student.save()
-                return JsonResponse({'a': 'a'})
+                return JsonResponse({'result': 'true'})
     except :
         return JsonResponse({'result': 'wrong_request'})
 

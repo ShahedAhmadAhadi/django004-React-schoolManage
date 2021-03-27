@@ -41,11 +41,6 @@ function Index() {
         })
     }
     
-    const [addStudent, setAddStudent] = useState()
-
-    function a(e) {
-        
-    }
 
     const [value, setValue] = useState('')
 
@@ -113,14 +108,22 @@ function Index() {
     const [updateData, setUpdateData] = useState('')
     const [updateModal, setUpdateModal] = useState(false)
 
-    let update = (id) => {
-        fetch(`http://localhost:8000/update/?text=${id}`)
+
+
+    let update = async (id) => {
+        fetch(`http://localhost:8000/update/?text=${id}`,
+        {headers: {'Head': document.cookie}})
         .then(response => response.json())
-        .then(res => JSON.parse(res.student))
-        .then(response => setUpdateData(response));
-        if(updateData){
-            updateShow()
-        }
+        .then(res => {
+            if (res){
+            const data = JSON.parse(res.student)
+            setUpdateData(data);
+            if(updateData){
+                updateShow()
+            }
+        } else {
+            history.push('/login')
+        }})             
     }
 
     let updateShow = () => {
