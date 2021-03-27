@@ -94,9 +94,25 @@ function Index() {
         
     }
 
-    let del = (id) => { 
-        console.log(id)
-        const request = new Request(`http://localhost:8000/delete/?text=${id}`,
+    const [delId, setDelId] = useState(null)
+    const [visibleDel, setVisibleDel] = useState(false)
+
+    let deleteModal = (id) => {
+        if (id) {
+            setDelId(id)
+            setVisibleDel(true)
+        }
+        else{
+            setDelId(null)
+            setVisibleDel(false)
+        }
+    }
+
+
+
+    let del = (delId) => { 
+        console.log(delId)
+        const request = new Request(`http://localhost:8000/delete/?text=${delId}`,
         {headers: {'Content-type': 'application/json',
                     'Head': document.cookie}})
             fetch(request, {
@@ -194,7 +210,7 @@ function Index() {
                                     <div>{student.fields.s_email}</div>
                                 </td>
                                 <td>
-                                    <a href="#" onClick={() => {del(student.pk)}} className="inline-block bg-red-600 text-white px-6 py-1.5 rounded mx-3">Delete</a>
+                                    <a href="#" onClick={() => {deleteModal(student.pk)}} className="inline-block bg-red-600 text-white px-6 py-1.5 rounded mx-3">Delete</a>
                                     <a href="#" onClick={() => {update(student.pk)}} className="inline-block bg-yellow-500 text-white px-6 py-1.5 rounded">Update</a>
                                 </td>
                             </tr>  
@@ -209,12 +225,12 @@ function Index() {
                 {updateModal && <div className="fixed inset-0 bg-black bg-opacity-30 flex justify-center items-center">
                     {updateModal && <Update visible={() => updateShow()} data={updateData} />}
                 </div>}
-                {/* <div>
+                {visibleDel && <div>
                     <p>
                         Are you sure you want to delete this record?
                     </p>
-                    <a href="#"  onClick={() => del} />
-                </div> */}
+                    <a href="#"  onClick={() => del(delId)}>submit</a>
+                </div>}
             </div>
     )
 }
