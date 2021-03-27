@@ -121,6 +121,7 @@ function Index() {
                     'cookie': document.cookie
                 }),
             })
+            window.location.reload()
      }
 
     const [updateData, setUpdateData] = useState('')
@@ -225,8 +226,8 @@ function Index() {
                 {updateModal && <div className="fixed inset-0 bg-black bg-opacity-30 flex justify-center items-center">
                     {updateModal && <Update visible={() => updateShow()} data={updateData} />}
                 </div>}
-                {visibleDel && <div className="fixed flex inset-0 bg-black bg-opacity-30 items-center justify-center">
-                    <div className="bg-white p-8 rounded text-center">
+                {visibleDel && <div onClick={() => deleteModal()} className="fixed flex inset-0 bg-black bg-opacity-30 items-center justify-center">
+                    <div onClick={(e) => e.stopPropagation()} className="bg-white p-8 rounded text-center">
                         <p className="mb-7">
                             Are you sure you want to delete this record?
                         </p>
