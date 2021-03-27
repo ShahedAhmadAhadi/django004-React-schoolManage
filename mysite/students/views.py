@@ -128,30 +128,33 @@ def add_student(request):
         
     except:
         return JsonResponse({'result': 'wrong_request'})
-                
-    return JsonResponse({"Hi there": 'a'})
 
     
 
 
 # @login_required(login_url='/login/')
 def update_student(request):
-    if request.GET:
-        student = Student.objects.filter(s_roll = request.GET['text'])
-        serialize_student = serializers.serialize('json', student)
-        return JsonResponse({'student': serialize_student})
-    if request.POST:
-        student = Student.objects.get(s_roll = request.POST.get('id'))
-        print(student)
-        student.s_name = request.POST.get('name')
-        student.s_father_name = request.POST.get('fatherName')
-        student.s_birth = request.POST.get('date')
-        student.s_phone = request.POST.get('phone')
-        student.s_email = request.POST.get('email')
-        if request.FILES.get('myFile'):
-            student.s_image = request.FILES.get('myFile')
-        student.save()
-        return JsonResponse({'a': 'a'})
+    try:
+        if cookie_extractor(request.headers['Head']):
+            if request.GET:
+                student = Student.objects.filter(s_roll = request.GET['text'])
+                serialize_student = serializers.serialize('json', student)
+                return JsonResponse({'student': serialize_student})
+            if request.POST:
+                student = Student.objects.get(s_roll = request.POST.get('id'))
+                print(student)
+                student.s_name = request.POST.get('name')
+                student.s_father_name = request.POST.get('fatherName')
+                student.s_birth = request.POST.get('date')
+                student.s_phone = request.POST.get('phone')
+                student.s_email = request.POST.get('email')
+                if request.FILES.get('myFile'):
+                    student.s_image = request.FILES.get('myFile')
+                student.save()
+                return JsonResponse({'a': 'a'})
+    except :
+        return JsonResponse({'result': 'wrong_request'})
+
 
 
 

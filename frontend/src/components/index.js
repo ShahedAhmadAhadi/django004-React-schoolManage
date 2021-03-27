@@ -40,16 +40,7 @@ function Index() {
             console.log(all_data);
         })
     }
-
-        let formData = function() {
-
-            // fetch('http://localhost:8000/add/').then(res => res.json())
-            // // .then(response => JSON.parse(response.data))
-            // .then(addStudentData => {
-            //     console.log(addStudentData);
-            //     // FormData
-            // } )
-         }
+    
     const [addStudent, setAddStudent] = useState()
 
     function a(e) {

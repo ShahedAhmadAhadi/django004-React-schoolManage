@@ -32,13 +32,13 @@ function Update(prop) {
             body: formData,
         })
         .then(response => response.json())
-        // .then(res => {
-        //     if (res.result == 'true') {
-        //       window.location.reload()
-        //     }else{
-        //       history.push('/login')
-        //     }}
-        //   )
+        .then(res => {
+            if (res.result == 'true') {
+              window.location.reload()
+            }else{
+              history.push('/login')
+            }}
+          )
     }
 
     return (

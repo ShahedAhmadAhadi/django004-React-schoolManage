@@ -30,7 +30,7 @@ def token_generator():
 
     return token
 
-# Create your views here.
+
 def logout(request):
     print(request.body)
     token = request.body.decode('ascii')
@@ -42,7 +42,6 @@ def logout(request):
     except :
         pass
     
-
     return JsonResponse({'a':'a'})
 
         
@@ -143,9 +142,6 @@ def token_verify(request):
 
 def login(request):
     data = loads(request.body)
-    # print(data)
-
-    # token_saver(data)
 
     user = authenticate(username = data['username'], password = data['password'])
 
