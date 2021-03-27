@@ -226,11 +226,11 @@ function Index() {
                     {updateModal && <Update visible={() => updateShow()} data={updateData} />}
                 </div>}
                 {visibleDel && <div className="fixed flex inset-0 bg-black bg-opacity-30 items-center justify-center">
-                    <div className="bg-white p-10 rounded">
-                        <p className="mb-3">
+                    <div className="bg-white p-8 rounded text-center">
+                        <p className="mb-7">
                             Are you sure you want to delete this record?
                         </p>
-                        <a href="#" className="m-auto" onClick={() => del(delId)}>Yes</a>
+                        <a href="#" className="bg-red-600 px-6 py-1.5 rounded text-white font-semibold" onClick={() => del(delId)}>Yes</a>
                     </div>
                 </div>}
             </div>
