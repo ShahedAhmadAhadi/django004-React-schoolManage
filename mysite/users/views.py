@@ -37,6 +37,7 @@ def logout(request):
     print(token)
     hash_token = sha1(token.encode('utf-8')).hexdigest()
     try:
+        print(hash_token)
         authentication_database_data = Authentication.objects.filter(token=hash_token)
         authentication_database_data.delete()
     except :

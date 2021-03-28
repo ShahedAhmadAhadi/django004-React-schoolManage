@@ -178,16 +178,16 @@ function Index() {
                 </div>
             </header>
             <div className="text-right px-10 pt-5">
-                <a className="bg-blue-600 px-6 py-1.5 font-semibold text-white rounded" onClick={() => show()}>
+                <a href="#" className="bg-blue-600 px-6 py-1.5 font-semibold text-white rounded" onClick={() => show()}>
                     Add student
                 </a>
             </div>
             <table className="overflow-hidden rounded-lg m-5 box-border">
                 <thead>
                     <tr className="bg-green-600 rounded-t-lg text-white font-bold text-2xl shadow-lg">
-                        <td className="w-1/3 px-3 py-5 ">Name</td>
-                        <td className="w-1/3">Details</td>
-                        <td className="w-1/3">Actions</td>
+                        <td className="w-96 px-3 py-5 ">Name</td>
+                        <td className="w-96">Details</td>
+                        <td className="w-96">Actions</td>
                     </tr>
                 </thead>
                     <tbody>
@@ -219,7 +219,7 @@ function Index() {
                     })}
                     </tbody>
                 </table>
-                {data.length < 1 && <div className="">No Result</div>}
+                {data.length < 1 && <div className="text-purple-200 font-bold text-4xl mt-36 h-96 text-center">No Result</div>}
                 {visible && <div className="fixed inset-0 bg-black bg-opacity-30 flex justify-center items-center">
                     {visible && <AddStudent visible={() => show()} />}
                 </div>}
