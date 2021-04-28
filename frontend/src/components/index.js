@@ -98,7 +98,7 @@ function Index() {
     const [delId, setDelId] = useState(null)
     const [visibleDel, setVisibleDel] = useState(false)
 
-    let deleteModal = (id) => {
+    let closeDeleteModal = (id) => {
         if (id) {
             setDelId(id)
             setVisibleDel(true)
@@ -212,7 +212,7 @@ function Index() {
                                     <div>{student.fields.s_email}</div>
                                 </td>
                                 <td>
-                                    <a href="#" onClick={() => {deleteModal(student.pk)}} className="inline-block bg-red-600 text-white px-6 py-1.5 rounded mx-3">Delete</a>
+                                    <a href="#" onClick={() => {closeDeleteModal(student.pk)}} className="inline-block bg-red-600 text-white px-6 py-1.5 rounded mx-3">Delete</a>
                                     <a href="#" onClick={() => {update(student.pk)}} className="inline-block bg-yellow-500 text-white px-6 py-1.5 rounded">Update</a>
                                 </td>
                             </tr>  
@@ -227,14 +227,14 @@ function Index() {
                 {updateModal && <div className="fixed inset-0 bg-black bg-opacity-30 flex justify-center items-center">
                     {updateModal && <Update visible={() => updateShow()} data={updateData} />}
                 </div>}
-                {visibleDel && <div onClick={() => deleteModal()} className="fixed flex inset-0 bg-black bg-opacity-30 items-center justify-center">
+                {visibleDel && <div onClick={() => closeDeleteModal()} className="fixed flex inset-0 bg-black bg-opacity-30 items-center justify-center">
                     <div onClick={(e) => e.stopPropagation()} className="bg-white p-8 rounded text-center">
                         <p className="mb-7">
                             Are you sure you want to delete this record?
                         </p>
                         <div className="flex justify-around">
                             <a href="#" className="bg-yellow-500 px-6 py-1.5 rounded text-white font-semibold" onClick={() => del(delId)}>Delete</a>
-                            <a href="#" className="bg-red-600 px-6 py-1.5 rounded text-white font-semibold" onClick={() => deleteModal()}>Back</a>
+                            <a href="#" className="bg-red-600 px-6 py-1.5 rounded text-white font-semibold" onClick={() => closeDeleteModal()}>Back</a>
                         </div>
                     </div>
                 </div>}

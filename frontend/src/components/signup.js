@@ -33,8 +33,18 @@ function Signup() {
                     password1: password1,
                 }),
             })
-            .then(response => response.json()).then(res => {console.log(res); history.push('/login/')})
+            .then(response => response.json())
+            .then(res => {
+                console.log(res.result)
+                // if (res.result == 'username') {
+                    
+                // } else {
+                    
+                // }
+            })
     }
+
+    
 
 
     return (
