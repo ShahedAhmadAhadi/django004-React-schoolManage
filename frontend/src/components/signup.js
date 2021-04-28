@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import {useHistory, Link} from 'react-router-dom'
 import Alert from './alerts'
 
@@ -11,6 +11,8 @@ function Signup() {
     const [email, setEmail] = useState('')
     const [password1, setPassword1] = useState('')
     const [password2, setPassword2] = useState('')
+    const [messagePanel, setMessagePanel] = useState(false)
+    const [errorAlert, setErrorAlert] = useState('')
 
     const passwordConfirm = () => {
         if (password1 === password2) {
@@ -26,7 +28,7 @@ function Signup() {
         }
         
         const request = new Request('http://localhost:8000/signup/', {headers: {'Content-type': 'application/json'}})
-            fetch(request, {
+            let data = await fetch(request, {
                 method: "POST",
                 body: JSON.stringify({
                     username: username,
@@ -34,23 +36,20 @@ function Signup() {
                     password1: password1,
                 }),
             })
-            .then(response => response.json())
-            .then(res => {
-                console.log(res.result)
-                if (res.result == 'username') {
-                    setErrorAlert('username')
-                    setMessagePanel(true)
-                } else if (res.result == 'email') {
-                    setErrorAlert('email')
-                    setMessagePanel(true)
-                }else {
-                    history.push('/login')
-                }
-            })
+            let response = await data.json()
+            if (response.result == 'success') {
+                history.push('/login')
+            }
+            showPanel(response.result)
     }
-
-    const [messagePanel, setMessagePanel] = useState('')
-    const [errorAlert, setErrorAlert] = useState('')
+    let showPanel = (result) => {
+        if (result == 'username') {
+            setErrorAlert('username')
+            setMessagePanel(!messagePanel)
+        } else if (result == 'email') {
+            setErrorAlert('email')
+            setMessagePanel(!messagePanel)
+    }}
 
 
     return (
