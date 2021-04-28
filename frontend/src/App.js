@@ -12,7 +12,6 @@ function App() {
     let history = useHistory();
 
     useEffect(() => {
-        if (history === "/") {
             (async function verify() {
                 fetch("http://localhost:8000/verify/", {
                     headers: { "Content-type": "application/json" },
@@ -46,10 +45,7 @@ function App() {
                         console.log(authenticated, "a");
                     });
             })();
-        } else {
-            history.push("/login");
-        }
-    }, [history]);
+    }, []);
 
     return (
         <div className="App">

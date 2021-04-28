@@ -29,10 +29,11 @@ function Login() {
         setEmptyAlert(!emptyAlert);
     };
     let check = async function (username, password) {
-        if (username == "" || password == "") {
-            setMessage("empty");
-            showAlert();
-        } else if (IP) {
+        // if (username == "" || password == "") {
+        //     setMessage("empty");
+        //     showAlert();
+        // } else 
+        if (IP) {
             const request = new Request("http://localhost:8000/login/", {
                 headers: { "Content-type": "application/json" },
             });
