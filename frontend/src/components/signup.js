@@ -45,11 +45,16 @@ function Signup() {
     let showPanel = (result) => {
         if (result == 'username') {
             setErrorAlert('username')
-            setMessagePanel(!messagePanel)
+            setMessagePanel(true)
+            console.log('object')
         } else if (result == 'email') {
             setErrorAlert('email')
+            setMessagePanel(!messagePanel)}
+        else{
+            setErrorAlert(false)
             setMessagePanel(!messagePanel)
-    }}
+        }
+    }
 
 
     return (
@@ -67,7 +72,7 @@ function Signup() {
                     </Link>
                 </p>
             </div>
-            {messagePanel && <Alert errorFor={errorAlert}></Alert>}
+            {messagePanel && <Alert visible={showPanel} errorFor={errorAlert} ></Alert>}
         </div>
     )
 }

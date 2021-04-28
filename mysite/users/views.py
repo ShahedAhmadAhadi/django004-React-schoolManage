@@ -174,9 +174,9 @@ def signup(request):
         signup_data = loads(request.body.decode('ascii'))
         username = signup_data['username']
         email = signup_data['email']
-        if(User.objects.get(username=username)):
+        if(User.objects.filter(username=username)):
             return JsonResponse({'result': 'username'})
-        elif (User.objects.get(email=email)):
+        elif (User.objects.filter(email=email)):
             return JsonResponse({'result': 'email'})
         else:
             User.objects.create_user(username=signup_data['username'], password=signup_data['password1'], email=signup_data['email'])
