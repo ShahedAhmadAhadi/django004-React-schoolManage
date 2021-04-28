@@ -55,47 +55,33 @@ def token_verify(str_):
     return ({'result': 'no_cookie'})
 
 def home(req):
-    queryset = Student.objects.all()
-    serialized_queryset = serializers.serialize('json', queryset)
-    return JsonResponse({'data': serialized_queryset})
-
-
-
-# @login_required(login_url='/login/')
-# def initial(request):
-#     queryset = Student.objects.all()
-#     # pagenator = Paginator(queryset, 1)
-#     # page_number = request.Get.get('page')
-#     # page_object = pagenator.get_page(page_number)
-#     context = {
-#         'all_items': queryset
-#     }
-#     return render(request, 'students/index.html', context)
+    # try:
+    #     if cookie_extractor(req.headers['Head']):
+    #         queryset = Student.objects.all()
+    #         serialized_queryset = serializers.serialize('json', queryset)
+    #         return JsonResponse({'data': serialized_queryset})
+    #     else:
+    #         return JsonResponse({'data':'false'})
+    # except :
+    wrong_request_response = {'data': 'wrong_request'}
+    return JsonResponse(dumps(wrong_request_response), safe=False)
     
 
-# @login_required(login_url='/login/')
+
 def search(request, name):
     try:
         if cookie_extractor(request.headers['Head']):
             queryset = Student.objects.filter(s_name__icontains = name)
             print(queryset)
-            a = serializers.serialize('json', queryset)
+            serialized_search_result = serializers.serialize('json', queryset)
             # print(a)
-            return JsonResponse({'data': a})
+            return JsonResponse({'data': serialized_search_result})
         else:
             return JsonResponse(dumps({'data': 'false'}), safe=False)
     except :
         return JsonResponse(dumps({'data': 'wrong_request'}), safe=False)
     
 
-@login_required(login_url='/login/')
-def detail(request, roll_no):
-    queryset = Student.objects.get(s_roll = roll_no)
-    context = {
-        'all_item': queryset
-    }
-
-    return render(request, 'students/detail.html', context)
 
 
 # @login_required(login_url='/login/')

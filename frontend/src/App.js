@@ -18,6 +18,7 @@ import Signup from './components/signup'
         fetch('http://localhost:8000/verify/',
          {headers: {'Content-type': 'application/json'}, method : 'POST', body: document.cookie}
         )
+        // .catch(history.push('/login'))
         .then(response => response.json())
         .then(res => { console.log(res, res.result)
           if (res.result == 'true') {
