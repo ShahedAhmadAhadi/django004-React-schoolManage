@@ -28,17 +28,19 @@ function Index() {
     }, [])
 
     let all_data = async function () { 
-        fetch('http://localhost:8000/',{
+        let data = await fetch('http://localhost:8000/',{
             headers: {
                 'Head': document.cookie
             }
         })
-        .then(res => res.json())
-        .then(response => JSON.parse(response.data))
-        .then(all_data => {
-            setData(all_data)
-            console.log(all_data);
-        })
+        let all_data = await data.json()
+        if (all_data.data) {
+            let parsed_data = await JSON.parse(all_data.data);
+            setData(parsed_data)
+            console.log(parsed_data);
+        } else {
+            history.push('/login')
+        }        
     }
     
 
@@ -48,20 +50,19 @@ function Index() {
         let searchValue = value;
         if (searchValue) {
             console.log(value); 
-            fetch(`http://localhost:8000/search/${searchValue}`,{
+            let data = await fetch(`http://localhost:8000/search/${searchValue}`,{
                 headers: {
                     'Head': document.cookie
                 }
             })
-            .then(res => res.json())
-            .then(response => JSON.parse(response.data))
-            .then(all_data => {
-                // if (all_data == 'false' || all_data == 'wrong_request') {
-                //     history.push('/login')
-                // }
-                setData(all_data)
-                console.log(all_data);
-            })
+            let load_data = await data.json()
+            if (load_data.data) {
+                let all_parsed_data = await JSON.parse(load_data.data)
+                setData(all_parsed_data)
+                console.log(all_parsed_data)
+            } else {
+                history.push('/login')
+            }
         } else{
             all_data()
         }
