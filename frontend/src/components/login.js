@@ -3,35 +3,36 @@ import { Redirect, Route, useHistory, Link } from "react-router-dom";
 // import moduleName from 'module'
 import Data from "./index";
 import App from "../App";
-import Alert from './alerts'
+import Alert from "./alerts";
 
 function Login() {
     let history = useHistory();
     const [login, setLogin] = useState("");
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
-    const [emptyAlert, setEmptyAlert] = useState(false)
-    const [message, setMessage] = useState('')
+    const [emptyAlert, setEmptyAlert] = useState(false);
+    const [message, setMessage] = useState("");
 
     const [IP, setIP] = useState("");
 
     useEffect(() => {
-        fetch('https://json.geoiplookup.io/').then(response => response.json()).then(res => setIP(res.ip))
-    }, [])
+        fetch("https://json.geoiplookup.io/")
+            .then((response) => response.json())
+            .then((res) => setIP(res.ip));
+    }, []);
 
     const browserDetails = window.navigator.appVersion;
     console.log(browserDetails);
 
     // console.log(IP)
     let showAlert = () => {
-        setEmptyAlert(!emptyAlert)
-    } 
+        setEmptyAlert(!emptyAlert);
+    };
     let check = async function (username, password) {
-        if (username == '' || password == '') {
-            setMessage('empty')
-            showAlert()
-        }
-        else if (IP) {
+        if (username == "" || password == "") {
+            setMessage("empty");
+            showAlert();
+        } else if (IP) {
             const request = new Request("http://localhost:8000/login/", {
                 headers: { "Content-type": "application/json" },
             });
@@ -102,7 +103,9 @@ function Login() {
                     </Link>
                 </p>
             </div>
-            {emptyAlert && <Alert errorFor={message} visible={() => showAlert()}></Alert>}
+            {emptyAlert && (
+                <Alert errorFor={message} visible={() => showAlert()}></Alert>
+            )}
         </div>
     );
 }
