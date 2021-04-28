@@ -37,16 +37,20 @@ function Signup() {
             .then(response => response.json())
             .then(res => {
                 console.log(res.result)
-                // if (res.result == 'username') {
-                    
-                // } else {
-                    
-                // }
+                if (res.result == 'username') {
+                    setErrorAlert('username')
+                    setMessagePanel(true)
+                } else if (res.result == 'email') {
+                    setErrorAlert('email')
+                    setMessagePanel(true)
+                }else {
+                    history.push('/login')
+                }
             })
     }
 
-    const [messagePanel, setMessagePanel] = useState('a')
-    const [errorAlert, setErrorAlert] = useState('lsdfj')
+    const [messagePanel, setMessagePanel] = useState('')
+    const [errorAlert, setErrorAlert] = useState('')
 
 
     return (
