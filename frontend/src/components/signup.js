@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import {useHistory, Link} from 'react-router-dom'
+import Alert from './alerts'
 
 
 function Signup() {
@@ -44,7 +45,8 @@ function Signup() {
             })
     }
 
-    
+    const [messagePanel, setMessagePanel] = useState('a')
+    const [errorAlert, setErrorAlert] = useState('lsdfj')
 
 
     return (
@@ -62,6 +64,7 @@ function Signup() {
                     </Link>
                 </p>
             </div>
+            {messagePanel && <Alert errorFor={errorAlert}></Alert>}
         </div>
     )
 }
