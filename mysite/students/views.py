@@ -55,16 +55,19 @@ def token_verify(str_):
     return ({'result': 'no_cookie'})
 
 def home(req):
-    # try:
-    #     if cookie_extractor(req.headers['Head']):
-    #         queryset = Student.objects.all()
-    #         serialized_queryset = serializers.serialize('json', queryset)
-    #         return JsonResponse({'data': serialized_queryset})
-    #     else:
-    #         return JsonResponse({'data':'false'})
-    # except :
-    wrong_request_response = {'data': 'wrong_request'}
-    return JsonResponse(dumps(wrong_request_response), safe=False)
+    a = {'data': 'ada'}
+    b = serializers.serialize('json', )
+    print(b)
+    try:
+        if cookie_extractor(req.headers['Head']):
+            queryset = Student.objects.all()
+            serialized_queryset = serializers.serialize('json', queryset)
+            return JsonResponse({'data': serialized_queryset})
+        else:
+            return JsonResponse({'data':'false'})
+    except :
+        wrong_request_response = {'data': 'wrong_request'}
+        return JsonResponse(dumps(wrong_request_response), safe=False)
     
 
 

@@ -33,12 +33,8 @@ function Index() {
                 'Head': document.cookie
             }
         })
-        // .catch(history.push('/login'))
-        // .catch(res => console.log(res, 'result'))
         .then(res => res.json())
         .then(response => JSON.parse(response.data))
-        .catch(res => console.log(res, 'result'))
-        .catch(history.push('/login'))
         .then(all_data => {
             setData(all_data)
             console.log(all_data);
