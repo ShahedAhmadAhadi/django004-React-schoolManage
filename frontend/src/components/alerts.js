@@ -14,12 +14,13 @@ function Alert(props) {
     
 
     return (
-        <div className="bg-black bg-opacity-30 absolute inset-0">
-            <div className="bg-white rounded w-1/3">
-                <div>
-                    <h1>Alert</h1>
+        <div className="bg-black bg-opacity-30 absolute inset-0 flex justify-center items-center">
+            <div className="bg-white rounded w-1/3 p-5 shadow-lg">
+                <div className="flex justify-between pb-2 border-b-2 border-red-400">
+                    <h1 className="font-bold text-2xl pl-4">Alert!</h1>
+                    <a href="#" className="font-bold text-2xl">&times;</a>
                 </div>
-                <p>{message}</p>
+                <p className="pt-2 pl-4">{message}</p>
             </div>
         </div>
     )
