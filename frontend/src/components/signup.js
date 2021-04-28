@@ -20,7 +20,15 @@ function Signup() {
         }
     }
 
+
+    let showAlert = () => {
+        setMessagePanel(!messagePanel)
+    } 
     let sign = async function () {
+        if (username == '' || password1 == '' || email == '' || password2 == "") {
+            setErrorAlert('empty')
+            showAlert()
+        }
 
         if (!passwordConfirm()) {
             alert('please enter same password')

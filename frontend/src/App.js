@@ -12,37 +12,43 @@ import Signup from './components/signup'
     const [authenticated, setAuthentication] = useState(false)
 
     let history = useHistory()
+    
 
     useEffect(() => {
-      (async function verify () {
-        fetch('http://localhost:8000/verify/',
-         {headers: {'Content-type': 'application/json'}, method : 'POST', body: document.cookie}
-        )
-        // .catch(history.push('/login'))
-        .then(response => response.json())
-        .then(res => { console.log(res, res.result)
-          if (res.result == 'true') {
-            setAuthentication(true)
-            console.log('token')
-          } else if (res.result == 'missing_field_in_cookie' || res.result == 'not_valid_user' || res.result == 'wrong_token') {
-            console.log(res.result)
-            setAuthentication(false)
-            history.push('/login')
-            alert('You should SignIn again')
-          } 
-          else if (res.result == 'no_cookie') {
-            setAuthentication(false)
-            history.push('/login')
-          }
-          else {
-            setAuthentication(false)
-            history.push('/login')
-            alert('Your session has ended, SignIn again')
-          }
-          console.log(authenticated, 'a')
-        })
-      })();
-    }, [])
+      if (history === '/') {
+        (async function verify () {
+          fetch('http://localhost:8000/verify/',
+           {headers: {'Content-type': 'application/json'}, method : 'POST', body: document.cookie}
+          )
+          // .catch(history.push('/login'))
+          .then(response => response.json())
+          .then(res => { console.log(res, res.result)
+            if (res.result == 'true') {
+              setAuthentication(true)
+              console.log('token')
+            } else if (res.result == 'missing_field_in_cookie' || res.result == 'not_valid_user' || res.result == 'wrong_token') {
+              console.log(res.result)
+              setAuthentication(false)
+              history.push('/login')
+              alert('You should SignIn again')
+            } 
+            else if (res.result == 'no_cookie') {
+              setAuthentication(false)
+              history.push('/login')
+            }
+            else {
+              setAuthentication(false)
+              history.push('/login')
+              alert('Your session has ended, SignIn again')
+            }
+            console.log(authenticated, 'a')
+          })
+          
+        })();
+      }else {
+        history.push('/login')
+      }  
+    }, [history])
 
     return (
       <div className="App">

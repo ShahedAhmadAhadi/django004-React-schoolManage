@@ -9,6 +9,8 @@ function Alert(props) {
         }
          else if (props.errorFor == 'email'){
             setMessage('This email is in use of another acount choose another email, Please!')
+        }else if (props.errorFor == 'empty') {
+            setMessage('Please, complete the form fully!')
         }
     }, [])
     
