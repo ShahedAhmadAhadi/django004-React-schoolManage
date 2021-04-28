@@ -14,6 +14,7 @@ from json import dumps, loads
 
 # Create your views here.
 
+
 def token_verify(str_):
     print(str_)
     if str_:
@@ -27,21 +28,23 @@ def token_verify(str_):
             cookie_data_split_semicolon_equal = item.split('=')
             if len(cookie_data_split_semicolon_equal[0]) > 1 and len(cookie_data_split_semicolon_equal[1]) > 1:
                 for i in range(2):
-                    dict_of_cookie_values.update({cookie_data_split_semicolon_equal[0].strip(): cookie_data_split_semicolon_equal[1].strip()})
-            else: 
+                    dict_of_cookie_values.update({cookie_data_split_semicolon_equal[0].strip(
+                    ): cookie_data_split_semicolon_equal[1].strip()})
+            else:
                 return ({'result': 'missing_field_in_cookie'})
         try:
             token = dict_of_cookie_values['token']
-        except :
+        except:
             return ({'result': 'missing_field_in_cookie'})
         hash_token = sha1(token.encode('utf-8')).hexdigest()
 
         try:
             database_data = Authentication.objects.get(token=hash_token)
-            
+
             if dict_of_cookie_values['username'] == str(database_data.user):
-                datetime_now =  datetime.now()
-                token_expiry_date = database_data.expiry_date.replace(tzinfo=None)
+                datetime_now = datetime.now()
+                token_expiry_date = database_data.expiry_date.replace(
+                    tzinfo=None)
 
                 if token_expiry_date < datetime_now:
                     return ({'result': 'session_expired'})
@@ -50,9 +53,10 @@ def token_verify(str_):
             else:
                 return ({'result': 'not_valid_user'})
 
-        except :
+        except:
             return ({'result': 'wrong_token'})
     return ({'result': 'no_cookie'})
+
 
 def home(req):
     try:
@@ -61,27 +65,24 @@ def home(req):
             serialized_queryset = serializers.serialize('json', queryset)
             return JsonResponse({'data': serialized_queryset})
         else:
-            return JsonResponse({'result':'false'})
-    except :
+            return JsonResponse({'result': 'false'})
+    except:
         wrong_request_response = {'result': 'wrong_request'}
         return JsonResponse((wrong_request_response), safe=False)
-    
 
 
 def search(request, name):
     try:
         if cookie_extractor(request.headers['Head']):
-            queryset = Student.objects.filter(s_name__icontains = name)
+            queryset = Student.objects.filter(s_name__icontains=name)
             print(queryset)
             serialized_search_result = serializers.serialize('json', queryset)
             # print(a)
             return JsonResponse({'data': serialized_search_result})
         else:
             return JsonResponse(dumps({'result': 'false'}), safe=False)
-    except :
+    except:
         return JsonResponse(dumps({'result': 'wrong_request'}), safe=False)
-    
-
 
 
 # @login_required(login_url='/login/')
@@ -99,7 +100,7 @@ def add_student(request):
     print(request.headers['Head'])
     try:
         if cookie_extractor(request.headers['Head']):
-            s= Student()
+            s = Student()
             s.s_name = request.POST.get('name')
             s.s_father_name = request.POST.get('fatherName')
             s.s_birth = request.POST.get('date')
@@ -111,21 +112,20 @@ def add_student(request):
             return JsonResponse({'result': 'true'})
         else:
             return JsonResponse({'result': 'false'})
-        
+
     except:
         return JsonResponse({'result': 'wrong_request'})
 
-    
 
 def update_student(request):
     try:
         if cookie_extractor(request.headers['Head']):
             if request.GET:
-                student = Student.objects.filter(s_roll = request.GET['text'])
+                student = Student.objects.filter(s_roll=request.GET['text'])
                 serialize_student = serializers.serialize('json', student)
                 return JsonResponse({'student': serialize_student})
             if request.POST:
-                student = Student.objects.get(s_roll = request.POST.get('id'))
+                student = Student.objects.get(s_roll=request.POST.get('id'))
                 print(student)
                 student.s_name = request.POST.get('name')
                 student.s_father_name = request.POST.get('fatherName')
@@ -136,11 +136,8 @@ def update_student(request):
                     student.s_image = request.FILES.get('myFile')
                 student.save()
                 return JsonResponse({'result': 'true'})
-    except :
+    except:
         return JsonResponse({'result': 'wrong_request'})
-
-
-
 
 
 # @login_required(login_url='/login/')
@@ -148,16 +145,11 @@ def delete_student(request):
 
     try:
         if cookie_extractor(request.headers['Head']):
-            student_list = Student.objects.get(s_roll = request.GET['text'])
+            student_list = Student.objects.get(s_roll=request.GET['text'])
 
         if request.method == "POST":
             student_list.delete()
-    
+
         return JsonResponse({'result': 'true'})
-    except :
+    except:
         return JsonResponse({'result': 'wrong_request'})
-
-    
-
-
-
