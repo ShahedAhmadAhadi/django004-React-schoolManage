@@ -143,8 +143,9 @@ def token_verify(request):
 
 def login(request):
     data = loads(request.body)
-
+    print(data)
     user = authenticate(username = data['username'], password = data['password'])
+    print(user)
 
     if user is not None:
         try:
@@ -162,7 +163,7 @@ def login(request):
         return JsonResponse({'token': token_generated})
         
 
-    return HttpResponse("Hi there")
+    return JsonResponse({'data': 'a'})
 
 
 
@@ -171,8 +172,7 @@ def signup(request):
     if request.method == 'POST':
         print(request.body)
         signup_data = loads(request.body.decode('ascii'))
-        User(username=signup_data['username'], password=signup_data['password1'], email=signup_data['email']).save()
-
+        User.objects.create_user(username=signup_data['username'], password=signup_data['password1'], email=signup_data['email'])
 
     else:
         return JsonResponse({'result': 'post only'})
