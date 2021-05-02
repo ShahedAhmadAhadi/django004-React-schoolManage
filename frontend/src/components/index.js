@@ -8,28 +8,27 @@ import DataFetch from './dataFetch_dataView'
 function Index() {
     let history = useHistory();
     
+    const [data, setData] = useState("");
 
-    // const [data, setData] = useState("");
+    useEffect(() => {
+        all_data();
+    }, []);
 
-    // useEffect(() => {
-    //     all_data();
-    // }, []);
-
-    // let all_data = async function () {
-    //     let data = await fetch("http://localhost:8000/", {
-    //         headers: {
-    //             Head: document.cookie,
-    //         },
-    //     });
-    //     let all_data = await data.json();
-    //     if (all_data.data) {
-    //         let parsed_data = await JSON.parse(all_data.data);
-    //         setData(parsed_data);
-    //         console.log(parsed_data);
-    //     } else {
-    //         history.push("/login");
-    //     }
-    // };
+    let all_data = async function () {
+        let data = await fetch("http://localhost:8000/", {
+            headers: {
+                Head: document.cookie,
+            },
+        });
+        let all_data = await data.json();
+        if (all_data.data) {
+            let parsed_data = await JSON.parse(all_data.data);
+            setData(parsed_data);
+            console.log(parsed_data);
+        } else {
+            history.push("/login");
+        }
+    };
 
     const [value, setValue] = useState("");
 
@@ -188,7 +187,7 @@ function Index() {
                         <td className="w-96">Actions</td>
                     </tr>
                 </thead>
-                <DataFetch />
+                <DataFetch data={data} />
             </table>
             {/* {data.length < 1 && (
                 <div className="text-purple-200 font-bold text-4xl mt-36 h-96 text-center">
