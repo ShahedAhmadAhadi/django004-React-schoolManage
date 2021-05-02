@@ -9,6 +9,7 @@ function Index() {
     let history = useHistory();
     
     const [data, setData] = useState("");
+    const [dataLengthDetails, setDataLengthDetails] = useState('')
 
     useEffect(() => {
         allData();
@@ -22,7 +23,10 @@ function Index() {
         });
         let allData = await data.json();
         console.log(allData)
+        let lengthDetailOfData = allData.length_details_and_records_positions
+        setDataLengthDetails(lengthDetailOfData)
         if (allData.data) {
+            console.log(lengthDetailOfData)
             let parsed_data = await JSON.parse(allData.data);
             setData(parsed_data);
             console.log(parsed_data);

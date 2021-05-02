@@ -65,9 +65,15 @@ def home(req, page):
     first_record_on_page = last_record_on_page - 4
     try:
         if cookie_extractor(req.headers['Head']):
-            queryset = Student.objects.all()[first_record_on_page:last_record_on_page]
-            serialized_queryset = serializers.serialize('json', queryset)
-            return JsonResponse({'data': serialized_queryset, 'all_data_length': len(queryset)})
+            queryset = Student.objects.all()
+            limit_queryset = queryset[first_record_on_page:last_record_on_page]
+            print(limit_queryset)
+            serialized_queryset = serializers.serialize('json', limit_queryset)
+            return JsonResponse({'data': serialized_queryset, 'length_details_and_records_positions': {
+                'all_data_length': len(queryset),
+                'data_first_position': first_record_on_page,
+                'data_last_position': last_record_on_page
+            }})
         else:
             return JsonResponse({'result': 'false'})
     except:
