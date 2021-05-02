@@ -6,41 +6,7 @@ import { BrowserRouter, useHistory } from "react-router-dom";
 
 function Index() {
     let history = useHistory();
-    // let history=useHistory()
-
-    // window.setInterval(()=>{
-    //     let userEntry=0
-    //     let token = ''
-    //     // localStorage.setItem('token', '')
-    //     token=localStorage.getItem("token")
-    //     if (token.length < 1){
-    //         userEntry+=1
-    //         if(userEntry===1){
-    //         history.push("/")
-    //     }
-    //     }
-    // },5)
-    const [data, setData] = useState("");
-
-    useEffect(() => {
-        all_data();
-    }, []);
-
-    let all_data = async function () {
-        let data = await fetch("http://localhost:8000/", {
-            headers: {
-                Head: document.cookie,
-            },
-        });
-        let all_data = await data.json();
-        if (all_data.data) {
-            let parsed_data = await JSON.parse(all_data.data);
-            setData(parsed_data);
-            console.log(parsed_data);
-        } else {
-            history.push("/login");
-        }
-    };
+    
 
     const [value, setValue] = useState("");
 
