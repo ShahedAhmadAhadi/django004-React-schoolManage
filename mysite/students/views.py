@@ -59,6 +59,7 @@ def token_verify(str_):
 
 
 def home(req):
+    
     try:
         if cookie_extractor(req.headers['Head']):
             queryset = Student.objects.all()
