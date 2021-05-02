@@ -11,28 +11,28 @@ function Index() {
     const [value, setValue] = useState("");
 
     let search = async function (e) {
-        let searchValue = value;
-        if (searchValue) {
-            console.log(value);
-            let data = await fetch(
-                `http://localhost:8000/search/${searchValue}`,
-                {
-                    headers: {
-                        Head: document.cookie,
-                    },
-                }
-            );
-            let load_data = await data.json();
-            if (load_data.data) {
-                let all_parsed_data = await JSON.parse(load_data.data);
-                setData(all_parsed_data);
-                console.log(all_parsed_data);
-            } else {
-                history.push("/login");
-            }
-        } else {
-            all_data();
-        }
+        // let searchValue = value;
+        // if (searchValue) {
+        //     console.log(value);
+        //     let data = await fetch(
+        //         `http://localhost:8000/search/${searchValue}`,
+        //         {
+        //             headers: {
+        //                 Head: document.cookie,
+        //             },
+        //         }
+        //     );
+        //     let load_data = await data.json();
+        //     if (load_data.data) {
+        //         let all_parsed_data = await JSON.parse(load_data.data);
+        //         setData(all_parsed_data);
+        //         console.log(all_parsed_data);
+        //     } else {
+        //         history.push("/login");
+        //     }
+        // } else {
+        //     all_data();
+        // }
     };
 
     let logout = () => {
@@ -166,68 +166,14 @@ function Index() {
                     </tr>
                 </thead>
                 <tbody>
-                    {Array.isArray(data) &&
-                        data.map((student) => {
-                            return (
-                                <tr
-                                    className="row font-bold px-2 py-3"
-                                    key={student.pk}
-                                >
-                                    <td>
-                                        <img
-                                            width="200px"
-                                            src={
-                                                "http://localhost:8000/studentImages/" +
-                                                student.fields.s_image
-                                            }
-                                            alt=""
-                                            className="w-11/12"
-                                        />
-                                    </td>
-                                    <td className="grid grid-cols-2 m-1 gap-2 my-5 w-full">
-                                        <div>Name: </div>
-                                        <div>{student.fields.s_name}</div>
-                                        <div>father Name: </div>
-                                        <div>
-                                            {student.fields.s_father_name}
-                                        </div>
-                                        <div>Date of Birth: </div>
-                                        <div>{student.fields.s_birth}</div>
-                                        <div>Phone: </div>
-                                        <div>{student.fields.s_phone}</div>
-                                        <div> E-mail: </div>
-                                        <div>{student.fields.s_email}</div>
-                                    </td>
-                                    <td>
-                                        <a
-                                            href="#"
-                                            onClick={() => {
-                                                closeDeleteModal(student.pk);
-                                            }}
-                                            className="inline-block bg-red-600 text-white px-6 py-1.5 rounded mx-3"
-                                        >
-                                            Delete
-                                        </a>
-                                        <a
-                                            href="#"
-                                            onClick={() => {
-                                                update(student.pk);
-                                            }}
-                                            className="inline-block bg-yellow-500 text-white px-6 py-1.5 rounded"
-                                        >
-                                            Update
-                                        </a>
-                                    </td>
-                                </tr>
-                            );
-                        })}
+                    
                 </tbody>
             </table>
-            {data.length < 1 && (
+            {/* {data.length < 1 && (
                 <div className="text-purple-200 font-bold text-4xl mt-36 h-96 text-center">
                     No Result
                 </div>
-            )}
+            )} */}
             {visible && (
                 <div className="fixed inset-0 bg-black bg-opacity-30 flex justify-center items-center">
                     {visible && <AddStudent visible={() => show()} />}
