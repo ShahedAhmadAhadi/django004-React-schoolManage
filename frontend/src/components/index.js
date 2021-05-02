@@ -33,28 +33,28 @@ function Index() {
     const [value, setValue] = useState("");
 
     let search = async function (e) {
-        // let searchValue = value;
-        // if (searchValue) {
-        //     console.log(value);
-        //     let data = await fetch(
-        //         `http://localhost:8000/search/${searchValue}`,
-        //         {
-        //             headers: {
-        //                 Head: document.cookie,
-        //             },
-        //         }
-        //     );
-        //     let load_data = await data.json();
-        //     if (load_data.data) {
-        //         let all_parsed_data = await JSON.parse(load_data.data);
-        //         setData(all_parsed_data);
-        //         console.log(all_parsed_data);
-        //     } else {
-        //         history.push("/login");
-        //     }
-        // } else {
-        //     all_data();
-        // }
+        let searchValue = value;
+        if (searchValue) {
+            console.log(value);
+            let data = await fetch(
+                `http://localhost:8000/search/${searchValue}`,
+                {
+                    headers: {
+                        Head: document.cookie,
+                    },
+                }
+            );
+            let load_data = await data.json();
+            if (load_data.data) {
+                let all_parsed_data = await JSON.parse(load_data.data);
+                setData(all_parsed_data);
+                console.log(all_parsed_data);
+            } else {
+                history.push("/login");
+            }
+        } else {
+            all_data();
+        }
     };
 
     let logout = () => {
@@ -189,11 +189,11 @@ function Index() {
                 </thead>
                 <DataFetch data={data} />
             </table>
-            {/* {data.length < 1 && (
+            {data.length < 1 && (
                 <div className="text-purple-200 font-bold text-4xl mt-36 h-96 text-center">
                     No Result
                 </div>
-            )} */}
+            )}
             {visible && (
                 <div className="fixed inset-0 bg-black bg-opacity-30 flex justify-center items-center">
                     {visible && <AddStudent visible={() => show()} />}
