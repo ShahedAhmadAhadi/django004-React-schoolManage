@@ -11,18 +11,19 @@ function Index() {
     const [data, setData] = useState("");
 
     useEffect(() => {
-        all_data();
+        allData();
     }, []);
 
-    let all_data = async function () {
-        let data = await fetch("http://localhost:8000/?page=2", {
+    let allData = async function () {
+        let data = await fetch("http://localhost:8000/page=1", {
             headers: {
                 Head: document.cookie,
             },
         });
-        let all_data = await data.json();
-        if (all_data.data) {
-            let parsed_data = await JSON.parse(all_data.data);
+        let allData = await data.json();
+        console.log(allData)
+        if (allData.data) {
+            let parsed_data = await JSON.parse(allData.data);
             setData(parsed_data);
             console.log(parsed_data);
         } else {
@@ -53,7 +54,7 @@ function Index() {
                 history.push("/login");
             }
         } else {
-            all_data();
+            allData();
         }
     };
 

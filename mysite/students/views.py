@@ -60,11 +60,14 @@ def token_verify(str_):
 
 def home(req, page):
     print(page)
+    number_of_records = 4
+    last_record_on_page = page * 4
+    first_record_on_page = last_record_on_page - 4
     try:
         if cookie_extractor(req.headers['Head']):
-            queryset = Student.objects.all()
+            queryset = Student.objects.all()[first_record_on_page:last_record_on_page]
             serialized_queryset = serializers.serialize('json', queryset)
-            return JsonResponse({'data': serialized_queryset})
+            return JsonResponse({'data': serialized_queryset, 'all_data_length': len(queryset)})
         else:
             return JsonResponse({'result': 'false'})
     except:
