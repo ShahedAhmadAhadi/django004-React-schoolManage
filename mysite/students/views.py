@@ -60,18 +60,16 @@ def token_verify(str_):
 
 def home(req, page):
     print(page)
-    print('yes')
-    return JsonResponse({'data': 'data'})
-    # try:
-    #     if cookie_extractor(req.headers['Head']):
-    #         queryset = Student.objects.all()
-    #         serialized_queryset = serializers.serialize('json', queryset)
-    #         return JsonResponse({'data': serialized_queryset})
-    #     else:
-    #         return JsonResponse({'result': 'false'})
-    # except:
-    #     wrong_request_response = {'result': 'wrong_request'}
-    #     return JsonResponse((wrong_request_response), safe=False)
+    try:
+        if cookie_extractor(req.headers['Head']):
+            queryset = Student.objects.all()
+            serialized_queryset = serializers.serialize('json', queryset)
+            return JsonResponse({'data': serialized_queryset})
+        else:
+            return JsonResponse({'result': 'false'})
+    except:
+        wrong_request_response = {'result': 'wrong_request'}
+        return JsonResponse((wrong_request_response), safe=False)
 
 
 def search(request, name):
