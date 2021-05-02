@@ -34,6 +34,7 @@ function Login() {
         //     showAlert();
         // } else 
         if (IP) {
+            console.log('object')
             const request = new Request("http://localhost:8000/login/", {
                 headers: { "Content-type": "application/json" },
             });

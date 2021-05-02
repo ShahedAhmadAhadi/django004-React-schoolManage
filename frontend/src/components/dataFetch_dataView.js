@@ -1,6 +1,9 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
+import {useHistory} from 'react-router-dom'
 
 function DataFetch() {
+
+    let history = useHistory()
 
     const [data, setData] = useState("");
 
@@ -25,7 +28,7 @@ function DataFetch() {
     };
 
     return (
-        <div>
+        <tbody>
             {Array.isArray(data) &&
                         data.map((student) => {
                             return (
@@ -62,7 +65,7 @@ function DataFetch() {
                                         <a
                                             href="#"
                                             onClick={() => {
-                                                closeDeleteModal(student.pk);
+                                                // closeDeleteModal(student.pk);
                                             }}
                                             className="inline-block bg-red-600 text-white px-6 py-1.5 rounded mx-3"
                                         >
@@ -71,7 +74,7 @@ function DataFetch() {
                                         <a
                                             href="#"
                                             onClick={() => {
-                                                update(student.pk);
+                                                // update(student.pk);
                                             }}
                                             className="inline-block bg-yellow-500 text-white px-6 py-1.5 rounded"
                                         >
@@ -81,7 +84,7 @@ function DataFetch() {
                                 </tr>
                             );
                         })}
-        </div>
+            </tbody>
     )
 }
 

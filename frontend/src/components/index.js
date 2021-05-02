@@ -3,10 +3,33 @@ import AddStudent from "./addStudent";
 import Update from "./update";
 // import form from './addStudent'
 import { BrowserRouter, useHistory } from "react-router-dom";
+import DataFetch from './dataFetch_dataView'
 
 function Index() {
     let history = useHistory();
     
+
+    // const [data, setData] = useState("");
+
+    // useEffect(() => {
+    //     all_data();
+    // }, []);
+
+    // let all_data = async function () {
+    //     let data = await fetch("http://localhost:8000/", {
+    //         headers: {
+    //             Head: document.cookie,
+    //         },
+    //     });
+    //     let all_data = await data.json();
+    //     if (all_data.data) {
+    //         let parsed_data = await JSON.parse(all_data.data);
+    //         setData(parsed_data);
+    //         console.log(parsed_data);
+    //     } else {
+    //         history.push("/login");
+    //     }
+    // };
 
     const [value, setValue] = useState("");
 
@@ -165,9 +188,7 @@ function Index() {
                         <td className="w-96">Actions</td>
                     </tr>
                 </thead>
-                <tbody>
-                    
-                </tbody>
+                <DataFetch />
             </table>
             {/* {data.length < 1 && (
                 <div className="text-purple-200 font-bold text-4xl mt-36 h-96 text-center">
