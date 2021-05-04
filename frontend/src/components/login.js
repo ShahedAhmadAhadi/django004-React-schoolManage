@@ -15,11 +15,11 @@ function Login() {
 
     const [IP, setIP] = useState("");
 
-    useEffect(() => {
-        fetch("https://json.geoiplookup.io/")
-            .then((response) => response.json())
-            .then((res) => setIP(res.ip));
-    }, []);
+    // useEffect(() => {
+    //     fetch("https://json.geoiplookup.io/")
+    //         .then((response) => response.json())
+    //         .then((res) => setIP(res.ip));
+    // }, []);
 
     const browserDetails = window.navigator.appVersion;
     console.log(browserDetails);
@@ -33,7 +33,9 @@ function Login() {
         //     setMessage("empty");
         //     showAlert();
         // } else 
-        if (IP) {
+        if ('ss') {
+    setIP('192.168.1.1')
+
             console.log('object')
             const request = new Request("http://localhost:8000/login/", {
                 headers: { "Content-type": "application/json" },

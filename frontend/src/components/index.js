@@ -4,6 +4,7 @@ import Update from "./update";
 // import form from './addStudent'
 import { BrowserRouter, useHistory } from "react-router-dom";
 import DataFetch from './dataFetch_dataView'
+import Paginator from './Paginator'
 
 function Index() {
     let history = useHistory();
@@ -26,7 +27,6 @@ function Index() {
         let lengthDetailOfData = allData.length_details_and_records_positions
         setDataLengthDetails(lengthDetailOfData)
         if (allData.data) {
-            console.log(lengthDetailOfData)
             let parsed_data = await JSON.parse(allData.data);
             setData(parsed_data);
             console.log(parsed_data);
@@ -152,7 +152,6 @@ function Index() {
     let show = function () {
         setVisible(!visible);
     };
-
     return (
         <div className="main">
             <header className="flex bg-green-600 p-3 text-white justify-between">
@@ -193,6 +192,7 @@ function Index() {
                     </tr>
                 </thead>
                 <DataFetch data={data} />
+                <Paginator details={dataLengthDetails} />
             </table>
             {data.length < 1 && (
                 <div className="text-purple-200 font-bold text-4xl mt-36 h-96 text-center">

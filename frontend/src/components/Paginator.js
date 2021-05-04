@@ -1,11 +1,24 @@
 import React from 'react'
 
-function Paginator() {
+function Paginator(props) {
+
+    
+
+    let pages_generator = () => {
+
+        return (<div>returnd div</div>)
+    }
+    console.log(props.details)
     return (
-        <div>
-            <span>First</span>
-            <span>First</span>
-        </div>
+        <tfoot>
+            <tr>
+                <td className="text-center" colSpan="3">
+                    <span>First</span>
+                    {pages_generator()}
+                </td>
+            </tr>
+            
+        </tfoot>
     )
 }
 
