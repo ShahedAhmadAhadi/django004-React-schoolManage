@@ -192,8 +192,9 @@ function Index() {
                     </tr>
                 </thead>
                 <DataFetch data={data} />
-                <Paginator details={dataLengthDetails} />
             </table>
+            {dataLengthDetails && <Paginator details={dataLengthDetails} />}
+
             {data.length < 1 && (
                 <div className="text-purple-200 font-bold text-4xl mt-36 h-96 text-center">
                     No Result
