@@ -31,14 +31,15 @@ function Paginator(props) {
         pages_generator()
     }, [])
 
-    let paginatorElementStyles = "bg-blue-500 px-4 py-2 mx-2 rounded text-white"
+    let paginatorElementStyles = "bg-white px-3 py-1 mx-2 rounded text-blue-500 border font-semibold border-blue-500"
+    let activePaginatorElementStyles = "bg-blue-500 px-3 py-1 mx-2 rounded text-white border-2 border-blue-500"
     return (
         <div className="text-center">
                 {/* <span>First</span> */}
                 {/* {pages_generator()} */}
-                {paginatorFirst && <span className={paginatorElementStyles}>First</span>}
-                {paginatorCount && paginatorCount.map(items => {return <span className={paginatorElementStyles}>{items}</span>})}
-                {paginatorLast && <span className={paginatorElementStyles}>Last</span>}
+                {paginatorFirst && <span className={`${paginatorElementStyles} hover:bg-blue-500 hover:text-white`}>First</span>}
+                {paginatorCount && paginatorCount.map(items => {return <span className={`${paginatorElementStyles} hover:bg-blue-500 hover:text-white`}>{items}</span>})}
+                {paginatorLast && <span className={`${paginatorElementStyles} hover:bg-blue-500 hover:text-white`}>Last</span>}
 
         </div>
     )
