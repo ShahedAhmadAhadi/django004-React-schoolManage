@@ -5,16 +5,20 @@ function Paginator(props) {
     const [paginatorCount, setPaginatorCount] = useState([])
     const [paginatorFirst, setPaginatorFirst] = useState(false)
     const [paginatorLast, setPaginatorLast] = useState(false)
+    const [pageNumber, setPageNumber] = useState(1)
     let pagenator_spans = [];
 
     useEffect(() => {
         let pages_generator = () => {
             console.log(props.details)
             if (props.details.all_data_length > 4) {
-                let pages_count = Math.ceil(props.details.all_data_length / 4)
-                console.log(pages_count)
-                for (let i = 1; i <= pages_count; i++) {
-                    pagenator_spans.push(i)
+                let pagesCount = Math.ceil(props.details.all_data_length / 4)
+                let numberOfPage = Math.ceil(props.details.data_last_position / 4)
+                console.log(pagesCount)
+                for (let i = 1; i <= pagesCount; i++) {
+                    if (i !== numberOfPage) {
+                        pagenator_spans.push(i)   
+                    }
                 }
                 if (props.details.data_first_position !== 0) {
                     setPaginatorFirst(true)

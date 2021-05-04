@@ -212,7 +212,7 @@ function Index() {
                 </thead>
                 <DataFetch data={data} />
             </table>
-            {dataLengthDetails && <Paginator details={dataLengthDetails} requestOtherPages={(a) => allDataRequestFromPaginator(a)} />}
+            {dataLengthDetails && <Paginator details={dataLengthDetails} requestOtherPages={(page_num) => allDataRequestFromPaginator(page_num)} />}
 
             {data.length < 1 && (
                 <div className="text-purple-200 font-bold text-4xl mt-36 h-96 text-center">
