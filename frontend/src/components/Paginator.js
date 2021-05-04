@@ -11,19 +11,22 @@ function Paginator(props) {
     useEffect(() => {
         let pages_generator = () => {
             console.log(props.details)
-            if (props.details.all_data_length > 4) {
-                let pagesCount = Math.ceil(props.details.all_data_length / 4)
+            let dataLength = props.details.all_data_length
+            if (dataLength > 4) {
+                let pagesCount = Math.ceil(dataLength / 4)
                 let numberOfPage = Math.ceil(props.details.data_last_position / 4)
                 setPageNumber(numberOfPage)
                 for (let i = 1; i <= pagesCount; i++) {
-                        pagenator_spans.push(i)
+                    pagenator_spans.push(i)
                 }
+
                 if (props.details.data_first_position !== 0) {
                     setPaginatorFirst(true)
                 } else {
                     setPaginatorFirst(false)
                 }
-                if (props.details.data_last_position >= props.details.all_data_length) {
+
+                if (props.details.data_last_position >= dataLength) {
                     setPaginatorLast(false)
                 } else{
                     setPaginatorLast(true)
@@ -32,6 +35,17 @@ function Paginator(props) {
                 
             }
             setPaginatorCount(pagenator_spans)
+        }
+        let paginationPerfector = (dataLength, activePage) => {
+            let paginationArray = []
+            paginationArray.push(activePage - 1, activePage, activePage + 1)
+            if (activePage - 2 > 0) {
+                paginationArray.unshift('...')
+            }
+            if (activePage + 2 <= dataLength) {
+                paginationArray.push('...')
+            }
+            return paginationArray
         }
         pages_generator()
     }, [props])
