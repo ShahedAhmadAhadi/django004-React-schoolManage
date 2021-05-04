@@ -59,7 +59,6 @@ def token_verify(str_):
 
 
 def home(req, page):
-    print(page)
     number_of_records = 4
     last_record_on_page = page * 4
     first_record_on_page = last_record_on_page - 4
@@ -81,14 +80,21 @@ def home(req, page):
         return JsonResponse((wrong_request_response), safe=False)
 
 
-def search(request, name):
+def search(request, name, page):
+    number_of_records = 4
+    last_record_on_page = page * 4
+    first_record_on_page = last_record_on_page - 4
     try:
         if cookie_extractor(request.headers['Head']):
             queryset = Student.objects.filter(s_name__icontains=name)
             print(queryset)
             serialized_search_result = serializers.serialize('json', queryset)
             # print(a)
-            return JsonResponse({'data': serialized_search_result})
+            return JsonResponse({'data': serialized_search_result, 'length_details_and_records_positions': {
+                'all_data_length': len(queryset),
+                'data_first_position': first_record_on_page,
+                'data_last_position': last_record_on_page
+            }})
         else:
             return JsonResponse(dumps({'result': 'false'}), safe=False)
     except:
