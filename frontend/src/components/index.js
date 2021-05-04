@@ -37,26 +37,20 @@ function Index() {
 
     let allDataRequestFromPaginator = async function (page_num, search) {
         let data = undefined
-        console.log('object')
+        if (value && search) {
+            console.log('object')
             data = await fetch(`http://localhost:8000/search/${search}/?page=${page_num}`, {
                 headers:{
                     Head: document.cookie,
                 }
             })
-        // if (value && search) {
-        //     console.log('object')
-        //     data = await fetch(`http://localhost:8000/search/${search}/page=${page_num}`, {
-        //         headers:{
-        //             Head: document.cookie,
-        //         }
-        //     })
-        // } else {
-        //     data = await fetch(`http://localhost:8000/page=${page_num}`, {
-        //     headers: {
-        //         Head: document.cookie,
-        //     },
-        // });
-        // }
+        } else {
+            data = await fetch(`http://localhost:8000/page=${page_num}`, {
+            headers: {
+                Head: document.cookie,
+            },
+        });
+        }
         let allData = await data.json();
         console.log(allData)
         let lengthDetailOfData = allData.length_details_and_records_positions
@@ -229,6 +223,7 @@ function Index() {
                 <DataFetch data={data} delete={(id) => closeDeleteModal(id)} update={(id) => update(id)} />
             </table>
             {dataLengthDetails && <Paginator details={dataLengthDetails} requestOtherPages={(page_num) => allDataRequestFromPaginator(page_num, value)} />}
+           
             {data.length < 1 && (
                 <div className="text-purple-200 font-bold text-4xl mt-36 h-96 text-center">
                     No Result

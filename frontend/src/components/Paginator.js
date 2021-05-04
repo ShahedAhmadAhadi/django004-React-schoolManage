@@ -13,7 +13,9 @@ function Paginator(props) {
         let pages_generator = () => {
             console.log(props.details)
             let dataLength = props.details.all_data_length
+            console.log(dataLength, 'datail')
             if (dataLength > 4) {
+                console.log('lsjflsdjlfsjdlfjlsjflsjd')
                 let pagesCount = Math.ceil(dataLength / 4)
                 let numberOfPage = Math.ceil(props.details.data_last_position / 4)
                 setPageNumber(numberOfPage)
@@ -27,12 +29,13 @@ function Paginator(props) {
                     setPaginatorFirst(false)
                 }
 
-                if (props.details.data_last_position >= dataLength - 4) {
-                    setPaginatorLast(false)
-                } else{
+                if (props.details.data_last_position <= dataLength - 4) {
                     setPaginatorLast(true)
+                } else{
+                    setPaginatorLast(false)
                 }
             } else {
+                setPaginatorLast(false)
                 
             }
             setPaginatorCount(pagenator_spans.length > 3 ? paginationPerfector(Math.ceil(dataLength/4), pageNumber) : pagenator_spans)
