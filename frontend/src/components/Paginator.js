@@ -38,7 +38,7 @@ function Paginator(props) {
                 {/* <span>First</span> */}
                 {/* {pages_generator()} */}
                 {paginatorFirst && <span className={`${paginatorElementStyles} hover:bg-blue-500 hover:text-white`}>First</span>}
-                {paginatorCount && paginatorCount.map(items => {return <span className={`${paginatorElementStyles} hover:bg-blue-500 hover:text-white`}>{items}</span>})}
+                {paginatorCount && paginatorCount.map(items => {return <span onClick={() => gprops.requestOtherPages(items)} className={`${paginatorElementStyles} hover:bg-blue-500 hover:text-white`}>{items}</span>})}
                 {paginatorLast && <span className={`${paginatorElementStyles} hover:bg-blue-500 hover:text-white`}>Last</span>}
 
         </div>

@@ -17,7 +17,26 @@ function Index() {
     }, []);
 
     let allData = async function () {
-        let data = await fetch("http://localhost:8000/page=3", {
+        let data = await fetch("http://localhost:8000/page=1", {
+            headers: {
+                Head: document.cookie,
+            },
+        });
+        let allData = await data.json();
+        console.log(allData)
+        let lengthDetailOfData = allData.length_details_and_records_positions
+        setDataLengthDetails(lengthDetailOfData)
+        if (allData.data) {
+            let parsed_data = await JSON.parse(allData.data);
+            setData(parsed_data);
+            console.log(parsed_data);
+        } else {
+            history.push("/login");
+        }
+    };
+
+    let allDataRequestFromPaginator = async function (page_num) {
+        let data = await fetch(`http://localhost:8000/page=${page_num}`, {
             headers: {
                 Head: document.cookie,
             },
@@ -193,7 +212,7 @@ function Index() {
                 </thead>
                 <DataFetch data={data} />
             </table>
-            {dataLengthDetails && <Paginator details={dataLengthDetails} />}
+            {dataLengthDetails && <Paginator details={dataLengthDetails} requestOtherPages={() => allDataRequestFromPaginator()} />}
 
             {data.length < 1 && (
                 <div className="text-purple-200 font-bold text-4xl mt-36 h-96 text-center">
