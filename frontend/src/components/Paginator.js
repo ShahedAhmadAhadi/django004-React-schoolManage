@@ -34,17 +34,23 @@ function Paginator(props) {
             } else {
                 
             }
-            let LongPagination = paginationPerfector(dataLength, pageNumber)
-            setPaginatorCount(pagenator_spans.length > 3 ? LongPagination : pagenator_spans)
+            setPaginatorCount(pagenator_spans.length > 3 ? paginationPerfector(Math.ceil(dataLength/4), pageNumber) : pagenator_spans)
         }
-        let paginationPerfector = (dataLength, activePage) => {
+        let paginationPerfector = (numberOfPages, activePage) => {
+            console.log(numberOfPages, activePage)
             let paginationArray = []
-            
-            paginationArray.push(activePage - 1, activePage, activePage + 1)
+            if (activePage === 1) {
+                paginationArray.push(activePage, activePage + 1)
+            } else if (numberOfPages === activePage) {
+                console.log(activePage, 'length')
+                paginationArray.push(activePage - 1, activePage)
+            } else{
+                paginationArray.push(activePage - 1, activePage, activePage + 1) 
+            }
             if (activePage - 2 > 0) {
                 paginationArray.unshift('...')
             }
-            if (activePage + 2 <= dataLength) {
+            if (numberOfPages - activePage >= 2) {
                 paginationArray.push('...')
             }
             return paginationArray
