@@ -34,10 +34,12 @@ function Paginator(props) {
             } else {
                 
             }
-            setPaginatorCount(pagenator_spans)
+            let LongPagination = paginationPerfector(dataLength, pageNumber)
+            setPaginatorCount(pagenator_spans.length > 3 ? LongPagination : pagenator_spans)
         }
         let paginationPerfector = (dataLength, activePage) => {
             let paginationArray = []
+            
             paginationArray.push(activePage - 1, activePage, activePage + 1)
             if (activePage - 2 > 0) {
                 paginationArray.unshift('...')
