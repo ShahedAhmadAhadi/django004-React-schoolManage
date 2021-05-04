@@ -82,14 +82,16 @@ def home(req, page):
 
 def search(request, name):
     print(request.GET['page'])
+    page = int(request.GET['page'])
     number_of_records = 4
     last_record_on_page = page * 4
     first_record_on_page = last_record_on_page - 4
     try:
         if cookie_extractor(request.headers['Head']):
             queryset = Student.objects.filter(s_name__icontains=name)
-            print(queryset)
-            serialized_search_result = serializers.serialize('json', queryset)
+            limit_queryset = queryset[first_record_on_page:last_record_on_page]
+            print(limit_queryset)
+            serialized_search_result = serializers.serialize('json', limit_queryset)
             # print(a)
             return JsonResponse({'data': serialized_search_result, 'length_details_and_records_positions': {
                 'all_data_length': len(queryset),
@@ -135,7 +137,6 @@ def add_student(request):
 
 
 def update_student(request):
-    print(request.GET['page'])
     try:
         if cookie_extractor(request.headers['Head']):
             if request.GET:

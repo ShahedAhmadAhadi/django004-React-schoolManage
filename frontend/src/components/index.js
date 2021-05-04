@@ -61,7 +61,7 @@ function Index() {
         if (searchValue) {
             console.log(value);
             let data = await fetch(
-                `http://localhost:8000/search/${searchValue}`,
+                `http://localhost:8000/search/${searchValue}/?page=1`,
                 {
                     headers: {
                         Head: document.cookie,
@@ -69,6 +69,8 @@ function Index() {
                 }
             );
             let load_data = await data.json();
+            setDataLengthDetails(load_data)
+            console.log(load_data)
             if (load_data.data) {
                 let all_parsed_data = await JSON.parse(load_data.data);
                 setData(all_parsed_data);
