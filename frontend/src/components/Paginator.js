@@ -20,13 +20,13 @@ function Paginator(props) {
                     pagenator_spans.push(i)
                 }
 
-                if (props.details.data_first_position !== 0) {
+                if (props.details.data_first_position > 5) {
                     setPaginatorFirst(true)
                 } else {
                     setPaginatorFirst(false)
                 }
 
-                if (props.details.data_last_position >= dataLength) {
+                if (props.details.data_last_position >= dataLength - 4) {
                     setPaginatorLast(false)
                 } else{
                     setPaginatorLast(true)
