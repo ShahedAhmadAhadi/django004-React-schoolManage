@@ -3,6 +3,8 @@ import React, {useState, useEffect} from 'react'
 function Paginator(props) {
 
     const [paginatorCount, setPaginatorCount] = useState([])
+    const [paginatorFirst, setPaginatorFirst] = useState()
+    const [paginatorLast, setPaginatorLast] = useState()
     let pagenator_spans = [];
 
     useEffect(() => {
@@ -15,13 +17,12 @@ function Paginator(props) {
                     pagenator_spans.push(i)
                 }
                 // console.log(props.details.all_data_length)
-                // if (props.details.data_first_position === 0) {
-                    
-                // } else if (props.details.data_first_position !== 0) {
-                    
-                // }{
-                    
-                // }
+                if (props.details.data_first_position !== 0) {
+                    setPaginatorFirst(true)
+                }
+                if (props.details.data_last_position !== props.details.all_data_length) {
+                    setPaginatorLast(true)
+                }
             } else {
                 
             }
@@ -30,13 +31,15 @@ function Paginator(props) {
         pages_generator()
     }, [])
 
-    
+    let paginatorElementStyles = "bg-blue-500 px-4 py-2 mx-2 rounded text-white"
     return (
         <div className="text-center">
                 {/* <span>First</span> */}
                 {/* {pages_generator()} */}
-                {paginatorCount && paginatorCount.map(items => {return <span className="bg-blue-500 px-4 py-2 mx-2 rounded text-white">{items}</span>})}
-                {console.log(paginatorCount)}
+                {paginatorFirst && <span className={paginatorElementStyles}>First</span>}
+                {paginatorCount && paginatorCount.map(items => {return <span className={paginatorElementStyles}>{items}</span>})}
+                {paginatorLast && <span className={paginatorElementStyles}>Last</span>}
+
         </div>
     )
 }

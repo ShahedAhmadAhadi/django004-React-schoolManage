@@ -17,7 +17,7 @@ function Index() {
     }, []);
 
     let allData = async function () {
-        let data = await fetch("http://localhost:8000/page=1", {
+        let data = await fetch("http://localhost:8000/page=2", {
             headers: {
                 Head: document.cookie,
             },
