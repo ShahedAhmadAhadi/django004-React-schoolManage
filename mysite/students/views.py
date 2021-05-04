@@ -80,7 +80,8 @@ def home(req, page):
         return JsonResponse((wrong_request_response), safe=False)
 
 
-def search(request, name, page):
+def search(request, name):
+    print(request.GET['page'])
     number_of_records = 4
     last_record_on_page = page * 4
     first_record_on_page = last_record_on_page - 4
@@ -134,6 +135,7 @@ def add_student(request):
 
 
 def update_student(request):
+    print(request.GET['page'])
     try:
         if cookie_extractor(request.headers['Head']):
             if request.GET:

@@ -6,6 +6,7 @@ function Paginator(props) {
     const [paginatorFirst, setPaginatorFirst] = useState(false)
     const [paginatorLast, setPaginatorLast] = useState(false)
     const [pageNumber, setPageNumber] = useState(1)
+    const [allPages, setAllPages] = useState([])
     let pagenator_spans = [];
 
     useEffect(() => {
@@ -19,7 +20,7 @@ function Paginator(props) {
                 for (let i = 1; i <= pagesCount; i++) {
                     pagenator_spans.push(i)
                 }
-
+                setAllPages(pagenator_spans)
                 if (props.details.data_first_position > 5) {
                     setPaginatorFirst(true)
                 } else {
@@ -64,9 +65,9 @@ function Paginator(props) {
         <div className="text-center">
                 {/* <span>First</span> */}
                 {/* {pages_generator()} */}
-                {paginatorFirst && <span onClick={() => props.requestOtherPages(1)} className={`${paginatorElementStyles} hover:bg-blue-500 hover:text-white`}>First</span>}
-                {paginatorCount && paginatorCount.map(items => {return <span onClick={ items === pageNumber || items !== parseInt(items) ? undefined : () => props.requestOtherPages(items)} className={items == pageNumber ? `${activePaginatorElementStyles}`:`${paginatorElementStyles} hover:bg-blue-500 hover:text-white`}>{items}</span>})}
-                {paginatorLast && <span onClick={() => props.requestOtherPages(paginatorCount.length)} className={`${paginatorElementStyles} hover:bg-blue-500 hover:text-white`}>Last</span>}
+                {paginatorFirst && <span onClick={() => props.requestOtherPages(1)} className={`${paginatorElementStyles} hover:bg-blue-600 hover:text-white`}>First</span>}
+                {paginatorCount && paginatorCount.map(items => {return <span onClick={ items === pageNumber || items !== parseInt(items) ? undefined : () => props.requestOtherPages(items)} className={items == pageNumber ? `${activePaginatorElementStyles}`:`${paginatorElementStyles} hover:bg-blue-600 hover:text-white`}>{items}</span>})}
+                {paginatorLast && <span onClick={() => props.requestOtherPages(allPages[allPages.length-1])} className={`${paginatorElementStyles} hover:bg-blue-600 hover:text-white`}>Last</span>}
 
         </div>
     )
