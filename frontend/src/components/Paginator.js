@@ -3,8 +3,8 @@ import React, {useState, useEffect} from 'react'
 function Paginator(props) {
 
     const [paginatorCount, setPaginatorCount] = useState([])
-    const [paginatorFirst, setPaginatorFirst] = useState()
-    const [paginatorLast, setPaginatorLast] = useState()
+    const [paginatorFirst, setPaginatorFirst] = useState(false)
+    const [paginatorLast, setPaginatorLast] = useState(false)
     let pagenator_spans = [];
 
     useEffect(() => {
@@ -18,9 +18,17 @@ function Paginator(props) {
                 }
                 // console.log(props.details.all_data_length)
                 if (props.details.data_first_position !== 0) {
+                    console.log(props.details.data_first_position)
                     setPaginatorFirst(true)
+                } else {
+                    console.log(props.details.data_first_position + 'false')
+                    setPaginatorFirst(false)
                 }
-                if (props.details.data_last_position !== props.details.all_data_length) {
+                if (props.details.data_last_position >= props.details.all_data_length) {
+                    console.log(props.details.data_last_position + 'true')
+                    setPaginatorLast(false)
+                } else{
+                    console.log(props.details.data_last_position + 'false')
                     setPaginatorLast(true)
                 }
             } else {
@@ -29,7 +37,7 @@ function Paginator(props) {
             setPaginatorCount(pagenator_spans)
         }
         pages_generator()
-    }, [])
+    }, [props])
 
     let paginatorElementStyles = "bg-white px-3 py-1 mx-2 rounded text-blue-500 border font-semibold border-blue-500 cursor-pointer"
     let activePaginatorElementStyles = "bg-blue-500 px-3 py-1 mx-2 rounded text-white border-2 border-blue-500"
