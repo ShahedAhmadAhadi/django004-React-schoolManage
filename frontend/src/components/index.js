@@ -210,7 +210,7 @@ function Index() {
                         <td className="w-96">Actions</td>
                     </tr>
                 </thead>
-                <DataFetch data={data} />
+                <DataFetch data={data} delete={(id) => closeDeleteModal(id)} update={(id) => update(id)} />
             </table>
             {dataLengthDetails && <Paginator details={dataLengthDetails} requestOtherPages={(page_num) => allDataRequestFromPaginator(page_num)} />}
 

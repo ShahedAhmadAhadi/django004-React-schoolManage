@@ -42,7 +42,7 @@ function DataFetch(props) {
                                         <a
                                             href="#"
                                             onClick={() => {
-                                                // closeDeleteModal(student.pk);
+                                                props.delete(student.pk);
                                             }}
                                             className="inline-block bg-red-600 text-white px-6 py-1.5 rounded mx-3"
                                         >
@@ -51,7 +51,7 @@ function DataFetch(props) {
                                         <a
                                             href="#"
                                             onClick={() => {
-                                                // update(student.pk);
+                                                props.update(student.pk);
                                             }}
                                             className="inline-block bg-yellow-500 text-white px-6 py-1.5 rounded"
                                         >
