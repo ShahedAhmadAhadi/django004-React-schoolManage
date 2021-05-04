@@ -91,7 +91,8 @@ def search(request, name):
             queryset = Student.objects.filter(s_name__icontains=name)
             limit_queryset = queryset[first_record_on_page:last_record_on_page]
             print(limit_queryset)
-            serialized_search_result = serializers.serialize('json', limit_queryset)
+            serialized_search_result = serializers.serialize(
+                'json', limit_queryset)
             # print(a)
             return JsonResponse({'data': serialized_search_result, 'length_details_and_records_positions': {
                 'all_data_length': len(queryset),
