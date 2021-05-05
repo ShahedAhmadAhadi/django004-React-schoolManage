@@ -26,8 +26,9 @@ function AddStudent(prop) {
     const [email, setEmail] = useState("");
     const [file, setFile] = useState(null);
     const [name, setName] = useState("");
-
-    const [messageAlert, setMessageAlert] = useState('')
+    const [phoneConflict, setPhoneConflict] = useState(false)
+    const [emailConflict, setEmailConflict] = useState(false)
+    const [messagePanel, setMessagePanel] = useState(false)
     const [typeOfError, setTypeOfError] = useState('')
     // const [authenticated, setAuthentication] = useState(false)
     // const a = document.forms.namedItem('file')
@@ -46,16 +47,26 @@ function AddStudent(prop) {
         formData.append("date", date);
         formData.append("email", email);
         formData.append("phone", phone);
-        formData.append("myFile", file);
+        // formData.append("myFile", file);
 
-        if (name && fatherName && date && email && phone && file) {
+        if (name && fatherName && date && email && phone) {
             const verifyRequest = new Request("http://localhost:8000/add/verify/");
             fetch(verifyRequest, {
                 method: "POST",
                 body: formData
+            }).then(response => response.json())
+            .then(res => {
+                if (res.result === 'phone') {
+                    setPhoneConflict(true)
+                } else if (res.result === 'email') {
+                    setEmailConflict(true)
+                } {
+                    
+                }
             })
         }else{
-
+            setTypeOfError('empty')
+            showAlert()
         }
 
         // console.log(file)
@@ -81,6 +92,10 @@ function AddStudent(prop) {
         //     });
     };
 
+    let showAlert = () => {
+        setMessagePanel(!messagePanel);
+    };
+    let errorStyles = "text-xm text-red-500"
     console.log(prop);
     return (
         <div className="w-1/3 bg-white rounded">
@@ -112,6 +127,7 @@ function AddStudent(prop) {
                     className="w-full border-b border-green-400 py-1 my-2 px-3 focus:outline-none"
                     placeholder="Phone"
                 />
+                {phoneConflict && <p className={errorStyles}>*This phone number is used</p>}
                 <input
                     type="email"
                     value={email}
@@ -141,7 +157,7 @@ function AddStudent(prop) {
                     </a>
                 </span>
             </form>
-            {messageAlert && <Alert  />}
+            {messagePanel && <Alert visible={showAlert} errorFor={typeOfError} />}
         </div>
     );
 }

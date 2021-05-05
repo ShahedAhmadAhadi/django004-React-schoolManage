@@ -116,7 +116,10 @@ def search(request, name):
 #     return render(request, 'students/student-form.html', {'form': form})
 
 def add_information_verification(request):
-    name = request.POST.get('name')
+    phone = request.POST.get('phone')
+    phoneConflict = Student.objects.get(s_phone = phone)
+    if phoneConflict:
+        return JsonResponse({'result': 'phone'})
     print(name)
     return JsonResponse({'data': 'data'})
 
