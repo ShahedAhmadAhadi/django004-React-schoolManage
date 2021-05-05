@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
+import Alert from './alerts'
 
 function Update(prop) {
     let history = useHistory();
@@ -30,9 +31,9 @@ function Update(prop) {
         formData.append("phone", phone);
         formData.append("myFile", file);
 
-        if (name && fatherName && date && email && phone && file) {
+        if (name && fatherName && date && email && phone) {
             const verifyRequest = new Request(
-                "http://localhost:8000/add/"
+                "http://localhost:8000/update/"
             );
             fetch(verifyRequest, {
                 headers: {
@@ -193,6 +194,9 @@ function Update(prop) {
                     </a>
                 </span>
             </form>
+            {messagePanel && (
+                <Alert visible={showAlert} errorFor={typeOfError} />
+            )}
         </div>
     );
 }
