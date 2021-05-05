@@ -135,28 +135,32 @@ def add_information_verification(request):
     except:
         return JsonResponse({'result': 'wrong_email'})
 
-    return JsonResponse({'result': 'true'})
+    return 'True'
 
 
 def add_student(request):
-    print(request.headers['Head'])
-    try:
-        if cookie_extractor(request.headers['Head']):
-            s = Student()
-            s.s_name = request.POST.get('name')
-            s.s_father_name = request.POST.get('fatherName')
-            s.s_birth = request.POST.get('date')
-            s.s_phone = request.POST.get('phone')
-            s.s_email = request.POST.get('email')
-            s.s_image = request.FILES.get('myFile')
+    verify_data = add_information_verification(request)
+    if verify_data == 'True':
+        print(request.headers['Head'])
+        try:
+            if cookie_extractor(request.headers['Head']):
+                s = Student()
+                s.s_name = request.POST.get('name')
+                s.s_father_name = request.POST.get('fatherName')
+                s.s_birth = request.POST.get('date')
+                s.s_phone = request.POST.get('phone')
+                s.s_email = request.POST.get('email')
+                s.s_image = request.FILES.get('myFile')
 
-            Student.save(s)
-            print(s)
-            return JsonResponse({'result': 'true'})
-        else:
-            return JsonResponse({'result': 'false'})
-    except:
-        return JsonResponse({'result': 'wrong_request'})
+                Student.save(s)
+                print(s)
+                return JsonResponse({'result': 'true'})
+            else:
+                return JsonResponse({'result': 'false'})
+        except:
+            return JsonResponse({'result': 'wrong_request'})
+    else:
+        return verify_data
 
 
 def update_student(request):
