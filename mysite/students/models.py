@@ -7,7 +7,9 @@ from datetime import date
 def validate_age(value):
     today = date.today()
     if today.year - value.year < 5:
-        raise Exception('Sorry, you are not at age to enter the school')
+        return False
+    return True
+        
 
 
 class Student(models.Model):

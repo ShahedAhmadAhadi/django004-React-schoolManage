@@ -26,6 +26,7 @@ function AddStudent(prop) {
     const [email, setEmail] = useState("");
     const [file, setFile] = useState(null);
     const [name, setName] = useState("");
+    const [wrongAge, setWrongAge] = useState(false)
     const [phoneConflict, setPhoneConflict] = useState(false)
     const [emailConflict, setEmailConflict] = useState(false)
     const [wrongEmail, setWrongEmail] = useState(false)
@@ -48,7 +49,6 @@ function AddStudent(prop) {
         formData.append("date", date);
         formData.append("email", email);
         formData.append("phone", phone);
-        // formData.append("myFile", file);
 
         if (name && fatherName && date && email && phone) {
             const verifyRequest = new Request("http://localhost:8000/add/verify/");
@@ -58,18 +58,38 @@ function AddStudent(prop) {
             }).then(response => response.json())
             .then(res => {
                 console.log(res)
-                if (res.result === 'phone') {
+                if (res.result === 'wrong_age') {
+                    setWrongAge(true)
+                    setEmailConflict(false)
+                    setPhoneConflict(false)
+                    setWrongEmail(false)
+                } else if (res.result === 'phone') {
+                    setWrongAge(false)
                     setEmailConflict(false)
                     setPhoneConflict(true)
                     setWrongEmail(false)
                 } else if (res.result === 'email') {
+                    setWrongAge(false)
                     setPhoneConflict(false)
                     setEmailConflict(true)
                     setWrongEmail(false)
                 }else if (res.result === 'wrong_email') {
                     setEmailConflict(false)
+                    setWrongAge(false)
                     setPhoneConflict(false)
                     setWrongEmail(true)
+                }else{
+                    setEmailConflict(false)
+                    setWrongAge(false)
+                    setPhoneConflict(false)
+                    setWrongEmail(false)
+                    formData.append("myFile", file);
+                    if (name && fatherName && date && email && phone && file) {
+                        sendDataToStore(formData)
+                    } else {
+                        setTypeOfError('empty')
+                        showAlert()
+                    }
                 }
             })
         }else{
@@ -80,25 +100,26 @@ function AddStudent(prop) {
         // console.log(file)
         console.log(formData);
 
-        
-
-        // const request = new Request("http://localhost:8000/add/");
-        // fetch(request, {
-        //     headers: {
-        //         Head: document.cookie,
-        //     },
-        //     method: "POST",
-        //     body: formData,
-        // })
-        //     .then((response) => response.json())
-        //     .then((res) => {
-        //         if (res.result == "true") {
-        //             window.location.reload();
-        //         } else {
-        //             history.push("/login");
-        //         }
-        //     });
     };
+
+    let sendDataToStore = (formData) => {
+const request = new Request("http://localhost:8000/add/");
+        fetch(request, {
+            headers: {
+                Head: document.cookie,
+            },
+            method: "POST",
+            body: formData,
+        })
+            .then((response) => response.json())
+            .then((res) => {
+                if (res.result == "true") {
+                    window.location.reload();
+                } else {
+                    history.push("/login");
+                }
+            });
+    }
 
     let showAlert = () => {
         setMessagePanel(!messagePanel);
@@ -128,6 +149,7 @@ function AddStudent(prop) {
                     onChange={(e) => setDate(e.target.value)}
                     className="w-full border-b border-green-400 py-1 my-2 px-3 focus:outline-none"
                 />
+                {wrongAge && <p className={errorStyles}>*A student must be at least 5 years old</p>}
                 <input
                     type="text"
                     value={phone}

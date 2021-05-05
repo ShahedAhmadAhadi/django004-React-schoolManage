@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.core import serializers
 from django.core.validators import validate_email
 from django.http import JsonResponse, HttpResponse
-from .models import Student
+from .models import Student, validate_age
 from .form import StudentForm
 from django.contrib.auth.decorators import login_required
 from json import *
@@ -119,18 +119,23 @@ def search(request, name):
 def add_information_verification(request):
     phone = request.POST.get('phone')
     email = request.POST.get('email')
+    birth_date_str = request.POST.get('date')
+    birth_date = datetime.strptime(birth_date_str, '%Y-%m-%d')
+    print((birth_date))
     phone_conflict = Student.objects.filter(s_phone = phone)
     email_conflict = Student.objects.filter(s_email = email)
-    if phone_conflict:
+    if not validate_age(birth_date):
+        return JsonResponse({'result': 'wrong_age'})
+    elif phone_conflict:
         return JsonResponse({'result': 'phone'})
     elif email_conflict:
         return JsonResponse({'result': 'email'})
     try:
         validate_email(email)
     except :
-        return JsonResponse({'result': 'wrong_email'})   
+        return JsonResponse({'result': 'wrong_email'})
     
-    return JsonResponse({'data': 'data'})
+    return JsonResponse({'result':'true'})
 
 def add_student(request):
     print(request.headers['Head'])
@@ -145,12 +150,13 @@ def add_student(request):
             s.s_image = request.FILES.get('myFile')
 
             Student.save(s)
+            print(s)
             return JsonResponse({'result': 'true'})
         else:
             return JsonResponse({'result': 'false'})
-
     except:
         return JsonResponse({'result': 'wrong_request'})
+    
 
 
 def update_student(request):
