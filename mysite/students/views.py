@@ -161,6 +161,27 @@ def add_student(request):
     else:
         return verify_data
 
+def update_information_verification(request):
+    phone = request.POST.get('phone')
+    email = request.POST.get('email')
+    birth_date_str = request.POST.get('date')
+    birth_date = datetime.strptime(birth_date_str, '%Y-%m-%d')
+    student_id = request.POST.get('id')
+    phone_conflict = Student.objects.filter(s_phone=phone).exclude(s_roll = student_id)
+    email_conflict = Student.objects.filter(s_email=email).exclude(s_roll = student_id)
+    if not validate_age(birth_date):
+        return JsonResponse({'result': 'wrong_age'})
+    elif phone_conflict:
+        return JsonResponse({'result': 'phone'})
+    elif email_conflict:
+        return JsonResponse({'result': 'email'})
+    try:
+        validate_email(email)
+    except:
+        return JsonResponse({'result': 'wrong_email'})
+
+    return 'True'
+
 
 def update_student(request):
            
@@ -171,7 +192,7 @@ def update_student(request):
                     serialize_student = serializers.serialize('json', student)
                     return JsonResponse({'student': serialize_student})
                 if request.POST:
-                    verify_data = add_information_verification(request)
+                    verify_data = update_information_verification(request)
                     if verify_data == 'True': 
                         student = Student.objects.get(s_roll=request.POST.get('id'))
                         print(student)
@@ -183,7 +204,6 @@ def update_student(request):
                         if request.FILES.get('myFile'):
                             student.s_image = request.FILES.get('myFile')
                         student.save()
-                        print('what')
                         return JsonResponse({'result': 'true'})
                     else:
                         return verify_data

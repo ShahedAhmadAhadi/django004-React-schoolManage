@@ -30,6 +30,7 @@ function Update(prop) {
         formData.append("email", email);
         formData.append("phone", phone);
         formData.append("myFile", file);
+        formData.append("id", prop.data[0].pk);
 
         if (name && fatherName && date && email && phone) {
             const verifyRequest = new Request(
