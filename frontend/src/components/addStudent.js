@@ -52,9 +52,7 @@ function AddStudent(prop) {
         formData.append("myFile", file);
 
         if (name && fatherName && date && email && phone && file) {
-            const verifyRequest = new Request(
-                "http://localhost:8000/add/"
-            );
+            const verifyRequest = new Request("http://localhost:8000/add/");
             fetch(verifyRequest, {
                 headers: {
                     Head: document.cookie,
@@ -85,15 +83,16 @@ function AddStudent(prop) {
                         setWrongAge(false);
                         setPhoneConflict(false);
                         setWrongEmail(true);
-                    } else if (res.result === 'true') {
+                    } else if (res.result === "true") {
                         setEmailConflict(false);
                         setWrongAge(false);
                         setPhoneConflict(false);
                         setWrongEmail(false);
                         window.location.reload();
                     } else {
-                            history.push("/login");
-                        }})
+                        history.push("/login");
+                    }
+                });
         } else {
             setTypeOfError("empty");
             showAlert();
