@@ -122,8 +122,8 @@ def add_information_verification(request):
     birth_date_str = request.POST.get('date')
     birth_date = datetime.strptime(birth_date_str, '%Y-%m-%d')
     print((birth_date))
-    phone_conflict = Student.objects.filter(s_phone = phone)
-    email_conflict = Student.objects.filter(s_email = email)
+    phone_conflict = Student.objects.filter(s_phone=phone)
+    email_conflict = Student.objects.filter(s_email=email)
     if not validate_age(birth_date):
         return JsonResponse({'result': 'wrong_age'})
     elif phone_conflict:
@@ -132,10 +132,11 @@ def add_information_verification(request):
         return JsonResponse({'result': 'email'})
     try:
         validate_email(email)
-    except :
+    except:
         return JsonResponse({'result': 'wrong_email'})
-    
-    return JsonResponse({'result':'true'})
+
+    return JsonResponse({'result': 'true'})
+
 
 def add_student(request):
     print(request.headers['Head'])
@@ -156,7 +157,6 @@ def add_student(request):
             return JsonResponse({'result': 'false'})
     except:
         return JsonResponse({'result': 'wrong_request'})
-    
 
 
 def update_student(request):
