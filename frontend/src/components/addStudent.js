@@ -49,12 +49,16 @@ function AddStudent(prop) {
         formData.append("date", date);
         formData.append("email", email);
         formData.append("phone", phone);
+        formData.append("myFile", file);
 
-        if (name && fatherName && date && email && phone) {
+        if (name && fatherName && date && email && phone && file) {
             const verifyRequest = new Request(
-                "http://localhost:8000/add/verify/"
+                "http://localhost:8000/add/"
             );
             fetch(verifyRequest, {
+                headers: {
+                    Head: document.cookie,
+                },
                 method: "POST",
                 body: formData,
             })
@@ -81,27 +85,15 @@ function AddStudent(prop) {
                         setWrongAge(false);
                         setPhoneConflict(false);
                         setWrongEmail(true);
-                    } else {
+                    } else if (res.result === 'true') {
                         setEmailConflict(false);
                         setWrongAge(false);
                         setPhoneConflict(false);
                         setWrongEmail(false);
-                        formData.append("myFile", file);
-                        if (
-                            name &&
-                            fatherName &&
-                            date &&
-                            email &&
-                            phone &&
-                            file
-                        ) {
-                            sendDataToStore(formData);
-                        } else {
-                            setTypeOfError("empty");
-                            showAlert();
-                        }
-                    }
-                });
+                        window.location.reload();
+                    } else {
+                            history.push("/login");
+                        }})
         } else {
             setTypeOfError("empty");
             showAlert();
@@ -109,25 +101,6 @@ function AddStudent(prop) {
 
         // console.log(file)
         console.log(formData);
-    };
-
-    let sendDataToStore = (formData) => {
-        const request = new Request("http://localhost:8000/add/");
-        fetch(request, {
-            headers: {
-                Head: document.cookie,
-            },
-            method: "POST",
-            body: formData,
-        })
-            .then((response) => response.json())
-            .then((res) => {
-                if (res.result == "true") {
-                    window.location.reload();
-                } else {
-                    history.push("/login");
-                }
-            });
     };
 
     let showAlert = () => {

@@ -141,7 +141,6 @@ def add_information_verification(request):
 def add_student(request):
     verify_data = add_information_verification(request)
     if verify_data == 'True':
-        print(request.headers['Head'])
         try:
             if cookie_extractor(request.headers['Head']):
                 s = Student()
