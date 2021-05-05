@@ -239,6 +239,9 @@ function Index() {
                     }
                 />
             )}
+            <div className="border-t m-5 p-5 text-gray-500">
+                Created-by : Shahed Ahmad Ahadi
+            </div>
 
             {data.length < 1 && (
                 <div className="text-purple-200 font-bold text-4xl mt-36 h-96 text-center">

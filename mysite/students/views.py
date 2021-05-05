@@ -115,6 +115,10 @@ def search(request, name):
 
 #     return render(request, 'students/student-form.html', {'form': form})
 
+def add_information_verification(request):
+    name = request.POST.get('name')
+    print(name)
+    return JsonResponse({'data': 'data'})
 
 def add_student(request):
     print(request.headers['Head'])

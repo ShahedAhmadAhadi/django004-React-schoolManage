@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
+import Alert from './alerts'
 
 // function getCookie(name) {
 //     let cookieValue = null;
@@ -25,6 +26,9 @@ function AddStudent(prop) {
     const [email, setEmail] = useState("");
     const [file, setFile] = useState(null);
     const [name, setName] = useState("");
+
+    const [messageAlert, setMessageAlert] = useState('')
+    const [typeOfError, setTypeOfError] = useState('')
     // const [authenticated, setAuthentication] = useState(false)
     // const a = document.forms.namedItem('file')
     // console.log(file)
@@ -44,25 +48,37 @@ function AddStudent(prop) {
         formData.append("phone", phone);
         formData.append("myFile", file);
 
+        if (name && fatherName && date && email && phone && file) {
+            const verifyRequest = new Request("http://localhost:8000/add/verify/");
+            fetch(verifyRequest, {
+                method: "POST",
+                body: formData
+            })
+        }else{
+
+        }
+
         // console.log(file)
         console.log(formData);
 
-        const request = new Request("http://localhost:8000/add/");
-        fetch(request, {
-            headers: {
-                Head: document.cookie,
-            },
-            method: "POST",
-            body: formData,
-        })
-            .then((response) => response.json())
-            .then((res) => {
-                if (res.result == "true") {
-                    window.location.reload();
-                } else {
-                    history.push("/login");
-                }
-            });
+        
+
+        // const request = new Request("http://localhost:8000/add/");
+        // fetch(request, {
+        //     headers: {
+        //         Head: document.cookie,
+        //     },
+        //     method: "POST",
+        //     body: formData,
+        // })
+        //     .then((response) => response.json())
+        //     .then((res) => {
+        //         if (res.result == "true") {
+        //             window.location.reload();
+        //         } else {
+        //             history.push("/login");
+        //         }
+        //     });
     };
 
     console.log(prop);
@@ -125,6 +141,7 @@ function AddStudent(prop) {
                     </a>
                 </span>
             </form>
+            {messageAlert && <Alert  />}
         </div>
     );
 }
