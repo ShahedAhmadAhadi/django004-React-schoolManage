@@ -117,10 +117,13 @@ def search(request, name):
 
 def add_information_verification(request):
     phone = request.POST.get('phone')
-    phoneConflict = Student.objects.get(s_phone = phone)
-    if phoneConflict:
+    email = request.POST.get('email')
+    phone_conflict = Student.objects.filter(s_phone = phone)
+    email_conflict = Student.objects.filter(s_email = email)
+    if phone_conflict:
         return JsonResponse({'result': 'phone'})
-    print(name)
+    elif email_conflict:
+        return JsonResponse({'result': 'email'})
     return JsonResponse({'data': 'data'})
 
 def add_student(request):

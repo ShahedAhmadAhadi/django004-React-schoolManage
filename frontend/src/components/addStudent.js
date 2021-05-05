@@ -56,12 +56,13 @@ function AddStudent(prop) {
                 body: formData
             }).then(response => response.json())
             .then(res => {
+                console.log(res)
                 if (res.result === 'phone') {
+                    setEmailConflict(false)
                     setPhoneConflict(true)
                 } else if (res.result === 'email') {
+                    setPhoneConflict(false)
                     setEmailConflict(true)
-                } {
-                    
                 }
             })
         }else{
@@ -95,7 +96,7 @@ function AddStudent(prop) {
     let showAlert = () => {
         setMessagePanel(!messagePanel);
     };
-    let errorStyles = "text-xm text-red-500"
+    let errorStyles = "text-xs text-red-500"
     console.log(prop);
     return (
         <div className="w-1/3 bg-white rounded">
@@ -135,6 +136,7 @@ function AddStudent(prop) {
                     className="w-full border-b border-green-400 py-1 my-2 px-3 focus:outline-none"
                     placeholder="E-mail"
                 />
+                {emailConflict && <p className={errorStyles}>*This email is used</p>}
                 {/* <input type="file" onChange={(e) => setFile(e.target.files[0])} /> */}
                 <input
                     type="file"
