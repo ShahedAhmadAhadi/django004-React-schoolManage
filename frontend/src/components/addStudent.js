@@ -28,6 +28,7 @@ function AddStudent(prop) {
     const [name, setName] = useState("");
     const [phoneConflict, setPhoneConflict] = useState(false)
     const [emailConflict, setEmailConflict] = useState(false)
+    const [wrongEmail, setWrongEmail] = useState(false)
     const [messagePanel, setMessagePanel] = useState(false)
     const [typeOfError, setTypeOfError] = useState('')
     // const [authenticated, setAuthentication] = useState(false)
@@ -60,9 +61,15 @@ function AddStudent(prop) {
                 if (res.result === 'phone') {
                     setEmailConflict(false)
                     setPhoneConflict(true)
+                    setWrongEmail(false)
                 } else if (res.result === 'email') {
                     setPhoneConflict(false)
                     setEmailConflict(true)
+                    setWrongEmail(false)
+                }else if (res.result === 'wrong_email') {
+                    setEmailConflict(false)
+                    setPhoneConflict(false)
+                    setWrongEmail(true)
                 }
             })
         }else{
@@ -137,6 +144,7 @@ function AddStudent(prop) {
                     placeholder="E-mail"
                 />
                 {emailConflict && <p className={errorStyles}>*This email is used</p>}
+                {wrongEmail && <p className={errorStyles}>*Please, Enter a valid Email</p>}
                 {/* <input type="file" onChange={(e) => setFile(e.target.files[0])} /> */}
                 <input
                     type="file"

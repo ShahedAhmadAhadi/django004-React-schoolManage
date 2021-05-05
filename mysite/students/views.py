@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.core import serializers
+from django.core.validators import validate_email
 from django.http import JsonResponse, HttpResponse
 from .models import Student
 from .form import StudentForm
@@ -124,6 +125,11 @@ def add_information_verification(request):
         return JsonResponse({'result': 'phone'})
     elif email_conflict:
         return JsonResponse({'result': 'email'})
+    try:
+        validate_email(email)
+    except :
+        return JsonResponse({'result': 'wrong_email'})   
+    
     return JsonResponse({'data': 'data'})
 
 def add_student(request):
