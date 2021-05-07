@@ -22,3 +22,7 @@ class Student(models.Model):
     s_email = models.EmailField(unique=True)
     s_image = models.ImageField(upload_to='studentImages')
     s_file = models.FileField(default="")
+
+    def __str__(self):
+        return f'{self.s_roll} -> {self.s_name}'
+    
