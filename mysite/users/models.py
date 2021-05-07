@@ -11,3 +11,7 @@ class Authentication(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     ip = models.CharField(max_length=15, unique=False)
     app_version = models.TextField()
+
+    def __str__(self):
+        return self.user, self.ip
+    
