@@ -59,7 +59,7 @@ def token_verify(str_):
     return ({'result': 'no_cookie'})
 
 
-def home(req, page):
+def home(req, page):        
     number_of_records = 4
     last_record_on_page = page * 4
     first_record_on_page = last_record_on_page - 4

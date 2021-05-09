@@ -147,9 +147,10 @@ def token_verify(request):
 
 def login(request):
     data = loads(request.body)
-    print(data)
+    # print(data)
     user = authenticate(username=data['username'], password=data['password'])
-    print(user)
+
+    print(user.)
 
     if user is not None:
         try:
