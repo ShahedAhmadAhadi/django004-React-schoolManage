@@ -13,5 +13,5 @@ class Authentication(models.Model):
     app_version = models.TextField()
 
     def __str__(self):
-        return self.user, self.ip
+        return f'{self.user} - {self.ip}'
     

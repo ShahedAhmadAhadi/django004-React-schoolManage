@@ -86,7 +86,7 @@ def cookie_extractor(cookie):
 
     try:
         database_data = Authentication.objects.get(token=hash_token)
-
+        
         if dict_of_cookie_values['username'] == str(database_data.user):
             datetime_now = datetime.now()
             token_expiry_date = database_data.expiry_date.replace(tzinfo=None)
@@ -149,8 +149,6 @@ def login(request):
     data = loads(request.body)
     # print(data)
     user = authenticate(username=data['username'], password=data['password'])
-
-    print(user.)
 
     if user is not None:
         try:
